@@ -5,7 +5,7 @@
 # for the named parameter.  Anything after a # character will be ignored.
 # The file must end with a blank line.  If you specify parameters that depend
 # on other parameters, the last parameter will override the first or act on
-# data modified by the first (the parameters are applied in the order they 
+# data modified by the first (the parameters are applied in the order they
 # are listed).
 
 population_size		100

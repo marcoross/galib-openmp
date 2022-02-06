@@ -12,7 +12,7 @@ rating for each genome.  The GA is concerned with fitness, not objective
 score (unless you do no scaling).  So this object is the container for the
 scaled values.
   Examples of scaling include linear scaling, sigma truncation, and power law.
-Goldberg's sharing function is also a type of scaling, and it is implemented 
+Goldberg's sharing function is also a type of scaling, and it is implemented
 here as a unique class.
   The scaling class is designed to be used with a population.  It is stupid -
 it does know how to update itself, but it must be told when.
@@ -122,7 +122,7 @@ public:
   GASigmaTruncationScaling & operator=(const GAScalingScheme & arg)
     {copy(arg); return(*this);}
   virtual ~GASigmaTruncationScaling(){}
-  virtual GAScalingScheme * clone() const 
+  virtual GAScalingScheme * clone() const
     {return new GASigmaTruncationScaling(*this);}
   virtual void evaluate(const GAPopulation & p);
   virtual void copy(const GAScalingScheme & arg){
@@ -157,7 +157,7 @@ public:
   GAPowerLawScaling & operator=(const GAScalingScheme & arg)
     {copy(arg); return(*this);}
   virtual ~GAPowerLawScaling(){}
-  virtual GAScalingScheme * clone() const 
+  virtual GAScalingScheme * clone() const
     {return new GAPowerLawScaling(*this);}
   virtual void evaluate(const GAPopulation & p);
   virtual void copy(const GAScalingScheme & arg){
@@ -180,16 +180,16 @@ protected:
 /* ----------------------------------------------------------------------------
 Sharing
 
-  This scaling object does sharing as described in goldberg p 192.  This 
+  This scaling object does sharing as described in goldberg p 192.  This
 implementation does triangular sharing with the (optional) alpha parameter for
 changing the curvature of the sharing range and the (required) sigma parameter
-for controlling the range of influence.  If you want a different type of 
+for controlling the range of influence.  If you want a different type of
 sharing function, then derive from this class and define a new (virtual)
 evaluate method and add whatever member data you need to specify the shape
 of your sharing function.
-  We use the distance function to scale the objective scores of the 
-genomes so that if there are many similar genomes in a population 
-their scores will be decreased, thus giving sub-species a greater chance to 
+  We use the distance function to scale the objective scores of the
+genomes so that if there are many similar genomes in a population
+their scores will be decreased, thus giving sub-species a greater chance to
 reproduce.
   This sharing function is defined as follows:
 
@@ -199,30 +199,30 @@ reproduce.
                     |  0                                d(i,j) >= sigma
                      \
 
-  where d is the distance between any two individuals and is defined such 
+  where d is the distance between any two individuals and is defined such
 that d(i,j) = 0 means that individuals i and j are identical.  d() has no
 upper bound, but it is never negative.
   The alpha controls the shape of the sharing function.  When alpha=1 then
 the 'curve' is a straight line.  If alpha is < 1 then the curves are concave,
 if alpha is > 1 then the curves are convex.
-  If you decide to use this type of sharing, be careful of the sigma value 
+  If you decide to use this type of sharing, be careful of the sigma value
 that you use.  It can make a HUGE difference, depending upon the objective.
   Distance functions are independent of the sharing functions (as defined in
 Goldberg, that is).
-  A similarity (distance) function is used with the sharing object.  It is a 
+  A similarity (distance) function is used with the sharing object.  It is a
 type of speciation (similar in functionality to DeJong crowding, but this uses
 fitness scaling rather than replacement strategy to affect the speciation).
 If the genomes are identical, the similarity function should return a value of
-0.0, if completely different then return a value of 1.0.  0 means less 
+0.0, if completely different then return a value of 1.0.  0 means less
 diversity means all genomes are the same.
   You can specify whether the scaling should be maximize or minimize based.
-If you are maximizing, the scaling will divide the raw score by the scaling 
+If you are maximizing, the scaling will divide the raw score by the scaling
 factor.  If you are minimizing, the scaling will multiply the score by the
 scaling factor.  (By definition, the scaling factor will always be >= 1.0)
   By default, the scaling object uses the max/min settings that it contains
 (so you can set the scaling independently of the GA).  If the scaling's min/max
 was not set, then it tries to use the min/max settings in the GA that owns
-the population to which the scaling object is attached.  If there is no GA, 
+the population to which the scaling object is attached.  If there is no GA,
 then it bases its min/max on the sort order of the population.
   You can set the minimaxi to:
 
@@ -237,7 +237,7 @@ class GASharing : public GAScalingScheme {
 public:
   GADefineIdentity("GASharing", GAID::Sharing);
 
-  GASharing(GAGenome::Comparator func, 
+  GASharing(GAGenome::Comparator func,
 	    float cut=gaDefSharingCutoff, float a=1.0)
     { N=0; d=(float*)0; df=func; _sigma = cut; _alpha = a; _minmax = 0; }
   GASharing(float cut=gaDefSharingCutoff, float a=1.0)

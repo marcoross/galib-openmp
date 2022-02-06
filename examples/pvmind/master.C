@@ -7,14 +7,14 @@
    Example program to illustrate use of GAlib with PVM.  This example uses a
 master-slave configuration to parallelize the genetic algorithm.  In this case,
 the master controls the evolution and farms out the task of evaluating single
-genomes to each of the slaves.  Initialization of each genome is also 
+genomes to each of the slaves.  Initialization of each genome is also
 distributed (in case you have a CPU-intensive initializer).
-  This method of parallelization is effective only if the length of time it 
+  This method of parallelization is effective only if the length of time it
 takes to evaluate a genome is longer than the time it takes to transmit the
 genome data from the master to the slave.  If this is not the case then try the
 single population per processor version of parallelization.
   Be careful about mixing and matching parallel implementations and various
-GAlib components - they do *not* all interoperate as you might expect.  For 
+GAlib components - they do *not* all interoperate as you might expect.  For
 example, many of the default GAlib methods do a fair amount of caching, so if
 you parallelize one component without doing all the others, you might end up
 slowing everything down.
@@ -138,7 +138,7 @@ StartupPVM(const char* prog, PVMData& d) {
   int i;
 
   d.masterid = pvm_mytid();
-  
+
   int nhost, narch;
   struct pvmhostinfo* hostp;
   int status = pvm_config(&nhost, &narch, &hostp);
@@ -146,7 +146,7 @@ StartupPVM(const char* prog, PVMData& d) {
     cerr<<"\n" << prog << ": PVM not responding. Have you started the PVM?\n";
     return 1;
   }
-  
+
   d.tid = new int [d.nreq];	// task IDs for the slaves
   d.ntasks = pvm_spawn(SLAVE_NAME, (char**)0, 0, "", d.nreq, d.tid);
   if(d.ntasks <= 0) {
@@ -163,14 +163,14 @@ StartupPVM(const char* prog, PVMData& d) {
     cerr << prog << ": Spawned only "<<d.ntasks<<" of "<<d.nreq<<"\n";
     cerr << "  Error codes of failed spawns are:\n";
     for(i=0; i<d.nreq; i++) {
-      cerr << "    slave "; cerr.width(3); 
+      cerr << "    slave "; cerr.width(3);
       cerr << i << ": " << d.tid[i] << "\n";
     }
   }
   else {
     cerr << prog << ": Spawned " << d.nreq << " slave processes...\n";
   }
-  
+
   return 0;
 }
 

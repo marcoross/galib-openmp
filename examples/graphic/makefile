@@ -35,10 +35,10 @@ CCFLAGS= -Wall -O -g $(MOTIF) $(INC_DIRS)
 
 all: gaview tspview
 
-gaview: gaview.o 
+gaview: gaview.o
 	$(C++C) -o $@ $@.o $(LIB_DIRS) $(XLIBS) -lga -lm
 
-tspview: tspview.o 
+tspview: tspview.o
 	$(C++C) -o $@ $@.o $(LIB_DIRS) $(XLIBS) -lga -lm
 
 clean:

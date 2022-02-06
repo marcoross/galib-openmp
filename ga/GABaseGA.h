@@ -18,8 +18,8 @@
 #include <ga/GAPopulation.h>
 
 // When specifying parameters for a GAlib object, you can use the fullname (the
-// name used in parameters data files) or the short name (the name typically 
-// used on the command line).  When specifying parameters in your code you can 
+// name used in parameters data files) or the short name (the name typically
+// used on the command line).  When specifying parameters in your code you can
 // use a string, or use the predefined macros below (kind of like using the
 // resource/class names in Motif for you Xt jocks).
 #define gaNnGenerations          "number_of_generations"
@@ -87,7 +87,7 @@ extern int   gaDefSeed;
 
 /* ----------------------------------------------------------------------------
    The base GA class is virtual - it defines the core data elements and parts
-of the interface that are common to all genetic algorithms (as defined in 
+of the interface that are common to all genetic algorithms (as defined in
 GAlib, that is).
 
 initialize
@@ -133,8 +133,8 @@ public:
   virtual void initialize(unsigned int seed=0) =0;
   virtual void step() =0;
   virtual void evolve(unsigned int seed=0){
-    initialize(seed); 
-    while(!done()){step();} 
+    initialize(seed);
+    while(!done()){step();}
     if(stats.flushFrequency() > 0) stats.flushScores();
   }
 #ifdef GALIB_USE_STREAMS
@@ -185,7 +185,7 @@ public:
   float pMutation(float p)
     {params.set(gaNpMutation, p); return pmut = p;}
 
-  GAGenome::SexualCrossover crossover(GAGenome::SexualCrossover f) 
+  GAGenome::SexualCrossover crossover(GAGenome::SexualCrossover f)
     {return scross=f;}
   GAGenome::SexualCrossover sexual() const {return scross;}
   GAGenome::AsexualCrossover crossover(GAGenome::AsexualCrossover f)
@@ -219,7 +219,7 @@ public:
   virtual int populationSize(unsigned int n);
   virtual int nBestGenomes() const {return stats.nBestGenomes();}
   virtual int nBestGenomes(unsigned int n) {
-    params.set(gaNnBestGenomes, n); 
+    params.set(gaNnBestGenomes, n);
     return stats.nBestGenomes(pop->individual(0), n);
   }
 

@@ -4,7 +4,7 @@
   Copyright (c) 1995-1996  Massachusetts Institute of Technology
 
  DESCRIPTION:
-   Example program for the SteadyStateGA class and 3DBinaryStringGenome 
+   Example program for the SteadyStateGA class and 3DBinaryStringGenome
 class.  This program tries to fill the 3Dgenome with alternating 1's and
 0's.  Notice that the steady state ga needs many more 'generations' than the
 simple ga, but it will usually converge to the optimum with fewer evaluations
@@ -55,7 +55,7 @@ main(int argc, char **argv)
 // Now that we have the genome, we create the genetic algorithm and set
 // its parameters - number of generations, mutation probability, and crossover
 // probability.  By default the GA keeps track of the best of generation scores
-// and also keeps one genome as the 'best of all' - the best genome 
+// and also keeps one genome as the 'best of all' - the best genome
 // that it encounters from all of the generations.  Here we tell the GA to
 // keep track of all scores, not just the best-of-generation.
 
@@ -81,7 +81,7 @@ main(int argc, char **argv)
 
   return 0;
 }
- 
+
 
 
 

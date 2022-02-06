@@ -5,7 +5,7 @@
 
 LIB_NAME= ga
 
-### Set these directories to whatever is appropriate for your system.  These 
+### Set these directories to whatever is appropriate for your system.  These
 ### used only if you do a 'make install'.  They specify where the library and
 ### header files should be installed.
 DESTDIR=c:\temp
@@ -25,10 +25,10 @@ INSTALL     = copy
 CXX_INC_DIR = c:\Borland\BCC55\Include
 CXX_LIB_DIR = c:\Borland\BCC55\Lib
 
-CFLAGS   = 
+CFLAGS   =
 CXXFLAGS = -q -P -RT -I$(CXX_INC_DIR) -w-var -w-inl
 LDFLAGS  = -q -c -x -Gn -L$(CXX_LIB_DIR)
-ARFLAGS  = 
+ARFLAGS  =
 
 .SUFFIXES:
 .SUFFIXES: .C

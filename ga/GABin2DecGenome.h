@@ -6,14 +6,14 @@
                      all rights reserved
 
  DESCRIPTION:
-  This header defines the interface for the binary-to-decimal genome and the 
-phenotype objects used for the binary-to-decimal mappings in the 
+  This header defines the interface for the binary-to-decimal genome and the
+phenotype objects used for the binary-to-decimal mappings in the
 binary-to-decimal genomes.
    The binary-to-decimal phenotype uses reference counting so that you only
 need one instance of the underlying bit-to-float mapping.  Whenever you create
 a new phenotype it gets its own core.  You can use the 'link' member to make
-a phenotype refer to another's core.  This is what the genomes do when they 
-clone themselves so that you don't end up with multiple phenotypes running 
+a phenotype refer to another's core.  This is what the genomes do when they
+clone themselves so that you don't end up with multiple phenotypes running
 around.  The core will persist until the last phenotype is destroyed (last one
 out, please turn off the lights).
    When you clone a phenotype, you get a competeley new one with its own core.
@@ -22,7 +22,7 @@ out, please turn off the lights).
   binary to integer phenotype?
 
  TO DO:
-*** Eventually we may want to cache the values in the phenotype mapping, but 
+*** Eventually we may want to cache the values in the phenotype mapping, but
     for now we'll generate them on the fly.
 *** Need to write a read method that can interpret binary/decimal input.
 ---------------------------------------------------------------------------- */
@@ -65,7 +65,7 @@ public:
   GABin2DecPhenotype & operator=(const GABin2DecPhenotype& p){
     if(&p != this) *core = *(p.core);
     return *this;
-  } 
+  }
   GABin2DecPhenotype * clone() const {return new GABin2DecPhenotype(*this);}
   void link(GABin2DecPhenotype& p){
     core->cnt -= 1;
@@ -86,12 +86,12 @@ protected:
   GABin2DecPhenotypeCore *core;
 };
 
-inline int 
+inline int
 operator==(const GABin2DecPhenotype& a, const GABin2DecPhenotype& b) {
   return a.equal(b);
 }
 
-inline int 
+inline int
 operator!=(const GABin2DecPhenotype& a, const GABin2DecPhenotype& b) {
   return (a.equal(b) ? 0 : 1);
 }
@@ -111,7 +111,7 @@ public:
 public:
   GABin2DecGenome(const GABin2DecPhenotype & p,
 		  GAGenome::Evaluator f=(GAGenome::Evaluator)0,
-		  void * u=(void *)0) : 
+		  void * u=(void *)0) :
   GA1DBinaryStringGenome(p.size(), f, u), ptype(new GABin2DecPhenotype(p)){
     comparator(DEFAULT_BIN2DEC_COMPARATOR);
     encoder(DEFAULT_BIN2DEC_ENCODER);

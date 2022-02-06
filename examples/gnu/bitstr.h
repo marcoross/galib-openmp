@@ -20,7 +20,7 @@ we define the genome and all of the basic operators that it needs to function.
 // This is the class definition for the BitString genome.  It is derived from
 // the Genome class and the GNU BitString class.  We define here only the
 // additional methods that we'll need in order to use it a genome in GAlib.
-//   The identity definition is to take care of the polymorphic nature of 
+//   The identity definition is to take care of the polymorphic nature of
 // GAlib genomes.  You can use any number above 200 when defining your own
 // genome type.  Anything under 200 is reserved for use in GAlib internals.
 //   I have defined a 'gene' method here as a convenience routine.  It simply
@@ -54,7 +54,7 @@ public:
   }
 
   int gene(unsigned int x) const { return test(x); }
-  int gene(unsigned int x, int b) 
+  int gene(unsigned int x, int b)
     { _evaluated = gaFalse; assign(x,b); return test(x); }
 };
 

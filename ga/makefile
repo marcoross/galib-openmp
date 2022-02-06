@@ -12,7 +12,7 @@ INC_DIRS= -I..
 .C.o:
 	$(CXX) $(CXXFLAGS) $(INC_DIRS) -c $<
 
-$(LIB): $(OBJS) 
+$(LIB): $(OBJS)
 	$(PRELINK)
 	$(AR) $(LIB) $?
 	$(RANLIB) $(LIB)

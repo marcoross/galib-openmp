@@ -8,10 +8,10 @@
 state GA to find the smiley face, then it uses another steady state GA to match
 a sequence of random numbers.  It doesn't try to do the random numbers until
 it has gotten 90% of the way to the smiley face.
-  This is very similar in function to the composite genome example, but 
+  This is very similar in function to the composite genome example, but
 here we evolve the two genomes separately rather than as a single entity.
   This kind of application can be useful for situations where the computational
-cost of calculating feasibility is rather high and the feasible space is 
+cost of calculating feasibility is rather high and the feasible space is
 sparse.
 ---------------------------------------------------------------------------- */
 #include <stdio.h>
@@ -76,7 +76,7 @@ main(int argc, char *argv[])
   params.set(gaNflushFrequency, 50);
   params.parse(argc, argv, gaFalse);   // don't complain about unknown args
 
-// Create a user data object.  We'll keep all of the information for this 
+// Create a user data object.  We'll keep all of the information for this
 // program in this object.
   UserData data;
 
@@ -137,10 +137,10 @@ main(int argc, char *argv[])
 
 // Create a couple of genomes for keeping track in our user data.
   data.picture_genome = new GA2DBinaryStringGenome(data.width, data.height,
-						   PictureObjective, 
+						   PictureObjective,
 						   (void *)&data);
   data.numbers_genome = new GABin2DecGenome(map,
-					    NumbersObjective, 
+					    NumbersObjective,
 					    (void *)&data);
 
 // Now create the GA and run it.
@@ -174,7 +174,7 @@ main(int argc, char *argv[])
 
 
 // free up all of the space we were using.
-  
+
   for(i=0; i<data.width; i++)
     delete data.picture_target[i];
   delete [] data.picture_target;
@@ -182,10 +182,10 @@ main(int argc, char *argv[])
 
   delete data.picture_genome;
   //  delete data.numbers_genome;
-  
+
   return 0;
 }
- 
+
 
 
 

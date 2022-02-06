@@ -27,13 +27,13 @@ public:
   static int DestructiveMutator(GAGenome &, float);
   static int SwapMutator(GAGenome &, float);
   static float NodeComparator(const GAGenome&, const GAGenome&);
-  static int OnePointCrossover(const GAGenome&, const GAGenome&, 
+  static int OnePointCrossover(const GAGenome&, const GAGenome&,
 			      GAGenome*, GAGenome*);
-  static int PartialMatchCrossover(const GAGenome&, const GAGenome&, 
+  static int PartialMatchCrossover(const GAGenome&, const GAGenome&,
 			      GAGenome*, GAGenome*);
-  static int OrderCrossover(const GAGenome&, const GAGenome&, 
+  static int OrderCrossover(const GAGenome&, const GAGenome&,
 			      GAGenome*, GAGenome*);
-  static int CycleCrossover(const GAGenome&, const GAGenome&, 
+  static int CycleCrossover(const GAGenome&, const GAGenome&,
 			      GAGenome*, GAGenome*);
 
 public:

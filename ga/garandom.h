@@ -7,7 +7,7 @@
  DESCRIPTION:
   Initialize the random function by using the current time as the seed.
   We use the pid as well as the time for the random seed in an attempt to get
-rid of some of the periodicity from the low bits when using only the time as 
+rid of some of the periodicity from the low bits when using only the time as
 the random seed.
   These routines use the random/srandom routines to generate random numbers.
 The documentation says that rand/srand is about 30% faster than random/srandom,
@@ -15,7 +15,7 @@ but rand/srand has a significantly smaller period so you'll get less random
 results.  For the best results, use a RNG with a larger period (such as ran2).
   This is *not* implemented as a separate RNG class because I wanted to be able
 to inline everything as much as possible.  Also, we don't need to switch RNGs
-for most purposes - I assume that compiling in the RNG is ok.  In addition, 
+for most purposes - I assume that compiling in the RNG is ok.  In addition,
 many methods make use of RNG calls of a global nature - they should not contain
 a RNG, and they may not have access to a RNG other than the global functions.
 
@@ -25,7 +25,7 @@ Don't forget the 'inclusive' part!  If you're using this to get the index of
 an element in an array, be sure to use the last element of the array, not the
 number of elements in the array as the arguement for 'high'.
   If you screw up and pass a value for low that is less than the value for
-high, this routine does not complain.  It will merrily return a possibly 
+high, this routine does not complain.  It will merrily return a possibly
 negative value.  We need speed here, so there's no error checking.
 
 GARandomBit
@@ -38,7 +38,7 @@ GAUnitGaussian
   Returns a number from a Gaussian distribution with mean 0 and stddev of 1
 
 GAGaussianFloat, GAGaussianDouble
-  Scaled versions of the gaussian distribution.  You must specify a stddev, 
+  Scaled versions of the gaussian distribution.  You must specify a stddev,
 then these functions scale the distribution to that deviation.  Mean is still 0
 ---------------------------------------------------------------------------- */
 #ifndef _ga_random_h_
@@ -90,9 +90,9 @@ float garan3();
 #endif
 
 inline int GARandomInt(){ return _GA_RND() > 0.5 ? 1 : 0; }
-inline int GARandomInt(int low, int high){ 
-  float val=STA_CAST(float,high)-STA_CAST(float,low)+(float)1; 
-  val*=_GA_RND(); 
+inline int GARandomInt(int low, int high){
+  float val=STA_CAST(float,high)-STA_CAST(float,low)+(float)1;
+  val*=_GA_RND();
   return (STA_CAST(int,val)+low);
 }
 
@@ -115,7 +115,7 @@ inline float GARandomFloat(float low, float high){
 #include <math.h>
 #include <limits.h>
 
-#if defined(GALIB_USE_RANDOM) 
+#if defined(GALIB_USE_RANDOM)
 
 #define _GA_RND             random
 #define _GA_RND_SEED        srandom
@@ -136,11 +136,11 @@ inline float GARandomFloat(float low, float high){
 #endif
 
 inline int GARandomInt(){ return _GA_RND() > _GA_RND_MAX/2 ? 1 : 0; }
-inline int GARandomInt(int low, int high){ 
+inline int GARandomInt(int low, int high){
   return low + _GA_RND() % (high-low+1);
 }
 
-inline double GARandomDouble(){ 
+inline double GARandomDouble(){
   double val=_GA_RND(); val/=_GA_RND_MAX; return val;
 }
 inline double GARandomDouble(double low, double high){

@@ -37,7 +37,7 @@ PVMDemeGA::~PVMDemeGA(){
 }
 PVMDemeGA&
 PVMDemeGA::operator=(const PVMDemeGA& orig){
-  if(&orig != this) copy(orig); 
+  if(&orig != this) copy(orig);
   return *this;
 }
 void
@@ -115,9 +115,9 @@ PVMDemeGA::initialize(unsigned int seed) {
 
 
 // To evolve the genetic algorithm, we loop through all of our populations and
-// tell each process to evolve its population for a certain number of 
+// tell each process to evolve its population for a certain number of
 // generations.  Then allow the migrator to do its thing.  Each process is
-// supposed to keep track of the statistics for its population, so we reap 
+// supposed to keep track of the statistics for its population, so we reap
 // those as well.
 void
 PVMDemeGA::step() {
@@ -195,7 +195,7 @@ PVMDemeGA::step() {
 }
 
 
-// The migrator tells the spawned populations when, where, and how many 
+// The migrator tells the spawned populations when, where, and how many
 // individuals to move around.  This example does a single migration from one
 // randomly chosen population to another randomly chosen population.  It
 // chooses randomly the number of individuals to migrate.
@@ -298,7 +298,7 @@ PVMDemeGA::spawn(const char* slavename) {
     cerr << "  PVM not responding. Have you started the PVM?\n";
     return _status;
   }
-  
+
   _Ntid = npop;
   _tid = new int [_Ntid];		// task IDs for the slaves
   char sn[32];				// PVM is not const-safe...
@@ -372,7 +372,7 @@ void
 PVMDemeGA::reap() {
   for(int j=0; j<_Ntid; j++)
     if(_tid[j] > 0) pvm_kill(_tid[j]);
-  delete [] _tid; 
+  delete [] _tid;
   _tid = 0;
   _ntid = _Ntid = 0;
   if(_mid > 0) pvm_exit();
@@ -385,5 +385,5 @@ PVMDemeGA::tid2idx(int taskid) const {
   int idx = -1;
   for(int i=0; i<_ntid && idx == -1; i++)
     if(taskid == _tid[i]) idx = i;
-  return idx; 
+  return idx;
 }

@@ -33,13 +33,13 @@
 #endif
 
 // Set this up for your favorite TSP.  The sample one is a contrived problem
-// with the towns laid out in a grid (so it is easy to figure out what the 
+// with the towns laid out in a grid (so it is easy to figure out what the
 // shortest distance is, and there are many different paths with the same
-// shortest path).  File format is that used by the TSPLIB problems.  You can 
-// grab more problems from 
-// 
-// 
-// Apologies for using fixed-length arrays.  But this is an example, not 
+// shortest path).  File format is that used by the TSPLIB problems.  You can
+// grab more problems from
+//
+//
+// Apologies for using fixed-length arrays.  But this is an example, not
 // production code ;)
 #define MAX_TOWNS 50
 #define TSP_FILE "tsp_rect_20.txt"
@@ -146,7 +146,7 @@ main(int argc, char** argv) {
 // read in the cities and create the DISTANCE-matrix
 
   double dump;
-  ifstream in(TSP_FILE); 
+  ifstream in(TSP_FILE);
   if(!in) {
     cerr << "could not read data file " << TSP_FILE << "\n";
     exit(1);
@@ -190,7 +190,7 @@ main(int argc, char** argv) {
   height = maxy - miny;
 
 
-// figure out which GA to use 
+// figure out which GA to use
 
   int whichGA = 0;
 
@@ -257,7 +257,7 @@ main(int argc, char** argv) {
 
 
 
-  Widget toplevel = 
+  Widget toplevel =
     XtAppInitialize(&appc, "TSPView", (XrmOptionDescRec*)NULL, 0,
 		    &argc, argv, fallbacks, (ArgList)NULL, 0);
   Widget shell = ConstructWidgets(toplevel);
@@ -277,7 +277,7 @@ main(int argc, char** argv) {
   XGCValues gcValues;
   gcValues.function = GXcopy;
   gcValues.line_width = 2;
-  thegc = XCreateGC(XtDisplay(toplevel), 
+  thegc = XCreateGC(XtDisplay(toplevel),
 		    RootWindowOfScreen(XtScreen(toplevel)),
 		    valueMask, &gcValues);
 
@@ -415,7 +415,7 @@ DrawCB(Widget w, XtPointer cd, XtPointer){
       DrawIndividual(ga->population().best(idx++),
 		     XtDisplay(w), XtWindow(w), thegc, a, b);
     }
-  } 
+  }
 }
 
 
@@ -489,14 +489,14 @@ Initializer(GAGenome& g) {
   town=GARandomInt(0,ntowns-1);
   visit[town]=1;
   child.insert(town,GAListBASE::HEAD); // the head node
- 
+
   for( i=1; i<ntowns; i++) {
     do {
       town=GARandomInt(0,ntowns-1);
     } while (visit[town]);
     visit[town]=1;
     child.insert(town);
-  }		// each subsequent node 
+  }		// each subsequent node
 }
 
 int
@@ -506,12 +506,12 @@ Mutator(GAGenome& g, float pmut) {
   if ((GARandomFloat() >= pmut) || (pmut <= 0)) return 0;
 
   n = child.size();
-  
+
   if (GARandomFloat()<0.5) {
     child.swap(GARandomInt(0,n-1),GARandomInt(0,n-1)); // swap only one time
   }
   else {
-    int nNodes = GARandomInt(1,((int)(n/2-1)));       // displace nNodes 
+    int nNodes = GARandomInt(1,((int)(n/2-1)));       // displace nNodes
     child.warp(GARandomInt(0,n-1));                   // with or without
     GAList<int> TmpList;                              // inversion
     for(i=0;i<nNodes;i++) {
@@ -550,7 +550,7 @@ ERXOneChild(const GAGenome& g1, const GAGenome& g2, GAGenome* c1) {
   GAListGenome<int> &mate1=(GAListGenome<int> &)g1;
   GAListGenome<int> &mate2=(GAListGenome<int> &)g2;
   GAListGenome<int> &sis=(GAListGenome<int> &)*c1;
-  
+
   int i,j,k,t1,t2,town;
 
   static char CM[MAX_TOWNS][MAX_TOWNS],visit[MAX_TOWNS];
@@ -570,22 +570,22 @@ ERXOneChild(const GAGenome& g1, const GAGenome& g2, GAGenome* c1) {
     t1 = *mate2.current(); t2 = *mate2.next();
     CM[t1][t2]=1; CM[t2][t1]=1;
   }
-  
+
   // select 1st town randomly
   town=GARandomInt(0,ntowns-1);
   visit[town]=1; memset(CM[town], 0, MAX_TOWNS*sizeof(char));
-  sis.insert(town); // the head node 
-  
+  sis.insert(town); // the head node
+
   GAList<int> PossFollowList;
   GAList<int> FollowersList[5];
   while (PossFollowList.head()) PossFollowList.destroy();
   for(k=0; k<5; k++) {
-    while (FollowersList[k].head()) FollowersList[k].destroy(); 
+    while (FollowersList[k].head()) FollowersList[k].destroy();
   }
-  
+
   // select the following town with the minimal no of next folling towns
   int nPoss,nFollow;
-  for(i=1; i<ntowns; i++) {           
+  for(i=1; i<ntowns; i++) {
     nPoss = 0;
     for(j=0; j<ntowns; j++) {          // no of poss. following towns
       if (CM[j][town]) {
@@ -596,15 +596,15 @@ ERXOneChild(const GAGenome& g1, const GAGenome& g2, GAGenome* c1) {
     if (nPoss == 0) {
       do {town=GARandomInt(0,ntowns-1);} while (visit[town]); // no follower
       visit[town]=1; memset(CM[town], 0, MAX_TOWNS*sizeof(char));
-      sis.insert(town); 
+      sis.insert(town);
     }
     else {
       PossFollowList.head();
       for(j=0; j<nPoss; j++) {
-	nFollow = 0; 
+	nFollow = 0;
 	town = (*PossFollowList.current());
 	for(k=0; k<ntowns; k++) {
-	  if (CM[k][town]) nFollow++; 
+	  if (CM[k][town]) nFollow++;
 	}
 	FollowersList[nFollow].insert(town);
 	PossFollowList.next();
@@ -614,11 +614,11 @@ ERXOneChild(const GAGenome& g1, const GAGenome& g2, GAGenome* c1) {
       FollowersList[k].warp(GARandomInt(0,FollowersList[k].size()));
       town = (*FollowersList[k].current());
       visit[town]=1; memset(CM[town], 0, MAX_TOWNS*sizeof(char));
-      sis.insert(town); 
+      sis.insert(town);
     }
     while (PossFollowList.head()) PossFollowList.destroy();
     for(k=0; k<5; k++) {
-      while (FollowersList[k].head()) FollowersList[k].destroy(); 
+      while (FollowersList[k].head()) FollowersList[k].destroy();
     }
   }
   sis.head();         // set iterator to head of list
@@ -627,7 +627,7 @@ ERXOneChild(const GAGenome& g1, const GAGenome& g2, GAGenome* c1) {
 
 
 float
-Comparator(const GAGenome& g1, const GAGenome& g2) 
+Comparator(const GAGenome& g1, const GAGenome& g2)
 {
   GAListGenome<int> &a = (GAListGenome<int> &)g1;
   GAListGenome<int> &b = (GAListGenome<int> &)g2;
@@ -666,10 +666,10 @@ Comparator(const GAGenome& g1, const GAGenome& g2)
 //   Here we override the _write method for the List class.  This lets us see
 // exactly what we want (the default _write method dumps out pointers to the
 // data rather than the data contents).
-//   This routine prints out the contents of each element of the list, 
+//   This routine prints out the contents of each element of the list,
 // separated by a space.  It does not put a newline at the end of the list.
 //   Notice that you can override ANY function of a template class.  This is
-// called "specialization" in C++ and it lets you tailor the behaviour of a 
+// called "specialization" in C++ and it lets you tailor the behaviour of a
 // template class to better fit the type.
 int
 GAListGenome<int>::write(ostream & os) const
@@ -732,36 +732,36 @@ template class GAListGenome<int>;
 
 Widget
 ConstructWidgets(Widget toplevel) {
-  Widget shell = 
+  Widget shell =
     XtVaCreatePopupShell("shell", topLevelShellWidgetClass, toplevel, NULL);
 
-  Widget form = 
+  Widget form =
     XtVaCreateManagedWidget("form", xmFormWidgetClass, shell, NULL);
 
   Pixmap pix;
   Pixel fg, bg;
   unsigned int depth;
-  XtVaGetValues(form, XmNforeground, &fg, XmNbackground, &bg, 
+  XtVaGetValues(form, XmNforeground, &fg, XmNbackground, &bg,
 		XmNdepth, &depth, NULL);
-  pix = 
+  pix =
     XCreatePixmapFromBitmapData(XtDisplay(form),
 				RootWindowOfScreen(XtScreen(form)),
 				(char *)bm[bmRewind].bits,
 				bm[bmRewind].width, bm[bmRewind].height,
 				fg, bg, depth);
-  Widget rewind = 
+  Widget rewind =
     XtVaCreateManagedWidget("rewind", xmPushButtonWidgetClass, form,
 			    XmNbottomAttachment, XmATTACH_FORM,
 			    XmNlabelType, XmPIXMAP,
 			    XmNlabelPixmap, pix,
 			    NULL);
-  pix = 
+  pix =
     XCreatePixmapFromBitmapData(XtDisplay(form),
 				RootWindowOfScreen(XtScreen(form)),
 				(char *)bm[bmStop].bits,
 				bm[bmStop].width, bm[bmStop].height,
 				fg, bg, depth);
-  Widget stop = 
+  Widget stop =
     XtVaCreateManagedWidget("stop", xmPushButtonWidgetClass, form,
 			    XmNleftAttachment, XmATTACH_WIDGET,
 			    XmNleftWidget, rewind,
@@ -769,13 +769,13 @@ ConstructWidgets(Widget toplevel) {
 			    XmNlabelType, XmPIXMAP,
 			    XmNlabelPixmap, pix,
 			    NULL);
-  pix = 
+  pix =
     XCreatePixmapFromBitmapData(XtDisplay(form),
 				RootWindowOfScreen(XtScreen(form)),
 				(char *)bm[bmForward].bits,
 				bm[bmForward].width, bm[bmForward].height,
 				fg, bg, depth);
-  Widget step = 
+  Widget step =
     XtVaCreateManagedWidget("step", xmPushButtonWidgetClass, form,
 			    XmNleftAttachment, XmATTACH_WIDGET,
 			    XmNleftWidget, stop,
@@ -783,14 +783,14 @@ ConstructWidgets(Widget toplevel) {
 			    XmNlabelType, XmPIXMAP,
 			    XmNlabelPixmap, pix,
 			    NULL);
-  pix = 
+  pix =
     XCreatePixmapFromBitmapData(XtDisplay(form),
 				RootWindowOfScreen(XtScreen(form)),
 				(char *)bm[bmForwardStop].bits,
 				bm[bmForwardStop].width,
 				bm[bmForwardStop].height,
 				fg, bg, depth);
-  Widget some = 
+  Widget some =
     XtVaCreateManagedWidget("some", xmPushButtonWidgetClass, form,
 			    XmNleftAttachment, XmATTACH_WIDGET,
 			    XmNleftWidget, step,
@@ -798,14 +798,14 @@ ConstructWidgets(Widget toplevel) {
 			    XmNlabelType, XmPIXMAP,
 			    XmNlabelPixmap, pix,
 			    NULL);
-  pix = 
+  pix =
     XCreatePixmapFromBitmapData(XtDisplay(form),
 				RootWindowOfScreen(XtScreen(form)),
 				(char *)bm[bmFastForward].bits,
 				bm[bmFastForward].width,
 				bm[bmFastForward].height,
 				fg, bg, depth);
-  Widget evolve = 
+  Widget evolve =
     XtVaCreateManagedWidget("evolve", xmPushButtonWidgetClass, form,
 			    XmNleftAttachment, XmATTACH_WIDGET,
 			    XmNleftWidget, some,
@@ -819,7 +819,7 @@ ConstructWidgets(Widget toplevel) {
   XtAddCallback(some, XmNactivateCallback, EvolveSomeCB, (XtPointer)ga);
   XtAddCallback(evolve, XmNactivateCallback, EvolveCB, (XtPointer)ga);
 
-  canvas = 
+  canvas =
     XtVaCreateManagedWidget("canvas", xmDrawingAreaWidgetClass, form,
 			    XmNtopAttachment, XmATTACH_FORM,
 			    XmNrightAttachment, XmATTACH_FORM,
@@ -841,27 +841,27 @@ ExposureEH(Widget w, XtPointer cd, XEvent*, Boolean*) {
 
 Widget
 ConstructWidgets(Widget toplevel) {
-  Widget form = 
+  Widget form =
     XtVaCreateManagedWidget("form", formWidgetClass, toplevel, NULL);
 
   canvas =
     XtVaCreateManagedWidget("canvas", widgetClass, form, NULL);
   XtAddEventHandler(canvas, ExposureMask, False, ExposureEH, (XtPointer)ga);
 
-  Widget ctrlbox = 
-    XtVaCreateManagedWidget("controls", boxWidgetClass, form, 
+  Widget ctrlbox =
+    XtVaCreateManagedWidget("controls", boxWidgetClass, form,
 			    XtNfromVert, canvas,
 			    XtNorientation, "vertical",
 			    NULL);
-  Widget rewind = 
+  Widget rewind =
     XtVaCreateManagedWidget("rewind", commandWidgetClass, ctrlbox, NULL);
-  Widget stop = 
+  Widget stop =
     XtVaCreateManagedWidget("stop", commandWidgetClass, ctrlbox, NULL);
-  Widget step = 
+  Widget step =
     XtVaCreateManagedWidget("step", commandWidgetClass, ctrlbox, NULL);
-  Widget some = 
+  Widget some =
     XtVaCreateManagedWidget("some", commandWidgetClass, ctrlbox, NULL);
-  Widget evolve = 
+  Widget evolve =
     XtVaCreateManagedWidget("evolve", commandWidgetClass, ctrlbox, NULL);
 
   XtAddCallback(rewind, XtNcallback, ResetCB,      (XtPointer)ga);
@@ -870,7 +870,7 @@ ConstructWidgets(Widget toplevel) {
   XtAddCallback(some,   XtNcallback, EvolveSomeCB, (XtPointer)ga);
   XtAddCallback(evolve, XtNcallback, EvolveCB,     (XtPointer)ga);
 
-  Widget quit = 
+  Widget quit =
     XtVaCreateManagedWidget("quit", commandWidgetClass, ctrlbox, NULL);
   XtAddCallback(quit,   XtNcallback, QuitCB,  (XtPointer)0);
 

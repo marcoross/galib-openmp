@@ -1,5 +1,5 @@
 // This may look like C code, but it is really -*- C++ -*-
-/* 
+/*
 Copyright (C) 1989 Free Software Foundation
     written by Doug Lea (dl@rocky.oswego.edu)
 
@@ -93,8 +93,8 @@ void* AllocRing::alloc(int s)
   unsigned int size = good_size(s);
 
   void* p;
-  if (nodes[current].ptr != 0 && 
-      nodes[current].sz >= int(size) && 
+  if (nodes[current].ptr != 0 &&
+      nodes[current].sz >= int(size) &&
       nodes[current].sz < int(4 * size))
     p = nodes[current].ptr;
   else

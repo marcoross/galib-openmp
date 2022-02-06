@@ -186,7 +186,7 @@ If you prefer to compile GAlib using a project, then see the project_files direc
 <br>
 <p>
 <a name="dos"><strong>DOS/Win compilation:</strong><br></a><hr>
-When compiling under DOS or Win3.1, use the large memory model.  When you compile the library by itself, use a library page size of 32.  
+When compiling under DOS or Win3.1, use the large memory model.  When you compile the library by itself, use a library page size of 32.
 </p>
 <p>
 Be sure to set the includes path so that the directory in which the GAlib headers are located is searched.  Also, set the compiler to use strict ANSI compilation.  Be sure that GALIB_USE_STREAMS is not defined (do this in gaconfig.h) if you want to compile GAlib with no dependency upon the streams library.
@@ -268,7 +268,7 @@ You can compile the library by defining the GALIB_USE_NO_TEMPLATES preprocessor 
 <blockquote>
 GAAllele.C GA1DArrayGenome.C GA2DArrayGenome.C GA3DArrayGenome.C <br>
 GAListGenome.C GAListBASE.C GAList.C <br>
-GATreeGenome.C GATreeBASE.C GATree.C 
+GATreeGenome.C GATreeBASE.C GATree.C
 </blockquote>
 If you need one of the template genome types but do not have a compiler that understands templates, you can modify the template files by hand.  You will have to create a file for each type that you want to instantiate.  If you will be instantiating only one type, remove &lt;T&gt; and replace T with the type you are going to instantiate.  If you will be instantiating more than one type then you will have to replace &lt;T&gt; with an appropriate name and replace T with the type.  For example, to create an instance of an 'int' version of the tree object, GATree&lt;int&gt; would become GATreeInt and any occurances of 'T * var' would be replaced with 'int * var'.
 

@@ -2,7 +2,7 @@
 /* ----------------------------------------------------------------------------
   statistics.C
   mbwall 28jul94
-  Copyright (c) 1995 Massachusetts Institute of Technology 
+  Copyright (c) 1995 Massachusetts Institute of Technology
                      all rights reserved
 
  DESCRIPTION:
@@ -74,7 +74,7 @@ GAStatistics::~GAStatistics(){
   delete [] scorefile;
   delete boa;
 }
-void 
+void
 GAStatistics::copy(const GAStatistics & orig){
   if(&orig == this) return;
 
@@ -142,13 +142,13 @@ GAStatistics::copy(const GAStatistics & orig){
 }
 
 
-// Update the genomes in the 'best of all' population to reflect any 
+// Update the genomes in the 'best of all' population to reflect any
 // changes made to the current population.  We just grab the genomes with
 // the highest scores from the current population, and if they are higher than
 // those of the genomes in the boa population, they get copied.  Note that
 // the bigger the boa array, the bigger your running performance hit because
 // we have to look through all of the boa to figure out which are better than
-// those in the population.  The fastest way to use the boa is to keep only 
+// those in the population.  The fastest way to use the boa is to keep only
 // one genome in the boa population.  A flag of 'True' will reset the boa
 // population so that it is filled with the best of the current population.
 //   Unfortunately it could take a long time to update the boa array using the
@@ -270,7 +270,7 @@ GAStatistics::reset(const GAPopulation & pop){
 
   memset(cscore, 0, Nconv*sizeof(float));
   nconv = 0;			// should set to -1 then call setConv
-  cscore[0] = 
+  cscore[0] =
     ((pop.order() == GAPopulation::HIGH_IS_BEST) ? pop.max() : pop.min());
 //  cscore[0] = pop.max();
 //  setConvergence(maxScore[0]);
@@ -299,14 +299,14 @@ GAStatistics::flushScores(){
   memset(maxScore, 0, Nscrs*sizeof(float));
   memset(minScore, 0, Nscrs*sizeof(float));
   memset(devScore, 0, Nscrs*sizeof(float));
-  memset(divScore, 0, Nscrs*sizeof(float));  
+  memset(divScore, 0, Nscrs*sizeof(float));
   nscrs = 0;
 }
 
 
 // Set the score info to the appropriate values.  Update the score count.
 void
-GAStatistics::setScore(const GAPopulation& pop){ 
+GAStatistics::setScore(const GAPopulation& pop){
   aveCur = pop.ave();
   maxCur = pop.max();
   minCur = pop.min();
@@ -325,8 +325,8 @@ GAStatistics::setScore(const GAPopulation& pop){
 
 
 // For recording the convergence we have to keep a running list of the past N
-// best scores.  We just keep looping around and around the array of past 
-// scores.  nconv keeps track of which one is the current one.  The current 
+// best scores.  We just keep looping around and around the array of past
+// scores.  nconv keeps track of which one is the current one.  The current
 // item is thus nconv%Nconv.  The oldest is nconv%Nconv+1 or 0.
 void
 GAStatistics::setConvergence(float s){
@@ -377,7 +377,7 @@ GAStatistics::nConvergence(unsigned int n){
 }
 
 
-int 
+int
 GAStatistics::nBestGenomes(const GAGenome& genome, unsigned int n){
   if(n == 0){
     delete boa;
@@ -392,7 +392,7 @@ GAStatistics::nBestGenomes(const GAGenome& genome, unsigned int n){
   return n;
 }
 
-const GAGenome & 
+const GAGenome &
 GAStatistics::bestIndividual(unsigned int n) const {
   if(boa == 0 || (int)n >= boa->size()){
     GAErr(GA_LOC, "GAStatistics", "bestIndividual", gaErrBadPopIndex);
@@ -403,7 +403,7 @@ GAStatistics::bestIndividual(unsigned int n) const {
 
 // Adjust the scores buffers to match the specified amount.  If someone
 // specifies zero then we don't keep the scores, so set all to NULL.
-int 
+int
 GAStatistics::flushFrequency(unsigned int freq){
   if(freq == 0){
     if(nscrs > 0) flushScores();
@@ -481,7 +481,7 @@ GAStatistics::resizeScores(unsigned int n){
 }
 
 
-// Write the current scores to file.  If this is the first chunk (ie gen[0] 
+// Write the current scores to file.  If this is the first chunk (ie gen[0]
 // is 0) then we create a new file.  Otherwise we append to an existing file.
 // We give no notice that we're overwriting the existing file!!
 void
@@ -504,7 +504,7 @@ GAStatistics::writeScores(){
 
 
 #ifdef GALIB_USE_STREAMS
-int 
+int
 GAStatistics::write(const char* filename) const {
   STD_OFSTREAM outfile(filename, (STD_IOS_OUT | STD_IOS_TRUNC));
 // should be done this way, but SGI systems (and others?) don't do it right...
@@ -557,7 +557,7 @@ GAStatistics::write(STD_OSTREAM & os) const {
 // You can specify the data that you want to dump out when you call this
 // routine, or you can just let it use the selection from the object.  If you
 // specify a data set, that will be used rather than the 'which' in the object.
-int 
+int
 GAStatistics::scores(const char* filename, int w){
   STD_OFSTREAM outfile(filename, (STD_IOS_OUT | STD_IOS_TRUNC));
 // should be done this way, but SGI systems (and others?) don't do it right...

@@ -112,15 +112,15 @@ GATree<T>::clone(unsigned int i) const
 }
 
 
-// Destroy the specified node and all nodes attached to it looking downward. 
+// Destroy the specified node and all nodes attached to it looking downward.
 // This does NOT destroy any nodes above the specified node.  If this node is
 // in a tree, it will be removed before the nuking occurs.  This gives the tree
 // object a chance to flag for any recalculations it might need.  The destroy
-// method effect on the tree as a remove, but it is destructive (it frees up 
+// method effect on the tree as a remove, but it is destructive (it frees up
 // the memory as well).
-//   We do the nuking recursively, so its not really that efficient.  I'll 
+//   We do the nuking recursively, so its not really that efficient.  I'll
 // figure out a better way to track these nodes one of these days.
-//   We use the _destroy routine to do the recursion.  _destroy kills all of 
+//   We use the _destroy routine to do the recursion.  _destroy kills all of
 // the siblings of the node whereas this routine kills only descendents.
 //   This uses the current node as the one to destroy, so be sure to use the
 // iteration methods to move to the node you want to destroy.  Once the node is
@@ -134,7 +134,7 @@ GATree<T>::destroy()
   if(node->prev == node || !node->prev)
     if(node->parent) iter.node = node->parent;
     else iter.node = (GANodeBASE *)0;
-  else 
+  else
     iter.eldest();
   _GATreeDestroy(DYN_CAST(GANode<T>*, node->child));
   delete GATreeBASE::remove(node);
@@ -151,7 +151,7 @@ GATree<T>::destroy()
 //   The iterators are reset to the nodes where the swaps occurred.  Sizes and
 // depths are possibly changed - the insert method flags them for a recalc.
 //   If an iterator is NULL then we do an insert ONLY if the root node of that
-// iterator's tree is NULL.  If the tree's root is non-NULL, we don't do 
+// iterator's tree is NULL.  If the tree's root is non-NULL, we don't do
 // anything (most likely the iterator was unset or badly set).
 template <class T> int
 GATree<T>::swaptree(GATree<T> * t)
@@ -197,7 +197,7 @@ GATree<T>::swaptree(GATree<T> * t)
 
 // Same as the swaptree above, but this routine uses the node indices to do
 // the swap.  This can be dangerous:  if one of the nodes is a decendent of the
-// other then we could end up with a fragmented tree, so we'll have to check 
+// other then we could end up with a fragmented tree, so we'll have to check
 // for that situation.  Unfortunately this check slows things down quite a bit.
 // If one is the ancestor of the other, then we don't do the swap.
 //   This routine does not affect the size of the tree, but it could change the

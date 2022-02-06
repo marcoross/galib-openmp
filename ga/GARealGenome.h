@@ -22,7 +22,7 @@ typedef GA1DArrayAlleleGenome<float> GARealGenome;
 
 int GARealGaussianMutator(GAGenome &, float);
 
-// in one (and only one) place in the code that uses the string genome, you 
+// in one (and only one) place in the code that uses the string genome, you
 // should define INSTANTIATE_STRING_GENOME in order to force the specialization
 // for this genome.
 #if defined(INSTANTIATE_REAL_GENOME)

@@ -6,12 +6,12 @@
 
  DESCRIPTION:
   This header defines the interface for the binary string.  This is a crude
-version of a real bitstring object.  We don't do real bitstring in the 
+version of a real bitstring object.  We don't do real bitstring in the
 interest of speed and ease of coding this mess up.
 
  TO DO:
   we can get major improvements to speed by inlining functions and getting rid
-of the error checking...  for example, inlining genome and removing the 
+of the error checking...  for example, inlining genome and removing the
 conditional makes it go from 7.5 seconds to 3.2 seconds (bm bl cs 1024 c 0.9)
 ---------------------------------------------------------------------------- */
 #ifndef _ga_binstr_h_
@@ -63,11 +63,11 @@ public:
     memset(&(data[a]), 0, l*sizeof(GABit));
   }
   void randomize(unsigned int a, unsigned int l){
-    for(unsigned int i=0; i<l; i++) 
+    for(unsigned int i=0; i<l; i++)
       data[i+a] = (GABit)GARandomBit();
   }
   void randomize(){
-    for(unsigned int i=0; i<sz; i++) 
+    for(unsigned int i=0; i<sz; i++)
       data[i] = (GABit)GARandomBit();
   }
 

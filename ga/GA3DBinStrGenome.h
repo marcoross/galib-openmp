@@ -28,11 +28,11 @@ public:
   static void SetInitializer(GAGenome &);
   static int FlipMutator(GAGenome &, float);
   static float BitComparator(const GAGenome&, const GAGenome&);
-  static int UniformCrossover(const GAGenome&, const GAGenome&, 
+  static int UniformCrossover(const GAGenome&, const GAGenome&,
 			      GAGenome*, GAGenome*);
-  static int EvenOddCrossover(const GAGenome&, const GAGenome&, 
+  static int EvenOddCrossover(const GAGenome&, const GAGenome&,
 			      GAGenome*, GAGenome*);
-  static int OnePointCrossover(const GAGenome&, const GAGenome&, 
+  static int OnePointCrossover(const GAGenome&, const GAGenome&,
 			      GAGenome*, GAGenome*);
 
 public:
@@ -83,29 +83,29 @@ public:
   int depth(int d){resize(nx, ny, d); return nz;}
   int resize(int x, int y, int z);
   int resizeBehaviour(Dimension which) const;
-  int resizeBehaviour(Dimension which, 
+  int resizeBehaviour(Dimension which,
 		      unsigned int low, unsigned int upper);
-  int resizeBehaviour(unsigned int lowerX, unsigned int upperX, 
-		      unsigned int lowerY, unsigned int upperY, 
+  int resizeBehaviour(unsigned int lowerX, unsigned int upperX,
+		      unsigned int lowerY, unsigned int upperY,
 		      unsigned int lowerZ, unsigned int upperZ){
-    return(resizeBehaviour(WIDTH,  lowerX, upperX) * 
-	   resizeBehaviour(HEIGHT, lowerY, upperY) * 
+    return(resizeBehaviour(WIDTH,  lowerX, upperX) *
+	   resizeBehaviour(HEIGHT, lowerY, upperY) *
 	   resizeBehaviour(DEPTH,  lowerZ, upperZ));
   }
-  void copy(const GA3DBinaryStringGenome&, 
+  void copy(const GA3DBinaryStringGenome&,
 	    unsigned int, unsigned int, unsigned int,
 	    unsigned int, unsigned int, unsigned int,
 	    unsigned int, unsigned int, unsigned int);
-  int equal(const GA3DBinaryStringGenome&, 
+  int equal(const GA3DBinaryStringGenome&,
 	    unsigned int, unsigned int, unsigned int,
 	    unsigned int, unsigned int, unsigned int,
 	    unsigned int, unsigned int, unsigned int) const;
   void set(unsigned int, unsigned int, unsigned int,
 	   unsigned int, unsigned int, unsigned int);
-  void unset(unsigned int, unsigned int, unsigned int, 
+  void unset(unsigned int, unsigned int, unsigned int,
 	     unsigned int, unsigned int, unsigned int);
   void move(unsigned int, unsigned int, unsigned int,
-	    unsigned int, unsigned int, unsigned int, 
+	    unsigned int, unsigned int, unsigned int,
 	    unsigned int, unsigned int, unsigned int);
   void randomize(unsigned int, unsigned int, unsigned int,
 		 unsigned int, unsigned int, unsigned int);

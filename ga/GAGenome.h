@@ -46,15 +46,15 @@ selected to cross with itself, and self-copying is not out of the question)
        virtual int read(istream&)
        virtual int write(ostream&) const
        virtual int equal(const GAGenome&) const
-  
-    When you derive a genome, don't forget to use the _evaluated flag to 
-  indicate when the state of the genome has changed and an evaluation is 
+
+    When you derive a genome, don't forget to use the _evaluated flag to
+  indicate when the state of the genome has changed and an evaluation is
   needed.
     Assign a default crossover method so that users don't have to assign one
-  unless they want to.  Do this in the constructor.  
-    It is a good idea to define an identity for your genome (especially if 
-  you will be using it in an environment with multiple genome types running 
-  around).  Use the DefineIdentity/DeclareIdentity macros (defined in id.h) 
+  unless they want to.  Do this in the constructor.
+    It is a good idea to define an identity for your genome (especially if
+  you will be using it in an environment with multiple genome types running
+  around).  Use the DefineIdentity/DeclareIdentity macros (defined in id.h)
   to do this in your class definition.
 
 
@@ -63,29 +63,29 @@ Brief overview of the member functions:
 initialize
   Use this method to set the initial state of your genomes once they have
   been created.  This initialization is for setting up the genome's state,
-  not for doing the basic mechanics of genome class management.  The 
-  default behaviour of this method is to change randomly the contents of the 
+  not for doing the basic mechanics of genome class management.  The
+  default behaviour of this method is to change randomly the contents of the
   genome.  If you want to bias your initial population, this is where to
   make that happen.
      The initializer is used to initialize the genome (duh).  Notice that the
-  state of the genome is unknown - memory may or may not have been allocated, 
-  and the genome may or may not have been used before.  So your initializer 
-  should first clean up as needed, then do its thing.  The initializer may be 
-  called any number of times (unlike a class constructor which is called only 
+  state of the genome is unknown - memory may or may not have been allocated,
+  and the genome may or may not have been used before.  So your initializer
+  should first clean up as needed, then do its thing.  The initializer may be
+  called any number of times (unlike a class constructor which is called only
   once for a given instance).
- 
+
 mutate
   Mutate the genome with probability as specified.  What mutation means
-  depends upon the data type of the genome.  For example, you could have 
+  depends upon the data type of the genome.  For example, you could have
   a bit string in which 50% mutation means each bit has a 50% chance of
   getting flipped, or you could have a tree in which 50% mutation means each
   node has a 50% chance of getting deleted, or you could have a bit string
   in which 50% mutation means 50% of the bits ACTUALLY get flipped.
-    The mutations member returns the number of mutations since the genome 
+    The mutations member returns the number of mutations since the genome
   was initialized.
     The mutator makes a change to the genome with likeliehood determined by the
-  mutation rate parameter.  The exact meaning of mutation is up to you, as is 
-  the specific meaning of the mutation rate.  The function returns the number 
+  mutation rate parameter.  The exact meaning of mutation is up to you, as is
+  the specific meaning of the mutation rate.  The function returns the number
   of mutations that actually occurred.
 
 crossover
@@ -99,9 +99,9 @@ crossover
     This also lets you do funky stuff like crossover between different data
   types and group sex to generate new offspring.
      We define two types of crossover:  sexual and asexual.  Most GAlib
-  algorithms use the sexual crossover, but both are available.  Each genome 
-  knows the preferred crossover method, but none is capable of reproducing.  
-  The genetic algorithm must actually perform the mating because it involves 
+  algorithms use the sexual crossover, but both are available.  Each genome
+  knows the preferred crossover method, but none is capable of reproducing.
+  The genetic algorithm must actually perform the mating because it involves
   another genome (as parent and/or child).
 
 evaluator
@@ -116,19 +116,19 @@ evaluator
   the population.
 
 comparator
-  This method is used to determine how similar two genomes are.  If you want 
-  to use a different comparison method without deriving a new class, then use 
+  This method is used to determine how similar two genomes are.  If you want
+  to use a different comparison method without deriving a new class, then use
   the comparator function to do so.  For example, you may want to do phenotype-
   based comparisons rather than genotype-based comparisons.
     In many cases we have to compare two genomes to determine how similar or
-  different they are.  In traditional GA literature this type of function is 
+  different they are.  In traditional GA literature this type of function is
   referred to as a 'distance' function, probably because bit strings can be
   compared using the Hamming distance as a measure of similarity.  In GAlib, we
-  define a genome comparator function that does exactly this kind of 
+  define a genome comparator function that does exactly this kind of
   comparison.
-    If the genomes are identical, the similarity function should return a 
-  value of 0.0, if completely different then return a value greater than 0.  
-  The specific definition of what "the same" and what "different" mean is up 
+    If the genomes are identical, the similarity function should return a
+  value of 0.0, if completely different then return a value greater than 0.
+  The specific definition of what "the same" and what "different" mean is up
   to you.  Most of the default comparators use the genotype for the comparison,
   but you can use the phenotype if you prefer.  There is no upper limit to the
   distance score as far as GAlib is concerned.
@@ -150,18 +150,18 @@ score
   Evaluate the 'performance' of the genome using the objective function.
   The score is kept in the 'score' member.  The 'evaluated' member tells us
   whether or not we can trust the score.  Be sure to set/unset the 'evaluated'
-  member as appropriate (eg cross and mutate change the contents of the 
+  member as appropriate (eg cross and mutate change the contents of the
   genome so they unset the 'evaluated' flag).
-    If there is no objective function, then simply return the score.  This 
+    If there is no objective function, then simply return the score.  This
   allows us to use population-based evaluation methods (where the population
   method sets the score of each genome).
 
 clone
   This method allocates space for a new genome and copies the original into
-  the new space.  Depending on the argument, it either copies the entire 
+  the new space.  Depending on the argument, it either copies the entire
   original or just parts of the original.  For some data types, clone contents
   and clone attributes will do the same thing.  If your data type requires
-  significant overhead for initialization, then you'll probably want to 
+  significant overhead for initialization, then you'll probably want to
   distinguish between cloning contents and cloning attributes.
 clone(cont)
   Clone the contents of the genome.  Returns a pointer to a GAGenome
@@ -181,10 +181,10 @@ public:
   typedef void  (*Initializer)(GAGenome &);
   typedef int   (*Mutator)(GAGenome &, float);
   typedef float (*Comparator)(const GAGenome&, const GAGenome&);
-  typedef int   (*SexualCrossover)(const GAGenome&, const GAGenome&, 
+  typedef int   (*SexualCrossover)(const GAGenome&, const GAGenome&,
 				   GAGenome*, GAGenome*);
   typedef int   (*AsexualCrossover)(const GAGenome&, GAGenome*);
-  
+
 public:
   static void  NoInitializer(GAGenome &);
   static int   NoMutator(GAGenome &, float);

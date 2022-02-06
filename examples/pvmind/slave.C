@@ -9,9 +9,9 @@ master-slave configuration to parallelize the genetic algorithm.  In this case,
 the master controls the evolution and farms out the task of evaluating single
 genomes to each of the slaves.
    This is the slave component.  We wait for messages from the master then act
-on the content.  We expect two kinds of messages:  initialize and evaluate.  
+on the content.  We expect two kinds of messages:  initialize and evaluate.
 When we get an initialize request, we initialize our genome then send the data
-to the master process.  When we get an evaluate request, we grab the data from 
+to the master process.  When we get an evaluate request, we grab the data from
 the master then invoke the genome's evaluator on the new data, then send only
 the score to the master process.  We can also receive a 'finished' message
 that tells us to shut down and exit.

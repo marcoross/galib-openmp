@@ -14,19 +14,19 @@ specific details about base class member functions.
 
 //   These are the default genome operators.
 // None does anything - they just post an error message to let you know that no
-// method has been defined.  These are for the base class (which has no 
-// function by itself). 
-void 
-GAGenome::NoInitializer(GAGenome & c){ 
-  GAErr(GA_LOC, c.className(), "initializer", gaErrOpUndef); 
+// method has been defined.  These are for the base class (which has no
+// function by itself).
+void
+GAGenome::NoInitializer(GAGenome & c){
+  GAErr(GA_LOC, c.className(), "initializer", gaErrOpUndef);
 }
-int 
-GAGenome::NoMutator(GAGenome & c, float){ 
-  GAErr(GA_LOC, c.className(), "mutator", gaErrOpUndef); return 0; 
+int
+GAGenome::NoMutator(GAGenome & c, float){
+  GAErr(GA_LOC, c.className(), "mutator", gaErrOpUndef); return 0;
 }
-float 
-GAGenome::NoComparator(const GAGenome& c, const GAGenome&){ 
-  GAErr(GA_LOC, c.className(), "comparator", gaErrOpUndef); return -1.0; 
+float
+GAGenome::NoComparator(const GAGenome& c, const GAGenome&){
+  GAErr(GA_LOC, c.className(), "comparator", gaErrOpUndef); return -1.0;
 }
 
 
@@ -76,12 +76,12 @@ GAGenome::copy(const GAGenome & orig){
 }
 
 
-float 
+float
 GAGenome::evaluate(GABoolean flag) const {
   if(_evaluated == gaFalse || flag == gaTrue){
     GAGenome *This = (GAGenome*)this;
     if(eval){ This->_neval++; This->_score = (*eval)(*This); }
     This->_evaluated = gaTrue;
   }
-  return _score; 
+  return _score;
 }

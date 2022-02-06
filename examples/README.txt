@@ -5,7 +5,7 @@ How to compile the examples
 -------------------------------------------------------------------------------
 Copy the contents of this directory into your own filespace.  In the new
 directory, edit the makefile as needed to specify the location of the GAlib
-headers and library.  If you system supports makedepend, do 'make depend' to 
+headers and library.  If you system supports makedepend, do 'make depend' to
 update the makefile dependencies.
 
 To build all of the examples, type 'make all' or simply 'make'.
@@ -29,7 +29,7 @@ What the examples do
   ex1	Fill a 2DBinaryStringChromosome with alternating 0s and 1s using a
 	SimpleGA.
 
-  ex2	Generate a sequence of random numbers, then use a Bin2DecChromosome 
+  ex2	Generate a sequence of random numbers, then use a Bin2DecChromosome
 	and SimpleGA to try and match the sequence.  This example shows how
 	to use the user-data member of genomes in objective functions.
 
@@ -49,10 +49,10 @@ What the examples do
 
   ex6	Grow a GATreeGenome<int> using a SteadyStateGA.  This example
 	illustrates the use of specialized methods to override the default
-	initialization method and to specialize the output from a tree.  It 
+	initialization method and to specialize the output from a tree.  It
   	also shows how to use templatized genome classes.  Finally, it shows
         the use of the parameters object to set default values then allow these
- 	to be modified from the command line.  The objective function in this 
+ 	to be modified from the command line.  The objective function in this
 	example tries to grow the tree as large as possible.
 
   ex7	Identical in function to example 3, this example shows how to use the
@@ -65,25 +65,25 @@ What the examples do
 
   ex8	Grow a GAListGenome<int> using a GA with overlapping populations.
 	This shows how to randomly initialize a list of integers, how to use
-	the sigma truncation scaling object to handle objective scores that 
-	may be positive or negative, and the 'set' member of the genetic 
+	the sigma truncation scaling object to handle objective scores that
+	may be positive or negative, and the 'set' member of the genetic
 	algorithm for controlling statistics and other genetic algorithm
 	parameters.
 
   ex9	Find the maximum value of a continuous function in two variables.  This
 	example uses a GABin2DecGenome and simple GA.  It also illustrates
 	how to use the GASigmaTruncationScaling object (rather than the default
-	linear scaling).  Sigma truncation is particularly useful for 
+	linear scaling).  Sigma truncation is particularly useful for
 	objective functions that return negative values.
 
-  ex10	Find the maximum value of a continuous, periodic function.  This 
+  ex10	Find the maximum value of a continuous, periodic function.  This
 	example illustrates the use of sharing to do speciation.  It defines
 	a sample distance function (one that does the distance measure based
 	on the genotype, the other based on phenotype).  It uses a binary-
 	to-decimal genome to represent the function values.
 
   ex11	Generate a sequence of descending numbers using an order-based list.
-	This example illustrates the use of a GAListGenome as an 
+	This example illustrates the use of a GAListGenome as an
 	order-based chromosome.  It contains a custom initializer and shows
         how to use this custom initializer in the List genome.
 
@@ -98,8 +98,8 @@ What the examples do
 	run only when the outer GA reaches a threshhold objective score.
 
   ex14	Another illustration of how to use composite chromosomes.  In this
-	example, the composite chromosome contains a user-specifiable number 
-	of lists.  Each list behaves differently and is not affected by 
+	example, the composite chromosome contains a user-specifiable number
+	of lists.  Each list behaves differently and is not affected by
 	mutations, crossovers, or initializations of the other lists.
 
   ex15	The completion function of a GA determines when it is "done".  This
@@ -121,7 +121,7 @@ What the examples do
         example 3, but this example lets you specify which type of GA you
         want to use to solve the problem.  You can use steady state, simple,
         or incremental just by specifying one of them on the command line.
-        The example saves the generational data to file so that you can then 
+        The example saves the generational data to file so that you can then
 	plot the convergence data to see how the performance of each genetic
 	algorithm compares to the others.
 
@@ -129,16 +129,16 @@ What the examples do
 
   ex20  Holland's royal road function.  This example computes Holland's 1993
         ICGA version of the Royal Road problem.  Holland posed this problem as
-        a challenge to test the performance of genetic algorithms and 
+        a challenge to test the performance of genetic algorithms and
         challenged other GA users to match or beat his performance.
 
   ex21  This example illustrates various uses of the allele set in array
-	genomes.  The allele set may be an enumerated list of items or a 
-	bounded range of continuous values, or a bounded set of discrete 
+	genomes.  The allele set may be an enumerated list of items or a
+	bounded range of continuous values, or a bounded set of discrete
 	values.  This example shows how each of these may be used in
 	combination with a real number genome.
 
-  ex22  This example shows how to derive a new genetic algorithm class in 
+  ex22  This example shows how to derive a new genetic algorithm class in
 	order to customize the replacement method.  Here we derive a new type
 	of steady-state genetic algorithm in which speciation is done more
 	effectively by not only scaling fitness values but also by controlling
@@ -149,10 +149,10 @@ What the examples do
 	abilities of the genetic algorithm.  It uses a real number genome with
 	one element to find the maximum or minimum of a sinusoid.
 
-  ex24  This example shows how to restricted mating using a custom genetic 
-  	algorithm and custom selection scheme.  The restricted mating in the 
-	genetic algorithm tries to pick individuals that are similar (based 
-	upon their comparator).  The selector chooses only the upper half of 
+  ex24  This example shows how to restricted mating using a custom genetic
+  	algorithm and custom selection scheme.  The restricted mating in the
+	genetic algorithm tries to pick individuals that are similar (based
+	upon their comparator).  The selector chooses only the upper half of
 	the population (so it cannot choose very bad individuals, unlike the
 	roulette wheel selector, for example).
 
@@ -166,10 +166,10 @@ What the examples do
         be done.  This example uses an order-based list as the genome to
         figure out the shortest path that connects a bunch of towns such that
         each town is visited exactly once.  It uses the edge recombination
-        crossover operator (you can try it with the partial match crossover 
+        crossover operator (you can try it with the partial match crossover
         as well to see how poorly PMX does on this particular problem).
 
-  ex27  Deterministic crowding.  Although the algorithms built-in to GAlib 
+  ex27  Deterministic crowding.  Although the algorithms built-in to GAlib
         allow you to do quite a bit of customization, sometimes you'll want to
         derive your own class so that you can really tweak the way the
 	algorithm works.  This example shows one way of implementing the
@@ -177,9 +177,9 @@ What the examples do
 	algorithm class.
 
 randtest
-	Use this program to verify that the random number generator is 
+	Use this program to verify that the random number generator is
 	generating suitably random numbers on your machine.  This is by no
-	means a comprehensive random number test suite, but it will give you 
+	means a comprehensive random number test suite, but it will give you
 	some idea of how well GAlib's random number generator is working.
 
 graphic     (available only in the UNIX distribution)
@@ -200,13 +200,13 @@ graphic     (available only in the UNIX distribution)
         algorithms, 2 different genomes (real or binary-to-decimal), and 4
         different functions.
 
-        The second example shows solutions to the travelling salesman problem 
+        The second example shows solutions to the travelling salesman problem
         evolving in real time.  You can compare three different algorithms:
     	simple, steady-state, and deterministic crowding.
 
    gnu      (available only in the UNIX distribution)
 	This directory contains the code for an example that uses the BitString
-        object from the GNU class library.  The example illustrates how to 
+        object from the GNU class library.  The example illustrates how to
         incorporate an existing object (in this case the BitString) into a
         GAlib Genome type.  The gnu directory contains the source code needed
         for the BitString object (taken from the GNU library) plus the two
@@ -223,7 +223,7 @@ pvmind      (available only in the UNIX distribution)
 pvmpop      (available only in the UNIX distribution)
         This directory contains code that illustrates a PVM implementation of
 	parallel populations.  The master process initiates a cluster of slaves
-	each of which contains a single population.  The master process 
+	each of which contains a single population.  The master process
 	harvests individuals from all of the distributed populations.  With a
         few modifications you can also use this example with the deme GA from
         example 25 (it uses migration to distribute diversity between pops).

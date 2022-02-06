@@ -42,7 +42,7 @@ template <class T> void
 GAList<T>::copy(const GAList<T> & orig)
 {
   while(hd) delete GAListBASE::remove(DYN_CAST(GANode<T>*, hd));
-  hd = _GAListCopy(DYN_CAST(GANode<T>*, orig.hd), 
+  hd = _GAListCopy(DYN_CAST(GANode<T>*, orig.hd),
 		   DYN_CAST(GANode<T>*, orig.hd));
   iter.node = hd;
   sz = orig.sz; csz = orig.csz;
@@ -97,8 +97,8 @@ GAList<T>::clone(unsigned int i) const
 }
 
 
-// Destroy the specified node.  This uses the current node as the one to 
-// destroy, so be sure to use the iteration methods to move to the node you 
+// Destroy the specified node.  This uses the current node as the one to
+// destroy, so be sure to use the iteration methods to move to the node you
 // want to destroy.  Once the node is gone, we set the current node to the
 // prev node of the one that was destroyed.  If the node that was nuked was the
 // head node then we set the current node to the new head.

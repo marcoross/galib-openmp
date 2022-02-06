@@ -14,14 +14,14 @@ the Parent strategy.  If you want the child to replace a random population
 member, use the Random strategy.  If you want the child to replace the worst
 population member, use the Worst strategy.  These are meaningful only for
 overlapping populations.  To do DeJong-style speciation (crowding), use the
-Crowding strategy.  You must also specify a crowding function as the 
+Crowding strategy.  You must also specify a crowding function as the
 replacement function if you choose this strategy.  If you use Custom as the
 replacement strategy you must also specify a replacement function.
   Note that not every replacement scheme can be used with every type of
 genetic algorithm.  If a GA supports replacement schemes, it will specify
 which schemes are valid and which are not.
   The replacement function is required for crowding and custom replacement
-strategies.  This function is used to pick which genome will be 
+strategies.  This function is used to pick which genome will be
 replaced.  The first argument passed to the replacement function is the
 individual that is supposed to go into the population.  The second argument
 is the population into which the individual is supposed to go.

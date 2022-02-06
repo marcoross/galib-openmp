@@ -17,7 +17,7 @@
 
 
 // These numbers are machine-specific and are a function of the word length of
-// the OS you are running.  The binary string cannot be too long or else we 
+// the OS you are running.  The binary string cannot be too long or else we
 // can't represent it.  And we don't do any special multi-word handling, so we
 // limit the number of bits that our converters can work on.
 #ifndef BITBASE
@@ -29,7 +29,7 @@
 
 
 // These are publicly available, but we don't want to advertise them.  They are
-// mostly just for testing purposes.  These are unscaled versions of the 
+// mostly just for testing purposes.  These are unscaled versions of the
 // converter routines.
 int GABinaryEncode(unsigned BITBASE, GABit* bits, unsigned int);
 int GABinaryDecode(float&, const GABit* bits, unsigned int);
@@ -102,12 +102,12 @@ GACheckEncoding(float& val, unsigned int& nbits,
 /* ----------------------------------------------------------------------------
   Utility routine to encode bits of a decimal number.  This routine recursively
 loops through the decimal value and grabs the remainder (modulo the base) and
-sticks the result into each 'bit' (if base is 2 then they're bits, otherwise 
+sticks the result into each 'bit' (if base is 2 then they're bits, otherwise
 they're the equivalent for whatever base you're doing).
   This will only do unsigned integers.
 ---------------------------------------------------------------------------- */
 static int
-_GAEncodeBase(unsigned int base, unsigned BITBASE val, 
+_GAEncodeBase(unsigned int base, unsigned BITBASE val,
 	      GABit * binstr, int n, int c)
 {
   int status = 0;
@@ -130,7 +130,7 @@ _GAEncodeBase(unsigned int base, unsigned BITBASE val,
    Convert the string of bits into a decimal value.  This routine does no
 scaling - the result that it generates will be a power of two.  You must
 specify a number of bits so that we know how many bits to consider.  If you
-specify too many bits, then we reset to the max we can handle and do the 
+specify too many bits, then we reset to the max we can handle and do the
 conversion using those bits.
    We return 1 if there was a problem, otherwise 0.
 ---------------------------------------------------------------------------- */
@@ -179,9 +179,9 @@ GABinaryDecode(float& result, const GABit* bits,
   Encode the specified integer into the string of bits.  The caller must make
 certain that sufficient space has been allocated for the bits.
   We return 1 if there was a problem, 0 otherwise.
-  This encodes the bits with the most significant bit first (to left of all 
+  This encodes the bits with the most significant bit first (to left of all
 other bits).  A higher index in the binstr will yield a less significant bit.
-If there aren't enough bits in the string to do the representation, we 
+If there aren't enough bits in the string to do the representation, we
 represent all that we can then return.  Then we return 1 to indicate that we
 could not represent it perfectly.
 ---------------------------------------------------------------------------- */
@@ -212,10 +212,10 @@ nintervals must be able to count up to the number of intervals that we may
 represent, ie nintervals must be able to represent 2^nbits.  sum and interval
 must be able to keep the size of the interval with no loss of data, ie
        (int)((maxval-minval)/interval)
-must be equal to 
+must be equal to
        ((nintervals=1) << nbits) - 1
 with absolutely no roundoff error.  Practically, this means that we cannot do
-anything greater than the number of bits needed to represent the mantissa of 
+anything greater than the number of bits needed to represent the mantissa of
 the highest floating precision number on the system.
 ---------------------------------------------------------------------------- */
 int
@@ -247,9 +247,9 @@ GABinaryEncode(float& val, GABit * binstr, unsigned int nbits,
 // Notice that there are many different Gray codings.  This is one of the most
 // common Gray codings as described in Numerical Recipes in C.
 
-int 
-GAGrayDecode(float& value, const GABit* bits, unsigned int nbits, 
-	     float minval, float maxval) 
+int
+GAGrayDecode(float& value, const GABit* bits, unsigned int nbits,
+	     float minval, float maxval)
 {
   if(bits == (GABit *)0 || nbits == 0){ value = 0.0; return 1; }
   int status = GACheckDecoding(nbits);
@@ -272,9 +272,9 @@ GAGrayDecode(float& value, const GABit* bits, unsigned int nbits,
 // This is not a very efficient way of doing the Gray encoding - we convert to
 // binary, then to Gray instead of doing it directly.  We'll optimize later...
 
-int 
-GAGrayEncode(float& value, GABit* bits, unsigned int nbits, 
-	     float minval, float maxval) 
+int
+GAGrayEncode(float& value, GABit* bits, unsigned int nbits,
+	     float minval, float maxval)
 {
   if(bits == (GABit *)NULL || nbits == 0) return 1;
   if(value < minval || maxval < value) return 1;

@@ -4,7 +4,7 @@
   Copyright (c) 1995-1996 Massachusetts Institute of Technology
 
  DESCRIPTION:
-   This file contains the information needed to evaluate an operate on a 
+   This file contains the information needed to evaluate an operate on a
 genome in these examples.
 ---------------------------------------------------------------------------- */
 #include <pvm3.h>
@@ -15,19 +15,19 @@ int id2idx(int tid, PVMData& data) {
   int idx = -1;
   for(int i=0; i<data.nreq && idx == -1; i++)
     if(tid == data.tid[i]) idx = i;
-  return idx; 
+  return idx;
 }
 
 
-// When this flag is defined, the initialize and evaluate function dump a 
+// When this flag is defined, the initialize and evaluate function dump a
 // string to cerr that tells which host they're running on.  You can then look
 // at this info in the pvm log file.
 //#define DEBUG
 
 
-// The initializer and evaluation functions will vary depending on your 
+// The initializer and evaluation functions will vary depending on your
 // problem.  Here we have a couple of dummy functions - the initializer just
-// calls the default binary string initializer and the objective function 
+// calls the default binary string initializer and the objective function
 // just tries to set the string to alternating bits, then sleeps for awhile.
 // Both of these include a gethostname that is useful for debugging purposes
 // to see which CPUs are doing the work during the parallelization.
@@ -91,9 +91,9 @@ SendGenomeInitialize(GAGenome& g, int tid) {
 }
 
 
-// Receive the configuration data, configure the genome, then do the 
+// Receive the configuration data, configure the genome, then do the
 // initialization.
-int 
+int
 RecvGenomeInitialize(GAGenome& g) {
   GA1DBinaryStringGenome& genome = (GA1DBinaryStringGenome&)g;
   int status = 0;
@@ -106,7 +106,7 @@ RecvGenomeInitialize(GAGenome& g) {
 
 
 // Send the bits of the genome to the task that requested them.  First we send
-// the number of bits, then we send the bits themselves.  Note that we can 
+// the number of bits, then we send the bits themselves.  Note that we can
 // handle genomes of varying lengths with this setup.
 // Returns negative number (error code) if failure.
 int
@@ -152,7 +152,7 @@ RecvGenomeData(GAGenome& g) {
     bits = new int [nbits];
   }
   status = pvm_upkint(bits, length, 1);
-  
+
   genome.length(length);	               // resize the genome
   genome = bits;			       // stuff it with the bits
 
@@ -176,7 +176,7 @@ SendGenomeScore(GAGenome& g, int tid) {
 // Receive the score and set it on the genome.
 int
 RecvGenomeScore(GAGenome& g) {
-  int status = 0;	
+  int status = 0;
   float score = 0.0;
   status = pvm_upkfloat(&score, 1, 1);     // get the score from process
   g.score(score);			   // set the score on the genome
@@ -282,16 +282,16 @@ PopulationInitializer(GAPopulation& pop) {
 
 //   This population evaluator is the administrator for the parallelization.
 // It looks around to see when slaves are available to evaluate a genome.  As
-// soon as a slave is available and a genome needs to be evaluated, this 
-// routine sends it off.  When a slave is finished, it posts a message to 
-// say so and this routine gets the message and grabs the results from the 
+// soon as a slave is available and a genome needs to be evaluated, this
+// routine sends it off.  When a slave is finished, it posts a message to
+// say so and this routine gets the message and grabs the results from the
 // slave that posted the message.
-//   An index of -1 means that the slave has no assignment.  The first int in 
-// the stream of stuff is always the ID of the slave (0-nslaves) that is 
-// sending the information.  After that it is either nothing (the slave just 
-// reported that it is ready for another genome) or it is a float (the score 
+//   An index of -1 means that the slave has no assignment.  The first int in
+// the stream of stuff is always the ID of the slave (0-nslaves) that is
+// sending the information.  After that it is either nothing (the slave just
+// reported that it is ready for another genome) or it is a float (the score
 // of the genome that was assigned to the slave).
-void 
+void
 PopulationEvaluator(GAPopulation& pop) {
   PVMDataPtr data = (PVMDataPtr)pop.userData();
   int* index = new int [data->nreq];
@@ -324,7 +324,7 @@ PopulationEvaluator(GAPopulation& pop) {
       }
     }
 
-// If we have any genomes waiting for their evaluation and any slaves have 
+// If we have any genomes waiting for their evaluation and any slaves have
 // posted a message stating that they have a finished score ready for us, get
 // the score from the slave and stuff it into the appropriate genome.
     if(outstanding > 0 && (bufid=pvm_nrecv(-1, MSG_GENOME_SCORE)) != 0) {

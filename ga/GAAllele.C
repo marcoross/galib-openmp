@@ -6,7 +6,7 @@
                      all rights reserved
 
  DESCRIPTION:
-   Definition for the allele set class and its core container.  
+   Definition for the allele set class and its core container.
 ---------------------------------------------------------------------------- */
 #ifndef _ga_allele_C_
 #define _ga_allele_C_
@@ -18,7 +18,7 @@
 #define GA_ALLELE_CHUNK 10
 
 template <class T>
-GAAlleleSetCore<T>::GAAlleleSetCore() : 
+GAAlleleSetCore<T>::GAAlleleSetCore() :
 type(GAAllele::ENUMERATED), csz(GA_ALLELE_CHUNK), sz(0), SZ(0), a(0) {
   lowerb = GAAllele::NONE;
   upperb = GAAllele::NONE;
@@ -27,7 +27,7 @@ type(GAAllele::ENUMERATED), csz(GA_ALLELE_CHUNK), sz(0), SZ(0), a(0) {
 }
 
 template <class T>
-GAAlleleSetCore<T>::GAAlleleSetCore(unsigned int n, const T array []) : 
+GAAlleleSetCore<T>::GAAlleleSetCore(unsigned int n, const T array []) :
 type(GAAllele::ENUMERATED), csz(GA_ALLELE_CHUNK), sz(n), SZ(GA_ALLELE_CHUNK) {
   while(SZ < sz) SZ += csz;
   a = new T [SZ];
@@ -42,8 +42,8 @@ type(GAAllele::ENUMERATED), csz(GA_ALLELE_CHUNK), sz(n), SZ(GA_ALLELE_CHUNK) {
 
 template <class T>
 GAAlleleSetCore<T>::
-GAAlleleSetCore(const T& lower, const T& upper, 
-		GAAllele::BoundType lb, GAAllele::BoundType ub) : 
+GAAlleleSetCore(const T& lower, const T& upper,
+		GAAllele::BoundType lb, GAAllele::BoundType ub) :
 type(GAAllele::BOUNDED), csz(GA_ALLELE_CHUNK), sz(2), SZ(2), a(new T[2]) {
   a[0] = lower;
   a[1] = upper;
@@ -56,7 +56,7 @@ type(GAAllele::BOUNDED), csz(GA_ALLELE_CHUNK), sz(2), SZ(2), a(new T[2]) {
 template <class T>
 GAAlleleSetCore<T>::
 GAAlleleSetCore(const T& lower, const T& upper, const T& increment,
-		GAAllele::BoundType lb, GAAllele::BoundType ub) : 
+		GAAllele::BoundType lb, GAAllele::BoundType ub) :
 type(GAAllele::DISCRETIZED), csz(GA_ALLELE_CHUNK), sz(3), SZ(3), a(new T[3]) {
   a[0] = lower;
   a[1] = upper;
@@ -91,7 +91,7 @@ GAAlleleSetCore<T>::~GAAlleleSetCore(){
 
 // Copying the contents of another allele set core does NOT change the current
 // count of the allele set core!
-template <class T> GAAlleleSetCore<T> & 
+template <class T> GAAlleleSetCore<T> &
 GAAlleleSetCore<T>::operator=(const GAAlleleSetCore<T> & orig){
   if(this == &orig) return *this;
 
@@ -131,7 +131,7 @@ GAAlleleSetCore<T>::operator=(const GAAlleleSetCore<T> & orig){
 
 // When we link to another allele set, we point our core to that one.  Be sure
 // that we have a core.  If not, just point.  If so, trash as needed.
-template <class T> void 
+template <class T> void
 GAAlleleSet<T>::link(GAAlleleSet<T>& set){
   if(&set != this){
     if(core != 0){
@@ -153,7 +153,7 @@ GAAlleleSet<T>::unlink(){
 
 
 
-// If everthing goes OK, return 0.  If there's an error, we return -1.  I 
+// If everthing goes OK, return 0.  If there's an error, we return -1.  I
 // really wish there were enough compilers doing exceptions to use them...
 template <class T> int
 GAAlleleSet<T>::add(const T & alle){
@@ -202,8 +202,8 @@ GAAlleleSet<T>::remove(unsigned int x){
 // When returning an allele from the set, we have to know what type we are.
 // The allele that we return depends on the type.  If we're an enumerated set
 // then just pick randomly from the list of alleles.  If we're a bounded set
-// then pick randomly from the bounds, and respect the bound types.  If we're 
-// a discretized set then we do much as we would for the bounded set, but we 
+// then pick randomly from the bounds, and respect the bound types.  If we're
+// a discretized set then we do much as we would for the bounded set, but we
 // respect the discretization.
 //   Be sure to specialize this member function (see the real genome for an
 // example of how to do this)
@@ -223,7 +223,7 @@ GAAlleleSet<T>::allele() const {
 
 
 // This works only for enumerated sets.  If someone tries to use this on a
-// non-enumerated set then we post an error message.  No bounds checking on 
+// non-enumerated set then we post an error message.  No bounds checking on
 // the value that was passed to us, but we do modulo it so that we'll never
 // break.  Also, this means you can wrap an allele set around an array that
 // is significantly larger than the allele set that defines its contents.
@@ -249,7 +249,7 @@ GAAlleleSet<T>::read(STD_ISTREAM&){
   GAErr(GA_LOC, "GAAlleleSet", "read", gaErrOpUndef);
   return 1;
 }
-template <class T> int 
+template <class T> int
 GAAlleleSet<T>::write(STD_OSTREAM &) const {
   GAErr(GA_LOC, "GAAlleleSet", "write", gaErrOpUndef);
   return 1;
@@ -315,7 +315,7 @@ GAAlleleSet<T>::read(STD_ISTREAM& is){
   else {
     is.clear(STD_IOS_BADBIT | is.rdstate());
     GAErr(GA_LOC, "GAAlleleSet", "read",
-	  "unrecognized allele set type.", 
+	  "unrecognized allele set type.",
 	  "Expected ENUMERATED, BOUNDED, or DISCRETIZED");
     return 1;
   }
@@ -324,7 +324,7 @@ GAAlleleSet<T>::read(STD_ISTREAM& is){
 
 // The default write method prints out the type of the allele set followed by
 // the contents.  We use a single space as our separator.
-template <class T> int 
+template <class T> int
 GAAlleleSet<T>::write(STD_OSTREAM & os) const {
   switch(core->type){
   case GAAllele::ENUMERATED:
@@ -358,7 +358,7 @@ GAAlleleSet<T>::write(STD_OSTREAM & os) const {
 #endif
 
 // could do these with a memcmp if the type is simple...
-template <class T> int 
+template <class T> int
 operator==(const GAAlleleSet<T> & a, const GAAlleleSet<T> & b) {
   if(a.core == b.core) return 1;
   if(a.core == 0 || b.core == 0) return 0;
@@ -369,7 +369,7 @@ operator==(const GAAlleleSet<T> & a, const GAAlleleSet<T> & b) {
   return((i == a.core->sz) ? 1 : 0);
 }
 
-template <class T> int 
+template <class T> int
 operator!=(const GAAlleleSet<T> & a, const GAAlleleSet<T> & b) {
   if(a.core == b.core) return 0;
   if(a.core == 0 || b.core == 0) return 1;
@@ -399,14 +399,14 @@ csz(GA_ALLELE_CHUNK), sz(0), SZ(0), aset(0) {}
 
 template <class T>
 GAAlleleSetArray<T>::GAAlleleSetArray(const GAAlleleSet<T>& s) :
-csz(GA_ALLELE_CHUNK), sz(1), SZ(GA_ALLELE_CHUNK), 
+csz(GA_ALLELE_CHUNK), sz(1), SZ(GA_ALLELE_CHUNK),
 aset(new GAAlleleSet<T> * [GA_ALLELE_CHUNK]) {
   aset[0] = new GAAlleleSet<T>(s);
 }
 
 template <class T>
 GAAlleleSetArray<T>::GAAlleleSetArray(const GAAlleleSetArray<T>& orig) :
-csz(orig.csz), sz(orig.sz), SZ(orig.SZ), 
+csz(orig.csz), sz(orig.sz), SZ(orig.SZ),
 aset(new GAAlleleSet<T> * [orig.SZ]) {
   for(unsigned int i=0; i<sz; i++)
     aset[i] = new GAAlleleSet<T>(orig.set(i));

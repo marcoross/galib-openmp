@@ -23,9 +23,9 @@ compact, etc implementation).
 #include <iostream.h>
 #include <ga/ga.h>		// this is the include file for the ga library
 
-// When this is defined, use the GNU BitString otherwise we use the 
+// When this is defined, use the GNU BitString otherwise we use the
 // GA1DBinaryString that is built in to GAlib.
-#define USE_GNU	
+#define USE_GNU
 
 #ifdef USE_GNU
 #include "bitstr.h"		// this header contains the genome we defined
@@ -50,7 +50,7 @@ main() {
   int ngen     = 1000;
   float pmut   = 0.001;
   float pcross = 0.9;
-  int which = 
+  int which =
     GAStatistics::Maximum | GAStatistics::Minimum | GAStatistics::Mean;
 
 // Now create the GA and run it.  First we create a genome of the type that
@@ -61,7 +61,7 @@ main() {
 
 // Now that we have the genome, we create the genetic algorithm and set
 // its parameters - number of generations, mutation probability, and crossover
-// probability.  We tell the ga to keep the single best genome of all the 
+// probability.  We tell the ga to keep the single best genome of all the
 // generations, then tell the GA to evolve itself.
 
   GASteadyStateGA ga(genome);
@@ -85,7 +85,7 @@ main() {
 
   return 0;
 }
- 
+
 
 
 

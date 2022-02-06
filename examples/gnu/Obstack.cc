@@ -1,4 +1,4 @@
-/* 
+/*
 Copyright (C) 1988 Free Software Foundation
     written by Doug Lea (dl@rocky.oswego.edu)
 
@@ -100,13 +100,13 @@ void* Obstack::finish()
 int Obstack::contains(void* obj) // true if obj somewhere in Obstack
 {
   _obstack_chunk* ch;
-  for (ch = chunk; 
-       ch != 0 && (obj < (void*)ch || obj >= (void*)(ch->limit)); 
+  for (ch = chunk;
+       ch != 0 && (obj < (void*)ch || obj >= (void*)(ch->limit));
        ch = ch->prev);
 
   return ch != 0;
 }
-         
+
 int Obstack::OK()
 {
   int v = chunksize > 0;        // valid size
@@ -121,7 +121,7 @@ int Obstack::OK()
   long x = LONG_MAX;
   while (p != 0 && x != 0) { --x; p = p->prev; }
   v &= x > 0;
-  if (!v) 
+  if (!v)
     (*lib_error_handler)("Obstack", "invariant failure");
   return v;
 }

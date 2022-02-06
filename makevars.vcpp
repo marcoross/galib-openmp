@@ -5,7 +5,7 @@
 
 LIB_NAME= ga
 
-### Set these directories to whatever is appropriate for your system.  These 
+### Set these directories to whatever is appropriate for your system.  These
 ### used only if you do a 'make install'.  They specify where the library and
 ### header files should be installed.
 DESTDIR=c:\temp
@@ -41,15 +41,15 @@ CFLAGS   = /nologo /D_WINDOWS /DWIN32 /D_MBCS /W3 /GR /GX /TP
 LFLAGS   = /nologo /subsystem:console /incremental:no
 
 !ifdef RELEASE_BUILD
-CXXDLLFLAGS  = $(CFLAGS) /DNDEBUG /MD /O2 
-CXXLIBFLAGS  = $(CFLAGS) /DNDEBUG /MT /O2 
+CXXDLLFLAGS  = $(CFLAGS) /DNDEBUG /MD /O2
+CXXLIBFLAGS  = $(CFLAGS) /DNDEBUG /MT /O2
 CXXEXEFLAGS  = $(CFLAGS) /DNDEBUG /MT /O2
 LINKFLAGS    = $(LFLAGS)
 !else
 CXXDLLFLAGS  = $(CFLAGS) /D_DEBUG /MDd /Od /Zi
-CXXLIBFLAGS  = $(CFLAGS) /D_DEBUG /MTd /Od /Zi 
-CXXEXEFLAGS  = $(CFLAGS) /D_DEBUG /MTd /Od /Zi 
-LINKFLAGS    = $(LFLAGS) /debug 
+CXXLIBFLAGS  = $(CFLAGS) /D_DEBUG /MTd /Od /Zi
+CXXEXEFLAGS  = $(CFLAGS) /D_DEBUG /MTd /Od /Zi
+LINKFLAGS    = $(LFLAGS) /debug
 !endif
 
 !ifdef SHARED_BUILD

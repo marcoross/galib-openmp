@@ -45,14 +45,14 @@ GAGetRNG() {
 #endif
 }
 
-// Seed the random number generator with an appropriate value.  We seed both 
+// Seed the random number generator with an appropriate value.  We seed both
 // the random number generator and the random bit generator.  Set the seed only
-// if a seed is not specified.  If a seed is specified, then set the seed to 
+// if a seed is not specified.  If a seed is specified, then set the seed to
 // the specified value and use it.  We remember the seed so that multiple calls
 // to this function with the same seed do not reset the generator.  Subsequent
 // calls to this function with a different seed will initialize the generator
 // to the new seed.  Multiple calls with a value of 0 do nothing (we do *not*
-// re-seed the generator because 0 is the default value and we don't want 
+// re-seed the generator because 0 is the default value and we don't want
 // people to re-seed the generator inadvertantly).
 //   Some systems return a long as the return value for time, so we need to be
 // sure to get whatever variation from it that we can since our seed is only an
@@ -61,7 +61,7 @@ static unsigned int seed=0;
 
 unsigned int GAGetRandomSeed() { return seed; }
 
-void 
+void
 GARandomSeed(unsigned int s) {
   if(s == 0 && seed == 0) {
     unsigned long int tmp;
@@ -70,12 +70,12 @@ GARandomSeed(unsigned int s) {
       for(unsigned int i=0; i<GALIB_BITS_IN_WORD*sizeof(unsigned int); i++)
 	seed += (tmp & (1 << i));
     }
-    _GA_RND_SEED (seed); 
+    _GA_RND_SEED (seed);
     bitseed(seed);
   }
   else if(s != 0 && seed != s) {
     seed = s;
-    _GA_RND_SEED (seed); 
+    _GA_RND_SEED (seed);
     bitseed(seed);
   }
 }
@@ -86,7 +86,7 @@ void
 GAResetRNG(unsigned int s) {
   if(s != 0) {
     seed = s;
-    _GA_RND_SEED (seed); 
+    _GA_RND_SEED (seed);
     bitseed(seed);
   }
 }
@@ -98,13 +98,13 @@ GAResetRNG(unsigned int s) {
 
 // Return a number from a unit Gaussian distribution.  The mean is 0 and the
 // standard deviation is 1.0.
-//   First we generate two uniformly random variables inside the complex unit 
-// circle.  Then we transform these into Gaussians using the Box-Muller 
-// transformation.  This method is described in Numerical Recipes in C 
+//   First we generate two uniformly random variables inside the complex unit
+// circle.  Then we transform these into Gaussians using the Box-Muller
+// transformation.  This method is described in Numerical Recipes in C
 // ISBN 0-521-43108-5 at http://world.std.com/~nr
-//   When we find a number, we also find its twin, so we cache that here so 
-// that every other call is a lookup rather than a calculation.  (I think GNU 
-// does this in their implementations as well, but I don't remember for 
+//   When we find a number, we also find its twin, so we cache that here so
+// that every other call is a lookup rather than a calculation.  (I think GNU
+// does this in their implementations as well, but I don't remember for
 // certain.)
 double
 GAUnitGaussian(){
@@ -150,12 +150,12 @@ GAUnitGaussian(){
 
 static unsigned long iseed;
 
-void 
+void
 bitseed(unsigned int seed) {
   iseed = seed;
 }
 
-int 
+int
 GARandomBit() {
   if (iseed & IB18) {
     iseed=((iseed ^ MASK) << 1) | IB1;
@@ -278,7 +278,7 @@ static long iy=0;
 static long iv[NTAB];
 static long idum=0;
 
-void 
+void
 gasran2(unsigned int seed) {
   int j;
   long k;
@@ -346,7 +346,7 @@ garan2() {
 static int inext,inextp;
 static long ma[56];
 
-void 
+void
 gasran3(unsigned int seed) {
   long idum = seed;
   long mj,mk;
@@ -372,11 +372,11 @@ gasran3(unsigned int seed) {
   inextp=31;
 }
 
-float 
+float
 garan3() {
   long mj;
   int i,ii,k;
-  
+
   if (++inext == 56) inext=1;
   if (++inextp == 56) inextp=1;
   mj=ma[inext]-ma[inextp];

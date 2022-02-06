@@ -10,9 +10,9 @@
 ---------------------------------------------------------------------------- */
 #include <ga/GAStringGenome.h>
 
-template <> const char * 
+template <> const char *
 GA1DArrayAlleleGenome<char>::className() const {return "GAStringGenome";}
-template <> int 
+template <> int
 GA1DArrayAlleleGenome<char>::classID() const {return GAID::StringGenome;}
 
 template <> GA1DArrayAlleleGenome<char>::
@@ -44,7 +44,7 @@ GA1DArrayGenome<char>(sa.size(), f, u){
   crossover(DEFAULT_STRING_CROSSOVER);
 }
 
-template <> 
+template <>
 GA1DArrayAlleleGenome<char>::~GA1DArrayAlleleGenome(){
   delete [] aset;
 }
@@ -88,7 +88,7 @@ GA1DArrayAlleleGenome<char>::write(STD_OSTREAM & os) const
 //
 // These must be included _after_ the specializations because some compilers
 // get all wigged out about the declaration/specialization order.  Note that
-// some compilers require a syntax different than others when forcing the 
+// some compilers require a syntax different than others when forcing the
 // instantiation (i.e. GNU wants the 'template class', borland does not).
 #ifndef GALIB_USE_AUTO_INST
 #include <ga/GAAllele.C>

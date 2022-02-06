@@ -24,9 +24,9 @@ resize
   to specify the bounds in which the resize can occur.
 
 copy
-    Copy bits from the specified genome using the location and length 
-  that are passed to us.  If the current genome is too short for the 
-  entire length, copy whatever we can.  If the original genome is too 
+    Copy bits from the specified genome using the location and length
+  that are passed to us.  If the current genome is too short for the
+  entire length, copy whatever we can.  If the original genome is too
   short for the specified length, copy whatever we can.  If either location
   is out of bounds, return without doing anything.
     We do NOT check for negative values in the locations!
@@ -50,13 +50,13 @@ public:
   static void UnsetInitializer(GAGenome &);
   static void SetInitializer(GAGenome &);
   static int FlipMutator(GAGenome &, float);
-  static int UniformCrossover(const GAGenome&, const GAGenome&, 
+  static int UniformCrossover(const GAGenome&, const GAGenome&,
 			      GAGenome*, GAGenome*);
-  static int EvenOddCrossover(const GAGenome&, const GAGenome&, 
+  static int EvenOddCrossover(const GAGenome&, const GAGenome&,
 			      GAGenome*, GAGenome*);
-  static int OnePointCrossover(const GAGenome&, const GAGenome&, 
+  static int OnePointCrossover(const GAGenome&, const GAGenome&,
 			      GAGenome*, GAGenome*);
-  static int TwoPointCrossover(const GAGenome&, const GAGenome&, 
+  static int TwoPointCrossover(const GAGenome&, const GAGenome&,
 			      GAGenome*, GAGenome*);
   static float BitComparator(const GAGenome&, const GAGenome&);
 
@@ -83,7 +83,7 @@ public:
   virtual int equal(const GAGenome & c) const;
 
   short gene(unsigned int x=0) const {return bit(x);}
-  short gene(unsigned int x, short value) 
+  short gene(unsigned int x, short value)
     {_evaluated = gaFalse; return((bit(x) == value) ? value : bit(x,value));}
   short operator[](unsigned int x) {return gene(x);}
   int length() const {return nx;}
@@ -115,7 +115,7 @@ protected:
 
 
 
-inline void  
+inline void
 GA1DBinaryStringGenome::copy(const GA1DBinaryStringGenome & orig,
 			     unsigned int r, unsigned int x, unsigned int l){
   if(l > 0 && x < orig.nx && r < nx){
@@ -125,25 +125,25 @@ GA1DBinaryStringGenome::copy(const GA1DBinaryStringGenome & orig,
   }
   _evaluated = gaFalse;
 }
-inline void  
+inline void
 GA1DBinaryStringGenome::set(unsigned int x, unsigned int l){
   if(x + l > nx) l = nx - x;
   GABinaryString::set(x, l);
   _evaluated = gaFalse;
 }
-inline void  
+inline void
 GA1DBinaryStringGenome::unset(unsigned int x, unsigned int l){
   if(x + l > nx) l = nx - x;
   GABinaryString::unset(x, l);
   _evaluated = gaFalse;
 }
-inline void  
+inline void
 GA1DBinaryStringGenome::randomize(unsigned int x, unsigned int l){
   if(x + l > nx) l = nx - x;
   GABinaryString::randomize(x, l);
   _evaluated = gaFalse;
 }
-inline void  
+inline void
 GA1DBinaryStringGenome::move(unsigned int x, unsigned int srcx,unsigned int l){
   if(srcx + l > nx) l = nx - srcx;
   if(x + l > nx) l = nx - x;

@@ -24,15 +24,15 @@ ListBASE
 ---------------------------------------------------------------------------- */
 // Insert node n into the list relative to node idx.  There are three different
 // insertion modes:  head, before, and after.  If there is no head node,
-// then the node n becomes the head no matter what.  
+// then the node n becomes the head no matter what.
 //   We have to check to see if the node that is going in is an isolated node
 // or contains other nodes.  If it is linked to other nodes, then we put the
 // entire set of nodes into the list.  If the nodes' prev and next are NULL or
 // point to itself, then we stick only it into the list.
 //   head:  idx is ignored.  The previous head pointer becomes 'next' to the
 // new head.
-//   before:  If node idx is the first in a row in the list, then n becomes 
-// the first in the row.  If idx is the head node, then we post an error 
+//   before:  If node idx is the first in a row in the list, then n becomes
+// the first in the row.  If idx is the head node, then we post an error
 // message (can't have more than one head node).
 //   after:  If the node idx is the last in a row, n becomes the last node.  If
 // idx is the head node, we post an error.
@@ -56,7 +56,7 @@ GAListBASE::insert(GANodeBASE * n, GANodeBASE * idx, Location where)
       last->next = hd;
       n->prev = hd->prev;
       hd->prev->next = n;
-      hd->prev = last;      
+      hd->prev = last;
     }
     hd = n;
     if(!hd->next) hd->next = hd;
@@ -137,12 +137,12 @@ GAListBASE::remove(GANodeBASE * n)
 // don't do anything.  This moves the two nodes.  Note
 // that swapping two nodes shouldn't change the size or depth of the list, so
 // we don't set the change flags.
-//   If either of the nodes is the head of the list, we change the head to 
+//   If either of the nodes is the head of the list, we change the head to
 // point to the node that got swapped.  Note that if you pass nodes that are
-// in different trees and one of the nodes is a head node, you'll lose an 
+// in different trees and one of the nodes is a head node, you'll lose an
 // entire list!
-//   There is a special case we must handle when the nodes are adjacent.  We 
-// assume that the nodes are intact - we don't check for bogus node 
+//   There is a special case we must handle when the nodes are adjacent.  We
+// assume that the nodes are intact - we don't check for bogus node
 // configurations.  We assume that there are no NULL prev or next pointers on
 // either node.
 //   For now we assume that both nodes are in the same list.  If we ever
@@ -209,12 +209,12 @@ GAListBASE::swapnode(GANodeBASE * a, GANodeBASE * b)
 
 // Return the number of nodes in the list.  We do a complete traversal of the
 // list and count the number of nodes that we encounter.  Could do this breadth
-// first or depth first - doesn't really matter.  We have to traverse the 
+// first or depth first - doesn't really matter.  We have to traverse the
 // entire list to do the count.
 //   We have to do a little work-around here to get through the const-ness of
 // the size method.  Its ok to call size on a const object because it does not
 // modify the logical state of the object.  It does, however, modify the
-// physical state of the object.  So to work around the strictness of the 
+// physical state of the object.  So to work around the strictness of the
 // const specifier, we do a little pointer magic and cast this to be non-const.
 int
 GAListBASE::size() const
@@ -253,7 +253,7 @@ GAListIterBASE::warp(unsigned int x)
 /* ----------------------------------------------------------------------------
 utilities
 ---------------------------------------------------------------------------- */
-// Traverse the list until we come to the indexed node.  Return NULL if 
+// Traverse the list until we come to the indexed node.  Return NULL if
 // cur != index.  We count relative to the node that is passed to this routine
 // so to get an absolute count, pass 0 for 'cur' and the root node for 'node'.
 //   If the index is out of bounds, we return NULL.

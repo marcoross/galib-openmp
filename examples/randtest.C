@@ -42,7 +42,7 @@ main(int argc, char **argv)
   cerr << "               specify the same seed every time.  A seed of 0\n";
   cerr << "               tells the lib to pick its own seed based upon the\n";
   cerr << "               current time.\n";
-  cerr << "\n"; 
+  cerr << "\n";
   cerr.flush();
 
   int dohist = 0;
@@ -131,7 +131,7 @@ main(int argc, char **argv)
       for(i=0; i<NCHI; i++)
 	f[GARandomInt(0,RCHI-1)]++;
       for(i=0; i<RCHI; i++)
-	chisq += ((double)f[i] - (double)NCHI / (double)RCHI) * 
+	chisq += ((double)f[i] - (double)NCHI / (double)RCHI) *
 	  ((double)f[i] - (double)NCHI / (double)RCHI);
       chisq *= (double)RCHI / (double)NCHI;
       cout << "    run #" << ii << "\t" << chisq << "\t";
@@ -218,7 +218,7 @@ main(int argc, char **argv)
       cout << "\n";
     }
     cout.flush();
-    
+
     memset(histogram, 0, HIST_SIZE*sizeof(int));
     cout << "\n100 random integers in [0, 1] with GARandomInt(0,1):\n";
     for(i=0; i<100; i++)
@@ -230,7 +230,7 @@ main(int argc, char **argv)
       cout << "\n";
     }
     cout.flush();
-    
+
     memset(histogram, 0, HIST_SIZE*sizeof(int));
     cout<<"\n10000 random integers in [-20, -10] with GARandomInt(-20,-10):\n";
     for(i=0; i<10000; i++)
@@ -242,7 +242,7 @@ main(int argc, char **argv)
       cout << "\n";
     }
     cout.flush();
-    
+
     memset(histogram, 0, HIST_SIZE*sizeof(int));
     cout << "\n300 random integers in [0, 5] with GARandomInt(0,5):\n";
     for(i=0; i<300; i++)
@@ -254,7 +254,7 @@ main(int argc, char **argv)
       cout << "\n";
     }
     cout.flush();
-    
+
     memset(histogram, 0, HIST_SIZE*sizeof(int));
     cout << "\n10000 random integers in [0, 100] with GARandomInt(0,100):\n";
     for(i=0; i<10000; i++)
@@ -266,7 +266,7 @@ main(int argc, char **argv)
       cout << "\n";
     }
     cout.flush();
-    
+
     memset(histogram, 0, HIST_SIZE*sizeof(int));
     cout<<"\n10000 random integers in [-10, 100] with GARandomInt(-10,100):\n";
     for(i=0; i<10000; i++)
@@ -296,42 +296,42 @@ main(int argc, char **argv)
       counter += GARandomBit();
     cout << counter << " hits (should be about " << 0.5*NFLIPS << ")\n";
     cout.flush();
-    
+
     counter = 0;
     cout << NFLIPS << " calls to GARandomInt()\t\t";
     for(i=0; i<NFLIPS; i++)
       counter += GARandomInt();
     mean = counter/(double)NFLIPS;
     cout << mean << " (should be about 0.5)\n"; cout.flush();
-    
+
     counter = 0;
     cout << NFLIPS << " calls to GARandomInt(0,5)\t\t";
     for(i=0; i<NFLIPS; i++)
       counter += GARandomInt(0,5);
     mean = counter/(double)NFLIPS;
     cout << mean << " (should be about 2.5)\n"; cout.flush();
-    
+
     counter = 0;
     cout << NFLIPS << " calls to GARandomFloat()\t\t";
     for(i=0; i<NFLIPS; i++)
       counter += GARandomFloat();
     mean = counter/(double)NFLIPS;
     cout << mean << " (should be about 0.5)\n"; cout.flush();
-    
+
     counter = 0;
     cout << NFLIPS << " calls to GARandomFloat(0,5)\t";
     for(i=0; i<NFLIPS; i++)
       counter += GARandomFloat(0,5);
     mean = counter/(double)NFLIPS;
     cout << mean << " (should be about 2.5)\n"; cout.flush();
-        
+
     counter = 0;
     cout << NFLIPS << " calls to GARandomFloat(-10,-5)\t";
     for(i=0; i<NFLIPS; i++)
       counter += GARandomFloat(-10,-5);
     mean = counter/(double)NFLIPS;
     cout << mean << " (should be about -7.5)\n"; cout.flush();
-        
+
     counter = 0;
     cout << NFLIPS << " calls to GARandomFloat(-10,10)\t";
     for(i=0; i<NFLIPS; i++)
@@ -345,28 +345,28 @@ main(int argc, char **argv)
       counter += GARandomDouble();
     mean = counter/(double)NFLIPS;
     cout << mean << " (should be about 0.5)\n"; cout.flush();
-    
+
     counter = 0;
     cout << NFLIPS << " calls to GARandomDouble(0,2)\t";
     for(i=0; i<NFLIPS; i++)
       counter += GARandomDouble(0,2);
     mean = counter/(double)NFLIPS;
     cout << mean << " (should be about 1.0)\n"; cout.flush();
-    
+
     counter = 0;
     cout << NFLIPS << " calls to GARandomDouble(0,5)\t";
     for(i=0; i<NFLIPS; i++)
       counter += GARandomDouble(0,5);
     mean = counter/(double)NFLIPS;
     cout << mean << " (should be about 2.5)\n"; cout.flush();
-    
+
     counter = 0;
     cout << NFLIPS << " calls to GARandomDouble(-10,-5)\t";
     for(i=0; i<NFLIPS; i++)
       counter += GARandomDouble(-10,-5);
     mean = counter/(double)NFLIPS;
     cout << mean << " (should be about -7.5)\n"; cout.flush();
-        
+
     counter = 0;
     cout << NFLIPS << " calls to GARandomDouble(-10,10)\t";
     for(i=0; i<NFLIPS; i++)
@@ -375,7 +375,7 @@ main(int argc, char **argv)
     cout << mean << " (should be about 0.0)\n"; cout.flush();
 
     // check means of repeated coin tosses
-    
+
     cout << "\n";
     float ave;
     cout << "[0, 1] with GARandomFloat()...\t\t";
@@ -392,7 +392,7 @@ main(int argc, char **argv)
       ave += GARandomFloat();
     cout << ave/50 << "\n";
     cout.flush();
-    
+
     cout << "[0, 1] with GARandomFloat(0,1)...\t";
     ave = 0;
     for(i=0; i<50; i++)
@@ -407,7 +407,7 @@ main(int argc, char **argv)
       ave += GARandomFloat(0,1);
     cout << ave/50 << "\n";
     cout.flush();
-    
+
     cout << "[0, 100] with GARandomFloat(0,100)...\t";
     ave = 0;
     for(i=0; i<50; i++)
@@ -422,7 +422,7 @@ main(int argc, char **argv)
       ave += GARandomFloat(0,100);
     cout << ave/50 << "\n";
     cout.flush();
-    
+
     double aved;
     cout << "[0, 1] with GARandomDouble()...\t\t";
     aved = 0;
@@ -438,7 +438,7 @@ main(int argc, char **argv)
       aved += GARandomDouble();
     cout << aved/50 << "\n";
     cout.flush();
-    
+
     cout << "[0, 1] with GARandomDouble(0,1)...\t";
     aved = 0;
     for(i=0; i<50; i++)
@@ -453,7 +453,7 @@ main(int argc, char **argv)
       aved += GARandomDouble(0,1);
     cout << aved/50 << "\n";
     cout.flush();
-    
+
     cout << "[0, 100] with GARandomDouble(0,100)...\t";
     aved = 0;
     for(i=0; i<50; i++)
@@ -468,9 +468,9 @@ main(int argc, char **argv)
       aved += GARandomDouble(0,100);
     cout << aved/50 << "\n";
     cout.flush();
-    
+
     cout << "\n";
-    
+
     int count;
     cout << "1% coin flip...\t\t";
     count = 0;
@@ -489,7 +489,7 @@ main(int argc, char **argv)
     counter = (double)count / (double)i;
     cout << counter << "\n";
     cout.flush();
-    
+
     cout << "25% coin flip...\t";
     count = 0;
     for(i=0; i<NFLIPS; i++)
@@ -525,7 +525,7 @@ main(int argc, char **argv)
     counter = (double)count / (double)i;
     cout << counter << "\n";
     cout.flush();
-    
+
     cout << "75% coin flip...\t";
     count = 0;
     for(i=0; i<NFLIPS; i++)
@@ -543,7 +543,7 @@ main(int argc, char **argv)
     counter = (double)count / (double)i;
     cout << counter << "\n";
     cout.flush();
-    
+
     cout << "99% coin flip...\t";
     count = 0;
     for(i=0; i<NFLIPS; i++)
@@ -561,7 +561,7 @@ main(int argc, char **argv)
     counter = (double)count / (double)i;
     cout << counter << "\n";
     cout.flush();
-    
+
     long lcount;
     cout << "\ncalls to GARandomBit (these should yield 50%)...\n";
     lcount = 0;
@@ -603,7 +603,7 @@ main(int argc, char **argv)
     if(err) cout << " " << err << " values out of bounds.\n";
     else cout << "ok\n";
     cout.flush();
-    
+
     cerr << "  " << NUM_CHECKS << "  GARandomInt(0,3)...\n";
     cout << "GARandomInt(0,3) ..."; cout.flush();
     err = 0;
@@ -614,7 +614,7 @@ main(int argc, char **argv)
     if(err) cout << " " << err << " values out of bounds.\n";
     else cout << "ok\n";
     cout.flush();
-    
+
     cerr << "  " << NUM_CHECKS << "  GARandomInt(200,255)...\n";
     cout << "GARandomInt(200,255) ..."; cout.flush();
     err = 0;
@@ -637,7 +637,7 @@ main(int argc, char **argv)
     if(err) cout << " " << err << " values out of bounds (" << lastf << ").\n";
     else cout << "ok\n";
     cout.flush();
-    
+
     cerr << "  " << NUM_CHECKS << "  GARandomFloat(0,3)...\n";
     cout << "GARandomFloat(0,3) ..."; cout.flush();
     err = 0;
@@ -648,7 +648,7 @@ main(int argc, char **argv)
     if(err) cout << " " << err << " values out of bounds (" << lastf << ").\n";
     else cout << "ok\n";
     cout.flush();
-    
+
     cerr << "  " << NUM_CHECKS << "  GARandomFloat(200,255)...\n";
     cout << "GARandomFloat(200,255) ..."; cout.flush();
     err = 0;
@@ -671,7 +671,7 @@ main(int argc, char **argv)
     if(err) cout << " " << err << " values out of bounds (" << lastd << ").\n";
     else cout << "ok\n";
     cout.flush();
-    
+
     cerr << "  " << NUM_CHECKS << "  GARandomDouble(0,3)...\n";
     cout << "GARandomDouble(0,3) ..."; cout.flush();
     err = 0;
@@ -682,7 +682,7 @@ main(int argc, char **argv)
     if(err) cout << " " << err << " values out of bounds (" << lastd << ").\n";
     else cout << "ok\n";
     cout.flush();
-    
+
     cerr << "  " << NUM_CHECKS << "  GARandomDouble(200,255)...\n";
     cout << "GARandomDouble(200,255) ..."; cout.flush();
     err = 0;

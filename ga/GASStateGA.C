@@ -56,7 +56,7 @@ GASteadyStateGA::GASteadyStateGA(const GAPopulation& p): GAGeneticAlgorithm(p){
 
   which = USE_PREPL;
 }
-GASteadyStateGA::GASteadyStateGA(const GASteadyStateGA& ga) : 
+GASteadyStateGA::GASteadyStateGA(const GASteadyStateGA& ga) :
 GAGeneticAlgorithm(ga) {
   tmpPop = (GAPopulation *)0;
   copy(ga);
@@ -66,21 +66,21 @@ GASteadyStateGA::~GASteadyStateGA(){
 }
 GASteadyStateGA&
 GASteadyStateGA::operator=(const GASteadyStateGA& ga){
-  if(&ga != this) copy(ga); 
+  if(&ga != this) copy(ga);
   return *this;
 }
 void
 GASteadyStateGA::copy(const GAGeneticAlgorithm & g){
   GAGeneticAlgorithm::copy(g);
   const GASteadyStateGA& ga = DYN_CAST(const GASteadyStateGA&, g);
-  
+
   pRepl = ga.pRepl;
   nRepl = ga.nRepl;
-  
+
   if(tmpPop) tmpPop->copy(*(ga.tmpPop));
   else tmpPop = ga.tmpPop->clone();
   tmpPop->geneticAlgorithm(*this);
-  
+
   which = ga.which;
 }
 
@@ -118,7 +118,7 @@ GASteadyStateGA::get(const char* name, void* value) const {
     *((float*)value) = pRepl;
     status = 0;
   }
-  else if(strcmp(name, gaNnReplacement) == 0 || 
+  else if(strcmp(name, gaNnReplacement) == 0 ||
 	  strcmp(name, gaSNnReplacement) == 0){
     *((int*)value) = nRepl;
     status = 0;
@@ -127,7 +127,7 @@ GASteadyStateGA::get(const char* name, void* value) const {
 }
 
 
-void 
+void
 GASteadyStateGA::objectiveFunction(GAGenome::Evaluator f){
   GAGeneticAlgorithm::objectiveFunction(f);
   for(int i=0; i<tmpPop->size(); i++)
@@ -203,7 +203,7 @@ GASteadyStateGA::pReplacement(float value){
   float n = ((value*(float)pop->size() < 1) ? 1 : value*(float)pop->size());
   nRepl = (unsigned int)n;
   params.set(gaNnReplacement, (unsigned int)nRepl);
-  
+
   which = USE_PREPL;
 
   tmpPop->size(nRepl);
@@ -222,10 +222,10 @@ GASteadyStateGA::nReplacement(unsigned int value){
 
   params.set(gaNnReplacement, (unsigned int)value);
   nRepl = value;
-    
+
   pRepl = (float)nRepl / (float)pop->size();
   params.set(gaNpReplacement, (double)pRepl);
-    
+
   which = USE_NREPL;
 
   tmpPop->size(nRepl);
@@ -233,8 +233,8 @@ GASteadyStateGA::nReplacement(unsigned int value){
   return nRepl;
 }
 
-int 
-GASteadyStateGA::minimaxi(int m) { 
+int
+GASteadyStateGA::minimaxi(int m) {
   GAGeneticAlgorithm::minimaxi(m);
   if(m == MINIMIZE)
     tmpPop->order(GAPopulation::LOW_IS_BEST);
@@ -263,7 +263,7 @@ GASteadyStateGA::initialize(unsigned int seed)
 
   stats.reset(*pop);
 
-  if(!scross) 
+  if(!scross)
     GAErr(GA_LOC, className(), "initialize", gaErrNoSexualMating);
 }
 
@@ -280,17 +280,17 @@ GASteadyStateGA::step()
   int i, mut, c1, c2;
   GAGenome *mom, *dad;          // tmp holders for selected genomes
 
-// Generate the individuals in the temporary population from individuals in 
+// Generate the individuals in the temporary population from individuals in
 // the main population.
 
   for(i=0; i<tmpPop->size()-1; i+=2){	// takes care of odd population
-    mom = &(pop->select());  
+    mom = &(pop->select());
     dad = &(pop->select());
     stats.numsel += 2;		// keep track of number of selections
 
     c1 = c2 = 0;
     if(GAFlipCoin(pCrossover())){
-      stats.numcro += (*scross)(*mom, *dad, &tmpPop->individual(i), 
+      stats.numcro += (*scross)(*mom, *dad, &tmpPop->individual(i),
 				&tmpPop->individual(i+1));
       c1 = c2 = 1;
     }
@@ -306,7 +306,7 @@ GASteadyStateGA::step()
     stats.numeval += c1 + c2;
   }
   if(tmpPop->size() % 2 != 0){	// do the remaining population member
-    mom = &(pop->select());  
+    mom = &(pop->select());
     dad = &(pop->select());
     stats.numsel += 2;		// keep track of number of selections
 
@@ -339,8 +339,8 @@ GASteadyStateGA::step()
   pop->evaluate();		// get info about current pop for next time
   pop->scale();			// remind the population to do its scaling
 
-// the individuals in tmpPop are all owned by pop, but tmpPop does not know 
-// that.  so we use replace to take the individuals from the pop and stick 
+// the individuals in tmpPop are all owned by pop, but tmpPop does not know
+// that.  so we use replace to take the individuals from the pop and stick
 // them back into tmpPop
   for(i=0; i<tmpPop->size(); i++)
     tmpPop->replace(pop->remove(GAPopulation::WORST, GAPopulation::SCALED), i);

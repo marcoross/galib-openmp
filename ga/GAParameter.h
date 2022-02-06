@@ -2,7 +2,7 @@
 /* ----------------------------------------------------------------------------
   parameters.h
   mbwall 14jul95
-  Copyright (c) 1995 Massachusetts Institute of Technology 
+  Copyright (c) 1995 Massachusetts Institute of Technology
                      all rights reserved
 
  DESCRIPTION:
@@ -32,9 +32,9 @@ public:
   void copy(const GAParameter&);
   char* fullname() const { return fname; }
   char* shrtname() const { return sname; }
-  const void* value() const 
+  const void* value() const
     { return (t==STRING ? val.sval : (t==POINTER ? val.pval : &val)); }
-  const void* value(const void* v) 
+  const void* value(const void* v)
     {setvalue(v); return(t==STRING ? val.sval : (t==POINTER ? val.pval:&val));}
   Type type() const { return t; }
 
@@ -61,7 +61,7 @@ protected:
 /* ----------------------------------------------------------------------------
    The parameter list is implemented as an array, but has the interface of a
 list.  Don't ask.  You can traverse through the list to get the parameters that
-you need.  Be sure to check the type before you try to extract the value for 
+you need.  Be sure to check the type before you try to extract the value for
 any specific parameter in the list.
 ---------------------------------------------------------------------------- */
 class GAParameterList {

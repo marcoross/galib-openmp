@@ -1,5 +1,5 @@
 // This may look like C code, but it is really -*- C++ -*-
-/* 
+/*
 Copyright (C) 1988 Free Software Foundation
     written by Doug Lea (dl@rocky.oswego.edu)
 
@@ -140,7 +140,7 @@ public:
 
   friend void        complement(const BitString&, BitString&);
 
-  friend int         lcompare(const BitString&, const BitString&); 
+  friend int         lcompare(const BitString&, const BitString&);
 
 // assignment-based operators
 // (constuctive versions decalred inline below
@@ -164,7 +164,7 @@ public:
 
   void               clear(int pos);
   void               clear(int from, int to);
-  void               clear(); 
+  void               clear();
 
   void               invert(int pos);
   void               invert(int from, int to);
@@ -190,7 +190,7 @@ public:
 
 // searching & matching
 
-  int                index(unsigned int bit, int startpos = 0) const ;      
+  int                index(unsigned int bit, int startpos = 0) const ;
   int                index(const BitString&, int startpos = 0) const;
   int                index(const BitSubString&, int startpos = 0) const;
   int                index(const BitPattern&, int startpos = 0) const;
@@ -210,9 +210,9 @@ public:
 // BitSubString extraction
 
   BitSubString       at(int pos, int len);
-  BitSubString       at(const BitString&, int startpos = 0); 
-  BitSubString       at(const BitSubString&, int startpos = 0); 
-  BitSubString       at(const BitPattern&, int startpos = 0); 
+  BitSubString       at(const BitString&, int startpos = 0);
+  BitSubString       at(const BitSubString&, int startpos = 0);
+  BitSubString       at(const BitPattern&, int startpos = 0);
 
   BitSubString       before(int pos);
   BitSubString       before(const BitString&, int startpos = 0);
@@ -226,9 +226,9 @@ public:
 
 // other friends & utilities
 
-  friend BitString   common_prefix(const BitString&, const BitString&, 
+  friend BitString   common_prefix(const BitString&, const BitString&,
                                    int pos = 0);
-  friend BitString   common_suffix(const BitString&, const BitString&, 
+  friend BitString   common_suffix(const BitString&, const BitString&,
                                    int pos = -1);
   friend BitString   reverse(const BitString&);
 
@@ -261,7 +261,7 @@ public:
 
   friend BitPattern  atoBitPattern(const char* s,
                                   char f='0',char t='1',char x='X');
-//  friend const char* BitPatterntoa(const BitPattern& p, 
+//  friend const char* BitPatterntoa(const BitPattern& p,
 //                                  char f='0',char t='1',char x='X');
   int                OK() const;
 };
@@ -279,7 +279,7 @@ public:
 
                     ~BitPattern();
 
-  friend const char* BitPatterntoa(const BitPattern& p, 
+  friend const char* BitPatterntoa(const BitPattern& p,
                                  char f/*='0'*/,char t/*='1'*/,char x/*='X'*/);
   void		     printon(ostream&, char f='0',char t='1',char x='X') const;
   friend BitPattern atoBitPattern(const char* s, char f,char t, char x);
@@ -322,16 +322,16 @@ inline BitString::BitString() :rep(&_nilBitStrRep) {}
 
 inline BitString::BitString(const BitString& x) :rep(BStr_copy(0, x.rep)) {}
 
-inline BitString::BitString(const BitSubString& y) 
+inline BitString::BitString(const BitSubString& y)
    :rep (BStr_alloc(0, y.S.rep->s, y.pos, y.pos+y.len, y.len)) {}
 
 inline BitString::~BitString()
-{ 
+{
   if (rep != &_nilBitStrRep) delete rep;
 }
 
-inline BitString shorttoBitString(unsigned short w) 
-{ 
+inline BitString shorttoBitString(unsigned short w)
+{
   BitString r;
   _BS_word ww = w;
 #if _BS_BIGENDIAN
@@ -341,8 +341,8 @@ inline BitString shorttoBitString(unsigned short w)
   return r;
 }
 
-inline BitString longtoBitString(unsigned long w) 
-{ 
+inline BitString longtoBitString(unsigned long w)
+{
   BitString r;
 #if 1
   _BS_word u = w;
@@ -357,13 +357,13 @@ inline BitString longtoBitString(unsigned long w)
 }
 
 inline BitString& BitString::operator =  (const BitString& y)
-{ 
+{
   rep = BStr_copy(rep, y.rep);
   return *this;
 }
 
 inline BitString& BitString::operator = (unsigned int b)
-{ 
+{
   _BS_word bit = b;
   rep = BStr_alloc(rep, &bit, 0, 1, 1);
   return *this;
@@ -375,7 +375,7 @@ inline BitString&  BitString::operator=(const BitSubString&  y)
   return *this;
 }
 
-inline BitSubString::BitSubString(const BitSubString& x) 
+inline BitSubString::BitSubString(const BitSubString& x)
     :S(x.S), pos(x.pos), len(x.len) {}
 
 inline BitSubString::BitSubString(BitString& x, int p, int l)
@@ -546,47 +546,47 @@ inline BitString  operator ~ (const BitString& x) return r
 
 #else /* NO_NRV */
 
-inline BitString  operator & (const BitString& x, const BitString& y) 
+inline BitString  operator & (const BitString& x, const BitString& y)
 {
   BitString r; and(x, y, r); return r;
 }
 
-inline BitString  operator | (const BitString& x, const BitString& y) 
+inline BitString  operator | (const BitString& x, const BitString& y)
 {
   BitString r; or(x, y, r); return r;
 }
 
-inline BitString  operator ^ (const BitString& x, const BitString& y) 
+inline BitString  operator ^ (const BitString& x, const BitString& y)
 {
   BitString r; xor(x, y, r); return r;
 }
 
-inline BitString  operator << (const BitString& x, int y) 
+inline BitString  operator << (const BitString& x, int y)
 {
   BitString r; lshift(x, y, r); return r;
 }
 
-inline BitString  operator >> (const BitString& x, int y) 
+inline BitString  operator >> (const BitString& x, int y)
 {
   BitString r; rshift(x, y, r); return r;
 }
 
-inline BitString  operator - (const BitString& x, const BitString& y) 
+inline BitString  operator - (const BitString& x, const BitString& y)
 {
   BitString r; diff(x, y, r); return r;
 }
 
-inline BitString  operator + (const BitString& x, const BitString& y) 
+inline BitString  operator + (const BitString& x, const BitString& y)
 {
   BitString r; cat(x, y, r); return r;
 }
 
-inline BitString  operator + (const BitString& x, unsigned int y) 
+inline BitString  operator + (const BitString& x, unsigned int y)
 {
   BitString r; cat(x, y, r); return r;
 }
 
-inline BitString  operator ~ (const BitString& x) 
+inline BitString  operator ~ (const BitString& x)
 {
   BitString r; complement(x, r); return r;
 }
@@ -596,32 +596,32 @@ inline BitString  operator ~ (const BitString& x)
 // status, matching
 
 inline int BitString::length() const
-{ 
+{
   return rep->len;
 }
 
 inline int BitString::empty() const
-{ 
+{
   return rep->len == 0;
 }
 
 inline int BitString::index(const BitString& y, int startpos) const
-{   
+{
   return search(startpos, rep->len, y.rep->s, 0, y.rep->len);
 }
 
 inline int BitString::index(const BitSubString& y, int startpos) const
-{   
+{
   return search(startpos, rep->len, y.S.rep->s, y.pos, y.pos+y.len);
 }
 
 inline int BitString::contains(const BitString& y) const
-{   
+{
   return search(0, rep->len, y.rep->s, 0, y.rep->len) >= 0;
 }
 
 inline int BitString::contains(const BitSubString& y) const
-{   
+{
   return search(0, rep->len, y.S.rep->s, y.pos, y.pos+y.len) >= 0;
 }
 
@@ -666,12 +666,12 @@ inline int BitString::index(const BitPattern& r, int startpos) const
 }
 
 inline  int BitSubString::length() const
-{ 
+{
   return len;
 }
 
 inline  int BitSubString::empty() const
-{ 
+{
   return len == 0;
 }
 
@@ -708,7 +708,7 @@ inline int BitString::index(unsigned int bit, int startpos) const
     return prev(rep->len + startpos + 1, bit);
 }
 
-inline void BitString::right_trim(unsigned int b) 
+inline void BitString::right_trim(unsigned int b)
 {
   int nb = (b == 0)? 1 : 0;
   rep = BStr_resize(rep, prev(rep->len, nb) + 1);
@@ -723,7 +723,7 @@ inline void BitString::left_trim(unsigned int b)
 
 inline int BitString::test(int i) const
 {
-  return ((unsigned)(i) >= rep->len)? 0 : 
+  return ((unsigned)(i) >= rep->len)? 0 :
          ((rep->s[BitStr_index(i)] & (1 << (BitStr_pos(i)))) != 0);
 }
 
@@ -756,7 +756,7 @@ inline BitSubString BitString::_substr(int first, int l)
 {
   if (first < 0 || l <= 0 || (unsigned)(first + l) > rep->len)
     return BitSubString(_nil_BitString, 0, 0) ;
-  else 
+  else
     return BitSubString(*this, first, l);
 }
 

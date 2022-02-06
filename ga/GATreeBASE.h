@@ -16,9 +16,9 @@
 /* ----------------------------------------------------------------------------
  GATreeBASE
 -------------------------------------------------------------------------------
-  This is the base tree class from which template trees are derived.  This 
+  This is the base tree class from which template trees are derived.  This
 object does no memory management - it just keeps track of a tree structure.
-Whoever calls the members of this object is responsible for allocating and 
+Whoever calls the members of this object is responsible for allocating and
 deallocating the memory associated with each node.
   This class does not define any of the iteration operators for traversing the
 tree.  That is left to the iterator friend of this class.
@@ -35,7 +35,7 @@ copy will point to the same tree as the original).
 
 creation
   Create a tree by passing a root node.  If you don't pass a root node, then
-  the next node assigned to the tree with an insert or append operation will 
+  the next node assigned to the tree with an insert or append operation will
   become the root node (regardless of the idx node you pass).
 
 insert
@@ -57,18 +57,18 @@ insert
   return ERR.
 
 remove
-  Remove the specified node from the tree.  If the node does not exist, an 
+  Remove the specified node from the tree.  If the node does not exist, an
   ERR message is posted and NULL is returned.  If the node has children, the
-  children are removed from the tree as well (they stay with the node).  A 
+  children are removed from the tree as well (they stay with the node).  A
   pointer to the node is returned if the removal is successful, otherwise NULL.
 
 swaptree
   Move node a to node b's position in the tree and vice versa.  This swap
-  maintains the integrity of all of a's and b's descendents.  It checks for 
+  maintains the integrity of all of a's and b's descendents.  It checks for
   ancestry conflicts so that you cannot swap a node with one of its
   descendents.  You can swap nodes in different trees, but if you do, be sure
   to check for root nodes!  The swap routine can set only the root node of the
-  current tree - it doesn't know about the root node of the other tree, so 
+  current tree - it doesn't know about the root node of the other tree, so
   you'll have to reset that one.
     If the swap was successful, return NO_ERR.  If there was a problem,
   return ERR.
@@ -128,18 +128,18 @@ deallocation.  All we do is provide tree traversal.
   Notice that we keep a 'current location' in the tree - whatever your last
 query was is stored as the node, so if you refer to the current member, you'll
 get your last query.
-  If you pass a NULL node to these routines they will break.  In the interest 
+  If you pass a NULL node to these routines they will break.  In the interest
 of speed we don't do any error checking.
 
 creation
   Create an iterator by passing either a tree or another iterator.  If you pass
   a tree, the iterator will default to the root node of the tree.  If you pass
-  another iterator, the new iterator will point to the same node that the 
+  another iterator, the new iterator will point to the same node that the
   original iterator points to.
 
 nchildren
-  Returns the number of children that are direct offspring of the specified 
-  node (or current node if none is specified).  
+  Returns the number of children that are direct offspring of the specified
+  node (or current node if none is specified).
 
 nsiblings
   Returns the number of nodes at the same level as the specified or current

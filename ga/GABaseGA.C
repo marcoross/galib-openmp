@@ -51,40 +51,40 @@ GAGeneticAlgorithm::TerminateUponGeneration(GAGeneticAlgorithm & ga){
 }
 
 // If we are maximizing, then terminate when the convergence has exceeded the
-// specified convergence.  If we are minimizing, then terminate when the 
+// specified convergence.  If we are minimizing, then terminate when the
 // convergence has dropped below the specified convergence.
-GABoolean 
+GABoolean
 GAGeneticAlgorithm::TerminateUponConvergence(GAGeneticAlgorithm & ga){
   GABoolean val = gaFalse;
   if(ga.minimaxi() == GAGeneticAlgorithm::MINIMIZE) {
     if(ga.convergence() == 0 || ga.convergence() > ga.pConvergence())
       val = gaFalse;
-    else 
+    else
       val = gaTrue;
   }
   else {
     if(ga.convergence() < ga.pConvergence())
       val = gaFalse;
-    else 
+    else
       val = gaTrue;
   }
   return val;
 }
 
 
-// Use the ratio between the minimum and maximum to determine whether the 
+// Use the ratio between the minimum and maximum to determine whether the
 // population has converged.  This method will not work if the values cross
 // zero!
-// Note that this is significantly different than the definition (and the 
+// Note that this is significantly different than the definition (and the
 // bug-laden implementation) that was in version of GAlib prior to 2.4.5.
 //
 // For historical purposes, here is the old definition of this method:
 //
 // Use the ratio of the population mean divided by the population maximum to
 // determine whether the population has converged.  If we are maximizing, then
-// check to see if the ratio exceeds the convergence.  If we are minimizing, 
+// check to see if the ratio exceeds the convergence.  If we are minimizing,
 // then check to see if the ratio has dropped below the convergence.
-GABoolean 
+GABoolean
 GAGeneticAlgorithm::TerminateUponPopConvergence(GAGeneticAlgorithm & ga){
   GABoolean val = gaFalse;
 
@@ -92,7 +92,7 @@ GAGeneticAlgorithm::TerminateUponPopConvergence(GAGeneticAlgorithm & ga){
     return val;
   }
 
-  float ratio = 
+  float ratio =
     ga.statistics().current(GAStatistics::Minimum) /
     ga.statistics().current(GAStatistics::Maximum);
 
@@ -127,9 +127,9 @@ GAGeneticAlgorithm::registerDefaultParameters(GAParameterList& p) {
   p.add(gaNpConvergence, gaSNpConvergence, GAParameter::FLOAT, &gaDefPConv);
   p.add(gaNpCrossover, gaSNpCrossover, GAParameter::FLOAT, &gaDefPCross);
   p.add(gaNpMutation, gaSNpMutation, GAParameter::FLOAT, &gaDefPMut);
-  p.add(gaNpopulationSize, gaSNpopulationSize, 
+  p.add(gaNpopulationSize, gaSNpopulationSize,
 	GAParameter::INT, &gaDefPopSize);
-  p.add(gaNnBestGenomes, gaSNnBestGenomes, 
+  p.add(gaNnBestGenomes, gaSNnBestGenomes,
 	GAParameter::INT, &gaDefNumBestGenomes);
   p.add(gaNscoreFrequency, gaSNscoreFrequency,
 	GAParameter::INT, &gaDefScoreFrequency1);
@@ -137,9 +137,9 @@ GAGeneticAlgorithm::registerDefaultParameters(GAParameterList& p) {
 	GAParameter::INT, &gaDefFlushFrequency);
   p.add(gaNrecordDiversity, gaSNrecordDiversity,
 	GAParameter::INT, &gaDefDivFlag);
-  p.add(gaNscoreFilename, gaSNscoreFilename, 
+  p.add(gaNscoreFilename, gaSNscoreFilename,
 	GAParameter::STRING, gaDefScoreFilename);
-  p.add(gaNselectScores, gaSNselectScores, 
+  p.add(gaNselectScores, gaSNselectScores,
 	GAParameter::INT, &gaDefSelectScores);
 
   return p;
@@ -179,13 +179,13 @@ GAGeneticAlgorithm::GAGeneticAlgorithm(const GAGenome& g) : stats(), params() {
   params.add(gaNflushFrequency, gaSNflushFrequency,
 	     GAParameter::INT, &gaDefFlushFrequency);
   stats.recordDiversity(gaDefDivFlag);
-  params.add(gaNrecordDiversity, gaSNrecordDiversity, 
+  params.add(gaNrecordDiversity, gaSNrecordDiversity,
 	     GAParameter::INT, &gaDefDivFlag);
   stats.scoreFilename(gaDefScoreFilename);
-  params.add(gaNscoreFilename, gaSNscoreFilename, 
+  params.add(gaNscoreFilename, gaSNscoreFilename,
 	     GAParameter::STRING, gaDefScoreFilename);
   stats.selectScores(gaDefSelectScores);
-  params.add(gaNselectScores, gaSNselectScores, 
+  params.add(gaNselectScores, gaSNselectScores,
 	     GAParameter::INT, &gaDefSelectScores);
   stats.nBestGenomes(g, gaDefNumBestGenomes);
   params.add(gaNnBestGenomes, gaSNnBestGenomes,
@@ -195,7 +195,7 @@ GAGeneticAlgorithm::GAGeneticAlgorithm(const GAGenome& g) : stats(), params() {
   across = g.asexual();
 }
 
-GAGeneticAlgorithm::GAGeneticAlgorithm(const GAPopulation& p) : 
+GAGeneticAlgorithm::GAGeneticAlgorithm(const GAPopulation& p) :
 stats(), params() {
   pop = new GAPopulation(p);
   pop->geneticAlgorithm(*this);
@@ -228,13 +228,13 @@ stats(), params() {
   params.add(gaNflushFrequency, gaSNflushFrequency,
 	     GAParameter::INT, &gaDefFlushFrequency);
   stats.recordDiversity(gaDefDivFlag);
-  params.add(gaNrecordDiversity, gaSNrecordDiversity, 
+  params.add(gaNrecordDiversity, gaSNrecordDiversity,
 	     GAParameter::INT, &gaDefDivFlag);
   stats.scoreFilename(gaDefScoreFilename);
-  params.add(gaNscoreFilename, gaSNscoreFilename, 
+  params.add(gaNscoreFilename, gaSNscoreFilename,
 	     GAParameter::STRING, gaDefScoreFilename);
   stats.selectScores(gaDefSelectScores);
-  params.add(gaNselectScores, gaSNselectScores, 
+  params.add(gaNselectScores, gaSNselectScores,
 	     GAParameter::INT, &gaDefSelectScores);
   stats.nBestGenomes(p.individual(0), gaDefNumBestGenomes);
   params.add(gaNnBestGenomes, gaSNnBestGenomes,
@@ -244,7 +244,7 @@ stats(), params() {
   across = p.individual(0).asexual();
 }
 
-GAGeneticAlgorithm::GAGeneticAlgorithm(const GAGeneticAlgorithm& ga) : 
+GAGeneticAlgorithm::GAGeneticAlgorithm(const GAGeneticAlgorithm& ga) :
 stats(ga.stats), params(ga.params){
   pop = ga.pop->clone();
   pop->geneticAlgorithm(*this);
@@ -328,7 +328,7 @@ int
 GAGeneticAlgorithm::setptr(const char* name, const void* value){
   int status=1;
 
-  params.set(name, value);	// redundant for some cases, but not others 
+  params.set(name, value);	// redundant for some cases, but not others
 
   if(strcmp(name, gaNnBestGenomes) == 0 ||
      strcmp(name, gaSNnBestGenomes) == 0){
@@ -362,7 +362,7 @@ GAGeneticAlgorithm::setptr(const char* name, const void* value){
     nGenerations(*((int*)value));
     status = 0;
   }
-  else if(strcmp(name, gaNpConvergence) == 0 || 
+  else if(strcmp(name, gaNpConvergence) == 0 ||
 	  strcmp(name, gaSNpConvergence) == 0){
 #ifdef GA_DEBUG
     cerr << "GAGeneticAlgorithm::setptr\n  setting '" << name << "' to '" << *((float*)value) << "'\n";
@@ -370,7 +370,7 @@ GAGeneticAlgorithm::setptr(const char* name, const void* value){
     pConvergence(*((float*)value));
     status = 0;
   }
-  else if(strcmp(name, gaNnConvergence) == 0 || 
+  else if(strcmp(name, gaNnConvergence) == 0 ||
 	  strcmp(name, gaSNnConvergence) == 0){
 #ifdef GA_DEBUG
     cerr << "GAGeneticAlgorithm::setptr\n  setting '" << name << "' to '" << *((int*)value) << "'\n";
@@ -539,7 +539,7 @@ GAGeneticAlgorithm::get(const char* name, void* value) const {
 
 
 
-void 
+void
 GAGeneticAlgorithm::objectiveFunction(GAGenome::Evaluator f){
   for(int i=0; i<pop->size(); i++)
     pop->individual(i).evaluator(f);
@@ -557,7 +557,7 @@ GAGeneticAlgorithm::population(const GAPopulation& p) {
     GAErr(GA_LOC, className(), "population", gaErrNoIndividuals);
     return *pop;
   }
-  
+
   pop->copy(p);
   pop->geneticAlgorithm(*this);
 
@@ -571,8 +571,8 @@ GAGeneticAlgorithm::populationSize(unsigned int value){
   return pop->size(ps);
 }
 
-int 
-GAGeneticAlgorithm::minimaxi(int m) { 
+int
+GAGeneticAlgorithm::minimaxi(int m) {
   if(m == MINIMIZE)
     pop->order(GAPopulation::LOW_IS_BEST);
   else

@@ -78,7 +78,7 @@ Whichever representation you choose, be sure to pick operators that are appropri
 
 <strong>The Genome Operators</strong>
 <p>
-Each genome has three primary operators:  initialization, mutation, and crossover.  With these operators you can bias an initial population, define a mutation or crossover specific to your problem's representation, or evolve parts of the genetic algorithm as your population evolves.  GAlib comes with these operators pre-defined for each genome type, but you can customize any of them.  
+Each genome has three primary operators:  initialization, mutation, and crossover.  With these operators you can bias an initial population, define a mutation or crossover specific to your problem's representation, or evolve parts of the genetic algorithm as your population evolves.  GAlib comes with these operators pre-defined for each genome type, but you can customize any of them.
 </p>
 <p>
 The initialization operator determines how the genome is initialized. It is called when you initialize a population or the genetic algorithm. This operator does not actually create new genomes, rather it 'stuffs' the genomes with the primordial genetic material from which all solutions will evolve. The population object has its own initialization operator. By default this simply calls the initialization operators of the genomes in the population, but you can customize it to do whatever you want.
@@ -180,7 +180,7 @@ Alternatively you can have GAlib read the genetic algorithm options from a file 
   GASteadyStateGA ga(genome);
   ga.parameters("settings.txt");
   ga.parameters(argc, argv);
-  ga.evolve(); 
+  ga.evolve();
   cout &lt;&lt; ga.statistics() &lt;&lt; endl;
 </blockquote>
 </pre>
@@ -424,7 +424,7 @@ The definition for FlipMutator for 1DArrayAlleles looks like this:<br>
 <i>This mutator flips the value of a single element of the array to any of the possible allele values.</i>
 <blockquote>
 <pre>
-int 
+int
 FlipMutator(GAGenome &amp; c, float pmut)
 {
   GA1DArrayAlleleGenome&lt;ARRAY_TYPE&gt; &amp;child=(GA1DArrayAlleleGenome&lt;ARRAY_TYPE&gt; &amp;)c;

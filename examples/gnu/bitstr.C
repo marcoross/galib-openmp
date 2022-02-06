@@ -17,7 +17,7 @@
 // this point - initialization must be done explicitly by the user of the
 // genome (eg when the population is created or reset).  If we called the
 // initializer routine here then we could end up with multiple initializations
-// and/or calls to dummy initializers (for example when the genome is 
+// and/or calls to dummy initializers (for example when the genome is
 // created with a dummy initializer and the initializer is assigned later on).
 BitStringGenome::
 BitStringGenome(unsigned int l, GAGenome::Evaluator f, void * u) :
@@ -48,7 +48,7 @@ BitStringGenome::copy(const GAGenome & orig) {
 
 // The clone method basically does the same thing as the copy method, but here
 // we return a pointer to a completely new genome (the copy method just fills
-// the current genome with the copied contents).  It is the responsibility of 
+// the current genome with the copied contents).  It is the responsibility of
 // the caller to free the memory returned by this routine.
 //   This implementation does not make use of the clone method flag.
 GAGenome *
@@ -67,7 +67,7 @@ BitStringGenome::clone(GAGenome::CloneMethod) const {
 // The random initializer sets the bits in the bit string randomly to 0 or 1.
 // It uses the GARandomBit function to do this (GARandomBit is pretty efficient
 // in terms of its calls to your system's random function).
-void 
+void
 BitStringGenome::UniformInitializer(GAGenome & c) {
   BitStringGenome &genome=(BitStringGenome &)c;
   for(int i=genome.length()-1; i>=0; i--)
@@ -82,7 +82,7 @@ BitStringGenome::UniformInitializer(GAGenome & c) {
 // Otherwise, we just do the expected number of flips (note that this will not
 // guarantee the requested mutation rate, but it will come close when the
 // length of the bit string is long enough).
-int 
+int
 BitStringGenome::UniformMutator(GAGenome & c, float pmut) {
   BitStringGenome &genome=(BitStringGenome &)c;
   register int n, i;
@@ -108,7 +108,7 @@ BitStringGenome::UniformMutator(GAGenome & c, float pmut) {
 }
 
 
-// The comparator returns a number between 0 and 1 to indicate how similar 
+// The comparator returns a number between 0 and 1 to indicate how similar
 // two genomes are.  A 0 indicates that they are identical (zero diversity)
 // whereas a 1 indicates completely different.
 //   This implementation assumes that the genomes are the same size.
@@ -128,7 +128,7 @@ BitStringGenome::Comparator(const GAGenome& a, const GAGenome& b) {
 // This is a an implementation of a uniform crossover for the binary string.
 // It assumes that the the genomes are all the same length.
 int
-BitStringGenome::UniformCrossover(const GAGenome& a, const GAGenome& b, 
+BitStringGenome::UniformCrossover(const GAGenome& a, const GAGenome& b,
 				  GAGenome* c, GAGenome* d) {
   BitStringGenome& mom=(BitStringGenome &)a;
   BitStringGenome& dad=(BitStringGenome &)b;

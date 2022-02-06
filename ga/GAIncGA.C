@@ -60,19 +60,19 @@ GAGeneticAlgorithm(ga){
   copy(ga);
 }
 GAIncrementalGA::~GAIncrementalGA(){
-  delete child1; 
+  delete child1;
   delete child2;
 }
 GAIncrementalGA&
 GAIncrementalGA::operator=(const GAIncrementalGA& ga){
-  if(&ga != this) copy(ga); 
+  if(&ga != this) copy(ga);
   return *this;
 }
-void 
+void
 GAIncrementalGA::copy(const GAGeneticAlgorithm & g){
   GAGeneticAlgorithm::copy(g);
   const GAIncrementalGA& ga = DYN_CAST(const GAIncrementalGA&, g);
-  
+
   rs = ga.rs;
   rf = ga.rf;
   noffspr = ga.noffspr;
@@ -90,7 +90,7 @@ int
 GAIncrementalGA::setptr(const char* name, const void* value){
   int status = GAGeneticAlgorithm::setptr(name, value);
 
-  if(strcmp(name, gaNnOffspring) == 0 || 
+  if(strcmp(name, gaNnOffspring) == 0 ||
      strcmp(name, gaSNnOffspring) == 0){
     nOffspring(*((int*)value));
     status = 0;
@@ -102,7 +102,7 @@ int
 GAIncrementalGA::get(const char* name, void* value) const {
   int status = GAGeneticAlgorithm::get(name, value);
 
-  if(strcmp(name, gaNnOffspring) == 0 || 
+  if(strcmp(name, gaNnOffspring) == 0 ||
      strcmp(name, gaSNnOffspring) == 0){
     *((int*)value) = noffspr;
     status = 0;
@@ -111,14 +111,14 @@ GAIncrementalGA::get(const char* name, void* value) const {
 }
 
 
-void 
+void
 GAIncrementalGA::objectiveFunction(GAGenome::Evaluator f){
   GAGeneticAlgorithm::objectiveFunction(f);
   child1->evaluator(f);
   child2->evaluator(f);
 }
 
-void 
+void
 GAIncrementalGA::objectiveData(const GAEvalData& v){
   GAGeneticAlgorithm::objectiveData(v);
   child1->evalData(v);
@@ -128,7 +128,7 @@ GAIncrementalGA::objectiveData(const GAEvalData& v){
 
 GAIncrementalGA::ReplacementScheme
 GAIncrementalGA::
-replacement(GAIncrementalGA::ReplacementScheme n, 
+replacement(GAIncrementalGA::ReplacementScheme n,
 	    GAIncrementalGA::ReplacementFunction f){
   switch(n){
   case BEST:
@@ -163,7 +163,7 @@ GAIncrementalGA::nOffspring(unsigned int value){
 
 
 
-// Do some basic stupidity checks then initialize the population.  We must 
+// Do some basic stupidity checks then initialize the population.  We must
 // also initialize our temporary genomes, but we don't have to evaluate
 // them.  Finally, reset the statistics.
 void
@@ -190,8 +190,8 @@ GAIncrementalGA::step()
   int mut, c1, c2;
   GAGenome *mom, *dad;          // tmp holders for selected genomes
 
-  mom = &(pop->select()); 
-  dad = &(pop->select()); 
+  mom = &(pop->select());
+  dad = &(pop->select());
   stats.numsel += 2;		// keep track of the number of selections
 
   if(noffspr == 1){

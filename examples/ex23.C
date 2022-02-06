@@ -4,7 +4,7 @@
   Copyright (c) 1995-1996  Massachusetts Institute of Technology
 
  DESCRIPTION:
-   This example shows how to use max/min feature of GAlib to maximize or 
+   This example shows how to use max/min feature of GAlib to maximize or
 minimize your objective functions.
 ---------------------------------------------------------------------------- */
 #include <stdio.h>
@@ -104,7 +104,7 @@ main(int argc, char** argv)
 
   return 0;
 }
- 
+
 
 
 
@@ -116,7 +116,7 @@ Objective(GAGenome& g){
 }
 
 // The comparator returns a number in the interval [0,1] where 0 means that
-// the two genomes are identical (zero diversity) and 1 means they are 
+// the two genomes are identical (zero diversity) and 1 means they are
 // completely different (maximum diversity).
 float
 Comparator(const GAGenome& g1, const GAGenome& g2) {

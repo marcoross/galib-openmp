@@ -1,4 +1,4 @@
-/* 
+/*
 Copyright (C) 1990 Free Software Foundation
     written by Doug Lea (dl@rocky.oswego.edu)
 

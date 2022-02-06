@@ -8,7 +8,7 @@
   This defines the list objects.
 
  TO DO:
-  Probably should put the size (and depth for trees) into the templateized 
+  Probably should put the size (and depth for trees) into the templateized
 class since those take care of memory management.  BASE class has no concept of
 memory management, nor does it know the best way to count what its got.
 ---------------------------------------------------------------------------- */
@@ -20,9 +20,9 @@ memory management, nor does it know the best way to count what its got.
 /* ----------------------------------------------------------------------------
  GAListBASE
 -------------------------------------------------------------------------------
-  This is the base list class from which template lists are derived.  This 
+  This is the base list class from which template lists are derived.  This
 object does no memory management - it just keeps track of a list structure.
-Whoever calls the members of this object is responsible for allocating and 
+Whoever calls the members of this object is responsible for allocating and
 deallocating the memory associated with each node.
   This class does not define any of the iteration operators for traversing the
 list.  That is left to the iterator friend of this class.
@@ -39,8 +39,8 @@ pointers.  You cannot simply say list1 = list2 or GAListBASE l = list1.  If you
 do this, you'll get a copy of the list object, but not a duplicate of the list.
 
 creation
-  You can create a list by passing a node (the node becomes the head of the 
-  list) or by passing nothing (the head of the list is NULL, and the next 
+  You can create a list by passing a node (the node becomes the head of the
+  list) or by passing nothing (the head of the list is NULL, and the next
   insert automatically becomes the head).
 
 insert
@@ -59,8 +59,8 @@ insert
   return ERR.
 
 remove
-  Remove the specified node from the list.  If the node does not exist, an 
-  ERR message is posted and NULL is returned.  The node is returned if the 
+  Remove the specified node from the list.  If the node does not exist, an
+  ERR message is posted and NULL is returned.  The node is returned if the
   removal is successful, otherwise NULL.
 
 swapnode

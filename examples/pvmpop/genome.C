@@ -4,7 +4,7 @@
   Copyright (c) 1995-1996 Massachusetts Institute of Technology
 
  DESCRIPTION:
-   This file contains the information needed to evaluate an operate on a 
+   This file contains the information needed to evaluate an operate on a
 genome in these examples.  We define routines for sending and receiving genome
 data as well as routines for modifying the genetic algorithm's population.
    At some point we should add better error checking to the pvm status returns.
@@ -13,7 +13,7 @@ data as well as routines for modifying the genetic algorithm's population.
 #include <unistd.h>
 #include "genome.h"
 
-// When this flag is defined, the initialize and evaluate function dump a 
+// When this flag is defined, the initialize and evaluate function dump a
 // string to cerr that tells which host they're running on.  You can then look
 // at this info in the pvm log file.
 //#define DEBUG
@@ -53,7 +53,7 @@ GenomeEvaluator(GAGenome& g) {
 
 
 // Send the bits of the genome to the task that requested them.  First we send
-// the number of bits, then we send the bits themselves.  Note that we can 
+// the number of bits, then we send the bits themselves.  Note that we can
 // handle genomes of varying lengths with this setup.  We also pack the score
 // and stuff that in as well (so that they don't have to do an eval at the
 // other end).  If we did this as a member function we could save the hassle
@@ -104,7 +104,7 @@ UnpackIndividual(GAGenome& g) {
     bits = new int [nbits];
   }
   status = pvm_upkint(bits, length, 1);
-  
+
   genome.length(length);	               // resize the genome
   genome = bits;			       // stuff it with the bits
 
@@ -206,7 +206,7 @@ RecvStatistics(GAStatistics& s) {
 
 // Send the specified number of individuals from the current population to
 // the specified task.
-int 
+int
 SendMigration(int toid, GAGeneticAlgorithm& ga, int count) {
   int status = 0;
   status = pvm_initsend(PvmDataDefault);
@@ -220,12 +220,12 @@ SendMigration(int toid, GAGeneticAlgorithm& ga, int count) {
 
 
 // Receive a bunch of individuals from a task.  To do this, we clone the GA's
-// population, stuff the immigrants into the population, trash the worst 
+// population, stuff the immigrants into the population, trash the worst
 // individuals to bring the population size back down to what it was, then
 // stick the population back into the GA.
 //   This implementation is really inefficient, but you get the idea of how
 // to do this...
-int 
+int
 RecvMigration(GAGeneticAlgorithm& ga) {
   int status = 0;
 

@@ -17,10 +17,10 @@
 /* ----------------------------------------------------------------------------
 BinaryStringGenome
 ---------------------------------------------------------------------------- */
-// Copy the contents of the bitstream.  We don't care what format it is in - 
+// Copy the contents of the bitstream.  We don't care what format it is in -
 // we resize to make sure we have adequate space then we just copy all of the
 // data.
-//   If the original is actually this, then we don't do anything.  If the 
+//   If the original is actually this, then we don't do anything.  If the
 // original is not the same class as this, then we post an error and return.
 void
 GABinaryString::copy(const GABinaryString& orig)

@@ -29,11 +29,11 @@ public:
   static void SetInitializer(GAGenome &);
   static int FlipMutator(GAGenome &, float);
   static float BitComparator(const GAGenome&, const GAGenome&);
-  static int UniformCrossover(const GAGenome&, const GAGenome&, 
+  static int UniformCrossover(const GAGenome&, const GAGenome&,
 			      GAGenome*, GAGenome*);
-  static int EvenOddCrossover(const GAGenome&, const GAGenome&, 
+  static int EvenOddCrossover(const GAGenome&, const GAGenome&,
 			      GAGenome*, GAGenome*);
-  static int OnePointCrossover(const GAGenome&, const GAGenome&, 
+  static int OnePointCrossover(const GAGenome&, const GAGenome&,
 			      GAGenome*, GAGenome*);
 
 public:
@@ -80,12 +80,12 @@ public:
   int resizeBehaviour(Dimension which) const ;
   int resizeBehaviour(Dimension which,
 		      unsigned int lowerX, unsigned int upperX);
-  int resizeBehaviour(unsigned int lowerX, unsigned int upperX, 
+  int resizeBehaviour(unsigned int lowerX, unsigned int upperX,
 		      unsigned int lowerY, unsigned int upperY){
-    return(resizeBehaviour(WIDTH, lowerX, upperX) * 
+    return(resizeBehaviour(WIDTH, lowerX, upperX) *
 	   resizeBehaviour(HEIGHT, lowerY, upperY));
   }
-  void copy(const GA2DBinaryStringGenome &, 
+  void copy(const GA2DBinaryStringGenome &,
 	    unsigned int, unsigned int,
 	    unsigned int, unsigned int,
 	    unsigned int, unsigned int);

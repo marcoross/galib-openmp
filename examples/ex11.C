@@ -64,8 +64,8 @@ main(int argc, char *argv[])
   genome.initializer(ListInitializer);
   genome.mutator(GAListGenome<int>::SwapMutator);
 
-// Now that we have our genome, we create the GA (it clones the genome to 
-// make all of the individuals for its populations).  Set the parameters on 
+// Now that we have our genome, we create the GA (it clones the genome to
+// make all of the individuals for its populations).  Set the parameters on
 // the GA then let it evolve.
 
   GASteadyStateGA ga(genome);
@@ -87,7 +87,7 @@ main(int argc, char *argv[])
 
   return 0;
 }
- 
+
 
 
 /* ----------------------------------------------------------------------------
@@ -135,9 +135,9 @@ ListInitializer(GAGenome & c)
 //   Here we specialize the write method for the List class.  This lets us see
 // exactly what we want (the default write method dumps out pointers to the
 // data rather than the data contents).
-//   This routine prints out the contents of each element of the list, 
+//   This routine prints out the contents of each element of the list,
 // separated by a space.  It does not put a newline at the end of the list.
-//   Notice that you can specialize ANY function of a template class, but 
+//   Notice that you can specialize ANY function of a template class, but
 // some compilers are more finicky about how you do it than others.  For the
 // metrowerks compiler this specialization must come before the forced
 // instantiation.

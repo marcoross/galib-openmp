@@ -1,6 +1,6 @@
 2005-01-27  Matthew Wall  <mwall@gouda.local>
 
-	* gaconfig.h: added instantiation prefix for compilers that need 
+	* gaconfig.h: added instantiation prefix for compilers that need
 	forced instantiations but vary in their syntax.
 
 2005-01-12  Matthew Wall  <mwall@gouda.local>
@@ -64,7 +64,7 @@
 	* GAStringGenome.C: fix specializations
 	* makefile: added ranlib for macosx, aix
 	emit compile flags to BUILD file for diagnosis.
-	
+
 2004-12-27  Matthew Wall  <mwall@gouda.local>
 
 	* GAGenome.h: macro name change for streams management.  include a
@@ -107,7 +107,7 @@
 	* GA1DBinStrGenome.h: ditto
 	* GA1DArrayGenome.h: macro name change for streams management
 	* ga.h: macro name change
-	* std_stream.h: split stream inclusion into file separate from 
+	* std_stream.h: split stream inclusion into file separate from
 	gaconfig in order to avoid clashes with 'using namespace std'
 	* gaconfig.h: renamed macros to avoid clashes with other libraries and
 	to make it easier to enable/disable features when tweaking galib to

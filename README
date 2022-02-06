@@ -1,17 +1,17 @@
 GAlib: A C++ Genetic Algorithm Library
 Copyright (c) 1994-1996 MIT, 1996-2005 Matthew Wall
 
-GAlib is a C++ library of genetic algorithm objects.  With GAlib you can add 
-evolutionary algorithm optimization to almost any program using any data 
-representation and standard or custom selection, crossover, mutation, 
-scaling, and termination methods.  
+GAlib is a C++ library of genetic algorithm objects.  With GAlib you can add
+evolutionary algorithm optimization to almost any program using any data
+representation and standard or custom selection, crossover, mutation,
+scaling, and termination methods.
 
 The library requires reasonable C++ compiler.  I have tested GAlib on MacOS
 using Metrowerks and Symantec development environments, MacOSX using gcc2/3,
-DOS/Windows using Borland C++ and MS VC++, and various UNIX platforms using 
+DOS/Windows using Borland C++ and MS VC++, and various UNIX platforms using
 g++, egcs, CC, DCC, xlC, and aCC.
 
-Graphic examples (XWindows/Motif and MS Windows) are available, as are 
+Graphic examples (XWindows/Motif and MS Windows) are available, as are
 parallel, distributed implementations using PVM.  There are about 30 examples
 that illustrate various ways to use GAlib on a variety of problems.
 
@@ -47,7 +47,7 @@ If you still have problems, look at Installation.html in the doc directory.
 
 DOCUMENTATION and MAILING LIST ------------------------------------------------
 
-Complete documentation in html format is available in the doc directory.  The 
+Complete documentation in html format is available in the doc directory.  The
 distribution site contains PDF and PostScript(tm) versions.
 
 A current list of bugs is at http://lancet.mit.edu/ga/Bugs.html

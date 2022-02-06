@@ -34,7 +34,7 @@ GAGenome &
 GARankSelector::select() const {
   int i, count=1;
 
-  GAPopulation::SortBasis basis = 
+  GAPopulation::SortBasis basis =
     (which == SCALED ? GAPopulation::SCALED : GAPopulation::RAW);
   pop->sort(gaFalse, basis);
   if(which == SCALED){
@@ -60,7 +60,7 @@ UniformSelector
 #if USE_UNIFORM_SELECTOR == 1
 GAGenome&
 GAUniformSelector::select() const {
-  return pop->individual(GARandomInt(0, pop->size()-1)); 
+  return pop->individual(GARandomInt(0, pop->size()-1));
 }
 #endif
 
@@ -68,12 +68,12 @@ GAUniformSelector::select() const {
 /* ----------------------------------------------------------------------------
 RouletteWheelSelector
 ---------------------------------------------------------------------------- */
-// This selection routine is straight out of Goldberg's Genetic Algorithms 
+// This selection routine is straight out of Goldberg's Genetic Algorithms
 // book (with the added restriction of not allowing zero scores - Goldberg
 // does not address this degenerate case).  We look through the members of the
 // population using a weighted roulette wheel.  Likliehood of selection is
 // proportionate to the fitness score.
-//   This is a binary search method (using cached partial sums).  It assumes 
+//   This is a binary search method (using cached partial sums).  It assumes
 // that the genomes are in order from best (0th) to worst (n-1).
 #if USE_ROULETTE_SELECTOR == 1 || USE_TOURNAMENT_SELECTOR == 1
 GAGenome &
@@ -94,8 +94,8 @@ GARouletteWheelSelector::select() const {
   lower = GAMin(pop->size()-1, lower);
   lower = GAMax(0, lower);
 
-  return pop->individual(lower, 
-			 (which == SCALED ? 
+  return pop->individual(lower,
+			 (which == SCALED ?
 			  GAPopulation::SCALED : GAPopulation::RAW));
 }
 
@@ -165,7 +165,7 @@ GARouletteWheelSelector::update() {
 	psum[0]= -pop->individual(0, GAPopulation::SCALED).fitness()
 	  + pop->fitmax() + pop->fitmin();
 	for(i=1; i<n; i++)
-	  psum[i] = -pop->individual(i, GAPopulation::SCALED).fitness() + 
+	  psum[i] = -pop->individual(i, GAPopulation::SCALED).fitness() +
 	    pop->fitmax() + pop->fitmin() + psum[i-1];
 	for(i=0; i<n; i++)
 	  psum[i] /= psum[n-1];
@@ -223,15 +223,15 @@ GATournamentSelector::select() const {
   lower = GAMin(pop->size()-1, lower);
   lower = GAMax(0, lower);
 
-  GAPopulation::SortBasis basis = 
+  GAPopulation::SortBasis basis =
     (which == SCALED ? GAPopulation::SCALED : GAPopulation::RAW);
   if(pop->order() == GAPopulation::LOW_IS_BEST){
-    if(pop->individual(lower,basis).score() < 
+    if(pop->individual(lower,basis).score() <
        pop->individual(picked,basis).score())
       picked = lower;
   }
   else{
-    if(pop->individual(lower,basis).score() > 
+    if(pop->individual(lower,basis).score() >
        pop->individual(picked,basis).score())
       picked = lower;
   }
@@ -258,14 +258,14 @@ object coupled closely with the population to make that work.
 GAGenome &
 GASRSSelector::select() const {
   return pop->individual(choices[GARandomInt(0, pop->size()-1)],
-			 (which == SCALED ? 
+			 (which == SCALED ?
 			  GAPopulation::SCALED : GAPopulation::RAW));
 }
 
 // Make sure we have enough memory to work with.  Set values of choices array
 // to appropriate values.
 
-// This is the preselection part.  Figure out how many we should expect of 
+// This is the preselection part.  Figure out how many we should expect of
 // each individual.  An individual with e of 4.3 will get 4 places and have a
 // 30% chance of a 5th place.
 
@@ -293,10 +293,10 @@ GASRSSelector::update() {
       float expected;
       for(i=0; i<pop->size(); i++){
 	if(pop->order() == GAPopulation::HIGH_IS_BEST)
-	  expected = 
+	  expected =
 	    pop->individual(i, GAPopulation::RAW).score()/pop->ave();
 	else
-	  expected = 
+	  expected =
 	    (-pop->individual(i, GAPopulation::RAW).score()
 	     + pop->max() + pop->min())/pop->ave();
 	ne = (int)expected;
@@ -336,11 +336,11 @@ GASRSSelector::update() {
       float expected;
       for(i=0; i<pop->size(); i++){
 	if(pop->order() == GAPopulation::HIGH_IS_BEST)
-	  expected = 
+	  expected =
 	    pop->individual(i, GAPopulation::SCALED).fitness()/pop->fitave();
 	else
-	  expected = 
-	    (-pop->individual(i, GAPopulation::SCALED).fitness() 
+	  expected =
+	    (-pop->individual(i, GAPopulation::SCALED).fitness()
 	     + pop->fitmax() + pop->fitmin()) / pop->fitave();
 	ne = (int)expected;
 	fraction[i] = expected - ne;
@@ -391,14 +391,14 @@ DSSelector - deterministic sampling
 GAGenome &
 GADSSelector::select() const {
   return pop->individual(choices[GARandomInt(0, pop->size()-1)],
-			 (which == SCALED ? 
+			 (which == SCALED ?
 			  GAPopulation::SCALED : GAPopulation::RAW));
 }
 
 // Make sure we have enough memory to work with. Then calc the choices array.
 
-// This is the preselection part.  Figure out how many we should expect of 
-// each individual.  An individual with e of 4.3 will get 4 places, an 
+// This is the preselection part.  Figure out how many we should expect of
+// each individual.  An individual with e of 4.3 will get 4 places, an
 // individual with e of 5.9 will get 5 places.  If there are any spaces
 // remaining then we fill them with the individuals with highest fractional
 // values (don't as *ME* why Goldberg does it this way...)
@@ -430,7 +430,7 @@ GADSSelector::update() {
       for(i=0; i<pop->size(); i++){
 	idx[i] = i;
 	if(pop->order() == GAPopulation::HIGH_IS_BEST)
-	  expected = 
+	  expected =
 	    pop->individual(i, GAPopulation::RAW).score()/pop->ave();
 	else
 	  expected =
@@ -438,14 +438,14 @@ GADSSelector::update() {
 	     + pop->max() + pop->min())/pop->ave();
 	ne = (int)expected;
 	fraction[i] = expected - ne;
-	
+
 	while(ne > 0 && k < (int)n){
 	  assert(k >= 0 && k < (int)n);
 	  choices[k] = i;
 	  k++; ne--;
 	}
       }
-      
+
       GAQuickSort(idx, fraction, 0, n-1);
       for(i=pop->size()-1; k<pop->size(); k++, i--)
 	choices[k] = idx[i];
@@ -475,14 +475,14 @@ GADSSelector::update() {
 	     + pop->fitmax() + pop->fitmin()) / pop->fitave();
 	ne = (int)expected;
 	fraction[i] = expected - ne;
-	
+
 	while(ne > 0 && k < (int)n){
 	  assert(k >= 0 && k < (int)n);
 	  choices[k] = i;
 	  k++; ne--;
 	}
       }
-      
+
       GAQuickSort(idx, fraction, 0, n-1);
       for(i=pop->size()-1; k<pop->size(); k++, i--)
 	choices[k] = idx[i];
@@ -497,7 +497,7 @@ GADSSelector::update() {
 
 static void
 GAQuickSort(unsigned int *c, float *s, int l, int r) {
-  int i,j; 
+  int i,j;
   float v;
   unsigned int tc;
   float ts;

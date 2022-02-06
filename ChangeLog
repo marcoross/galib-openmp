@@ -16,7 +16,7 @@
 2004-12-28  Matthew Wall  <mwall@gouda.local>
 
 	* makefile.win32: added test rule
-	* makevars: added ranlib.  some platforms need explicit link to 
+	* makevars: added ranlib.  some platforms need explicit link to
 	c++ standard libs (e.g. macosx with gcc2)
 	* makefile: split rules for library and examples.  added rule for test.
 

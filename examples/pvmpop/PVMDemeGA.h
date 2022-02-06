@@ -8,7 +8,7 @@
   This genetic algorithm lets you specify a number of individuals to migrate
 from one population to another at the end of each generation.  You can specify
 how many populations to maintain.  Each population evolves using a steady-state
-genetic algorithm.  At the end of each generation, the specified number of 
+genetic algorithm.  At the end of each generation, the specified number of
 individuals migrate from one population to the next (we use the loop migration
 topology in this implementation).
   You can modify the migration method by deriving a new class from this one and

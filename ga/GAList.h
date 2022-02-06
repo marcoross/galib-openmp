@@ -26,11 +26,11 @@ that their data is organized into a list structure).
   We include an iterator in this object so that you can navigate through the
 list.  You can create another iterator and assign it to your list so you can
 have multiple iterators.
-  All of the actions take place relative to the current location of the 
+  All of the actions take place relative to the current location of the
 embedded iterator.  None of the iterators change the state of the list.  Be
 careful so that you don't end up with an iterator dangling with a pointer to
 a part of a list that no longer exists (I would need some kind of reference
-counting and/or message passing to take care of this at a lower level, and I'm 
+counting and/or message passing to take care of this at a lower level, and I'm
 not ready to implement that at this point).
   For now we allocate nodes on the fly.  Eventually I would like to do some
 better memory management (arrays perhaps?) so we don't have to do so much
@@ -59,7 +59,7 @@ insert - object
 
 current, head, tail, next, prev, warp
   These iterator methods are defined as access to the embedded iterator of the
-  list.  Use these methods to move the insertion point and to traverse the 
+  list.  Use these methods to move the insertion point and to traverse the
   list.  You can also create other iterators for this list, but they won't
   affect the contents.
 ---------------------------------------------------------------------------- */
@@ -81,9 +81,9 @@ public:
   int destroy();
   int swap(unsigned int, unsigned int);
   T * remove();
-  int insert(GAList<T> * t, GAListBASE::Location where=GAListBASE::AFTER){ 
+  int insert(GAList<T> * t, GAListBASE::Location where=GAListBASE::AFTER){
     if(this == t){
-      GAErr(GA_LOC, "GAList", "insert", gaErrCannotInsertIntoSelf); 
+      GAErr(GA_LOC, "GAList", "insert", gaErrCannotInsertIntoSelf);
       return GAListBASE::ERR;
     }
     if(GAListBASE::insert(t->hd, iter.node, where) == GAListBASE::ERR){
@@ -103,7 +103,7 @@ public:
     return GAListBASE::NO_ERR;
   }
 
-// typesafes on iteration methods.  These call the built-in iterator then 
+// typesafes on iteration methods.  These call the built-in iterator then
 // return the contents of the now-current node.  They do not affect the state
 // of the list.
   T * head(){return iter.head();}
@@ -140,7 +140,7 @@ base class methods.
   Behaviour for the iterator methods is defined as follows.  If the current
 node is null, attempts to access a derived position from the current position
 will return NULL.  The only way to reset the current node is to call the head()
-locater (you always have to start at the list head to navigate the list).  If 
+locater (you always have to start at the list head to navigate the list).  If
 the current node is non-null and the derived node is null, the current node is
 NOT changed, but NULL is returned.  You can also warp to a new position if you
 have another iterator or a list with an embedded iterator.
@@ -157,19 +157,19 @@ public:
   GAListIter(const GAList<T> & t) : GAListIterBASE(t){node=t.iter.node;}
   GAListIter(const GAListIter<T> & i) : GAListIterBASE(i){}
   T * current()
-    {return(node ? 
+    {return(node ?
 	    &((GANode<T> *)node)->contents : (T *)0);}
   T * head()
-    {return(((node=GAListIterBASE::head()) != (GANodeBASE *)0) ? 
+    {return(((node=GAListIterBASE::head()) != (GANodeBASE *)0) ?
 	    &((GANode<T> *)GAListIterBASE::head())->contents : (T *)0);}
   T * tail()
-    {return(((node=GAListIterBASE::tail()) != (GANodeBASE *)0) ? 
+    {return(((node=GAListIterBASE::tail()) != (GANodeBASE *)0) ?
 	    &((GANode<T> *)GAListIterBASE::tail())->contents : (T *)0);}
   T * next()
-    {return((node && node->next) ? 
+    {return((node && node->next) ?
 	    &((GANode<T> *)(node=node->next))->contents : (T *)0);}
   T * prev()
-    {return((node && node->prev) ? 
+    {return((node && node->prev) ?
 	    &((GANode<T> *)(node=node->prev))->contents : (T *)0);}
   T * warp(const GAList<T> & t){
     list = &t;

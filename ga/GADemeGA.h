@@ -8,7 +8,7 @@
   This genetic algorithm lets you specify a number of individuals to migrate
 from one population to another at the end of each generation.  You can specify
 how many populations to maintain.  Each population evolves using a steady-state
-genetic algorithm.  At the end of each generation, the specified number of 
+genetic algorithm.  At the end of each generation, the specified number of
 individuals migrate from one population to the next (we use the loop migration
 topology in this implementation).
   You can modify the migration method by deriving a new class from this one and
@@ -52,7 +52,7 @@ public:
   virtual const GAPopulation& population(const GAPopulation& p)
     { GAGeneticAlgorithm::population(p); return population(ALL,p); }
   virtual int populationSize() const {return pop->size();}
-  virtual int populationSize(unsigned int n) 
+  virtual int populationSize(unsigned int n)
     { GAGeneticAlgorithm::populationSize(n); return populationSize(ALL,n); }
   virtual GAScalingScheme& scaling() const {return pop->scaling();}
   virtual GAScalingScheme& scaling(const GAScalingScheme & s)

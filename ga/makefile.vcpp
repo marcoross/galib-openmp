@@ -13,7 +13,7 @@ LIB    = $(STATIC).lib
 
 all: $(LIB)
 
-$(LIB): $(OBJS) 
+$(LIB): $(OBJS)
 	$(AR) $(ARFLAGS) /out:$(LIB) $?
 	@echo $(LIB_NAME) is now up-to-date
 

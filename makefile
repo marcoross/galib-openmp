@@ -31,7 +31,7 @@ clean:
 	cd ga; $(MAKE) clean
 	cd examples; $(MAKE) clean
 
-release: clean 
+release: clean
 	rm -rf $(RELDIR)
 	mkdir -p $(RELDIR)
 	cp -rp * $(RELDIR)

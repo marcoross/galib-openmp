@@ -30,7 +30,7 @@ public:
   static int DestructiveMutator(GAGenome &, float);
   static int SwapNodeMutator(GAGenome &, float);
   static int SwapSubtreeMutator(GAGenome &, float);
-  static int OnePointCrossover(const GAGenome&, const GAGenome&, 
+  static int OnePointCrossover(const GAGenome&, const GAGenome&,
 			      GAGenome*, GAGenome*);
   static float TopologyComparator(const GAGenome&, const GAGenome&);
 //  static float NodeComparator(const GAGenome&, const GAGenome&);

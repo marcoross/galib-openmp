@@ -87,7 +87,7 @@ main(int argc, char **argv)
 
 // Create the template genome using the phenotype map we just made.  The
 // GA will use this genome to clone the population that it uses to do the
-// evolution.  We pass the objective function to create the genome.  We 
+// evolution.  We pass the objective function to create the genome.  We
 // also use the user data function in the genome to keep track of our
 // target values.
 
@@ -133,14 +133,14 @@ main(int argc, char **argv)
   delete [] target;
   return 0;
 }
- 
+
 
 // For this objective function we try to match the values in the array of float
-// that is passed to us as userData.  If the values in the genome map to 
+// that is passed to us as userData.  If the values in the genome map to
 // values that are close, we return a better score.  We are limited to positive
 // values for the objective value (because we're using linear scaling - the
-// default scaling method for SimpleGA), so we take the reciprocal of the 
-// absolute value of the difference between the value from the phenotype and 
+// default scaling method for SimpleGA), so we take the reciprocal of the
+// absolute value of the difference between the value from the phenotype and
 // the value in the sequence.
 float
 Objective(GAGenome& g)

@@ -2,7 +2,7 @@
 /* ----------------------------------------------------------------------------
   statistics.h
   mbwall 14jul95
-  Copyright (c) 1995 Massachusetts Institute of Technology 
+  Copyright (c) 1995 Massachusetts Institute of Technology
                    - all rights reserved
 
  DESCRIPTION:
@@ -31,8 +31,8 @@ extern char gaDefScoreFilename[];
 /* ----------------------------------------------------------------------------
 Statistics class
   We define this class as a storage object for the current state of the GA.
-Whereas the parameters object keeps track of the user-definable settings for 
-the GA, the statistics object keeps track of the data that the GA generates 
+Whereas the parameters object keeps track of the user-definable settings for
+the GA, the statistics object keeps track of the data that the GA generates
 along the way.
 ---------------------------------------------------------------------------- */
 class GAStatistics {
@@ -46,7 +46,7 @@ public:
     Diversity=0x10,
     AllScores=0xff
     };
-  
+
   GAStatistics();
   GAStatistics(const GAStatistics&);
   GAStatistics& operator=(const GAStatistics& orig){copy(orig); return *this;}

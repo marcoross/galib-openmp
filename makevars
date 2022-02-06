@@ -5,7 +5,7 @@
 
 LIB   =libga.a
 
-### Set these directories to whatever is appropriate for your system.  These 
+### Set these directories to whatever is appropriate for your system.  These
 ### are used only if you do a 'make install'.  They specify where the library
 ### and header files should be installed.
 DESTDIR=/usr/local
@@ -20,7 +20,7 @@ CP          = cp
 RM          = rm -rf
 
 
-### Uncomment a block from the list below appropriate for the compiler and 
+### Uncomment a block from the list below appropriate for the compiler and
 ### operating system on which you are compiling.
 
 # gcc3, gcc4

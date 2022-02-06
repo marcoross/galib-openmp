@@ -10,7 +10,7 @@
 the raw objective scores of a population into 'fitness' scores that are used to
 determine which genomes are fit for mating/selection.
   In all of these routines we do a check to be sure that we have enough space
-to do our evaluations.  We don't need to do this so long as the population 
+to do our evaluations.  We don't need to do this so long as the population
 objects that call us do the test themselves.  I'll leave the redundancy for
 now.
 ---------------------------------------------------------------------------- */
@@ -35,7 +35,7 @@ NoScaling
 ---------------------------------------------------------------------------- */
 // Assign the fitness scores to be the same as the objective scores for all of
 // the individuals in the population.
-void 
+void
 GANoScaling::evaluate(const GAPopulation& p) {
   for(int i=0; i<p.size(); i++)
     p.individual(i).fitness(p.individual(i).score());
@@ -52,7 +52,7 @@ LinearScaling
 // of the genomes in the population).  We must use a precision higher than that
 // of the genome scores so that we don't lose any information.
 
-void 
+void
 GALinearScaling::evaluate(const GAPopulation & p) {
 // Here we calculate the slope and intercept using the multiplier and objective
 // score ranges...
@@ -63,7 +63,7 @@ GALinearScaling::evaluate(const GAPopulation & p) {
 
   double delta, a, b;
   if(pave == pmax){	// no scaling - population is all the same
-    a = 1.0; 
+    a = 1.0;
     b = 0.0;
   }
   else if(pmin > ((double)c * pave - pmax)/((double)c - 1.0)){
@@ -118,7 +118,7 @@ SigmaTruncationScaling
 // This is an implementation of the sigma truncation scaling method descibed in
 // goldberg p 124.  If the scaled fitness is less than zero, we arbitrarily set
 // it to zero (thus the truncation part of 'sigma truncation').
-void 
+void
 GASigmaTruncationScaling::evaluate(const GAPopulation & p) {
   for(int i=0; i<p.size(); i++){
     double f = (double)(p.individual(i).score()) - (double)(p.ave());
@@ -152,7 +152,7 @@ PowerLawScaling
 // fitness is a function of the objective score raised to some power.  Negative
 // objective scores are not allowed.  If we get one, we post an error and set
 // all of the fitness scores to zero.
-void 
+void
 GAPowerLawScaling::evaluate(const GAPopulation & p) {
   for(int i=0; i<p.size(); i++){
     double f = p.individual(i).score();
@@ -186,10 +186,10 @@ Sharing
 // each genome.
 //   We can cut in half the number of calls to the sharing function by keeping
 // one half of the ixj matrix.  This is because d(i,j) is the same as d(j,i).
-// We cache the distances in an upper right triangular matrix stored as a 
+// We cache the distances in an upper right triangular matrix stored as a
 // series of floats.
-//   If the population is maximizing then we derate by dividing.  If the 
-// population is minimizing then we derate by multiplying.  First we check to 
+//   If the population is maximizing then we derate by dividing.  If the
+// population is minimizing then we derate by multiplying.  First we check to
 // see if there is a GA using the population.  If there is, we use its min/max
 // flag to determine whether or not we should be minimizing or maximizing.  If
 // there is not GA with the population, then we use the population's sort order
@@ -197,7 +197,7 @@ Sharing
 // *** This could be done with n*n/2 instead of n*n, to reduce storage, but we
 // can't reduce computation any more...
 // *** probably should use the diversity built-in to the population...
-void 
+void
 GASharing::evaluate(const GAPopulation& p) {
   if(p.size() > (int)N){
     delete [] d;
@@ -227,7 +227,7 @@ GASharing::evaluate(const GAPopulation& p) {
     if(p.geneticAlgorithm())
       mm = p.geneticAlgorithm()->minimaxi();
     else
-      mm = ((p.order() == GAPopulation::HIGH_IS_BEST) ? 
+      mm = ((p.order() == GAPopulation::HIGH_IS_BEST) ?
 	    GAGeneticAlgorithm::MAXIMIZE : GAGeneticAlgorithm::MINIMIZE);
   }
   else {
@@ -253,7 +253,7 @@ GASharing::evaluate(const GAPopulation& p) {
   }
 }
 
-void 
+void
 GASharing::copy(const GAScalingScheme & arg){
   if(&arg == this) return;
 
@@ -281,12 +281,12 @@ GASharing::sigma(float c) {
 }
 
 int
-GASharing::minimaxi(int i) { 
-  if(i == GAGeneticAlgorithm::MAXIMIZE)      
+GASharing::minimaxi(int i) {
+  if(i == GAGeneticAlgorithm::MAXIMIZE)
     _minmax = GAGeneticAlgorithm::MAXIMIZE;
-  else if(i == GAGeneticAlgorithm::MINIMIZE) 
+  else if(i == GAGeneticAlgorithm::MINIMIZE)
     _minmax = GAGeneticAlgorithm::MINIMIZE;
-  else                       
+  else
     _minmax = 0;
   return _minmax;
 }

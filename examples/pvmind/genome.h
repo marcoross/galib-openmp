@@ -4,7 +4,7 @@
   Copyright (c) 1995-1996 Massachusetts Institute of Technology
 
  DESCRIPTION:
-   This file contains the information needed to evaluate an operate on a 
+   This file contains the information needed to evaluate an operate on a
 genome in these examples.
 ---------------------------------------------------------------------------- */
 #ifndef _genome_h_
@@ -32,7 +32,7 @@ typedef struct _PVMData {
   int ntasks;		// number of slave tasks that are running
   int nreq;		// number of tasks that we asked for
 } PVMData, *PVMDataPtr, **PVMDataHdl;
- 
+
 const int MSG_READY=10;
 const int MSG_DONE=100;
 const int MSG_GENOME_DATA=50;

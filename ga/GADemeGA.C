@@ -53,7 +53,7 @@ GADemeGA::GADemeGA(const GAPopulation& p) : GAGeneticAlgorithm(p) {
     deme = new GAPopulation* [npop];
     pstats = new GAStatistics [npop];
     tmppop = new GAPopulation(p.individual(0), nr);
-    
+
     for(unsigned int i=0; i<npop; i++) {
       nrepl[i] = nr;
       deme[i] = new GAPopulation(p);
@@ -74,7 +74,7 @@ GADemeGA::~GADemeGA(){
 }
 GADemeGA&
 GADemeGA::operator=(const GADemeGA& orig){
-  if(&orig != this) copy(orig); 
+  if(&orig != this) copy(orig);
   return *this;
 }
 void
@@ -95,11 +95,11 @@ GADemeGA::copy(const GAGeneticAlgorithm& g){
   deme = new GAPopulation* [npop];
 
   memcpy(nrepl, ga.nrepl, npop * sizeof(int));
-  for(i=0; i<npop; i++) 
+  for(i=0; i<npop; i++)
     deme[i]->copy(*(ga.deme[i]));
 
   tmppop->copy(*(ga.tmppop));
-  
+
   pstats = new GAStatistics[npop];
   for(i=0; i<npop; i++)
     pstats[i] = ga.pstats[i];
@@ -133,12 +133,12 @@ int
 GADemeGA::get(const char* name, void* value) const {
   int status = GAGeneticAlgorithm::get(name, value);
 
-  if(strcmp(name, gaNnPopulations) == 0 || 
+  if(strcmp(name, gaNnPopulations) == 0 ||
 	  strcmp(name, gaSNnPopulations) == 0){
     *((int*)value) = npop;
     status = 0;
   }
-  else if(strcmp(name, gaNnMigration) == 0 || 
+  else if(strcmp(name, gaNnMigration) == 0 ||
 	  strcmp(name, gaSNnMigration) == 0){
     *((int*)value) = nmig;
     status = 0;
@@ -148,7 +148,7 @@ GADemeGA::get(const char* name, void* value) const {
 }
 
 
-void 
+void
 GADemeGA::objectiveFunction(int i, GAGenome::Evaluator f){
   if(i == ALL)
     for(unsigned int ii=0; ii<npop; ii++)
@@ -199,7 +199,7 @@ int
 GADemeGA::nReplacement(int i, unsigned int value){
   if(i == ALL) {
     for(unsigned int ii=0; ii<npop; ii++){
-      if(value > (unsigned int)deme[ii]->size()) 
+      if(value > (unsigned int)deme[ii]->size())
 	GAErr(GA_LOC, className(), "nReplacement", gaErrBadPRepl);
       else {
 	params.set(gaNnReplacement, (unsigned int)value);
@@ -219,7 +219,7 @@ GADemeGA::nReplacement(int i, unsigned int value){
   return value;
 }
 
-GAScalingScheme& 
+GAScalingScheme&
 GADemeGA::scaling(int i, const GAScalingScheme & s){
   if(i == ALL)
     for(unsigned int ii=0; ii<npop; ii++)
@@ -239,7 +239,7 @@ GADemeGA::selector(int i, const GASelectionScheme& s){
   return deme[((i==ALL) ? 0 : i)]->selector();
 }
 
-int 
+int
 GADemeGA::nMigration(unsigned int n) {
   params.set(gaNnMigration, (unsigned int)n);
   return nmig = n;
@@ -289,7 +289,7 @@ GADemeGA::nPopulations(unsigned int n) {
     nrepl = new int[n];
     memcpy(nrepl, rtmp, npop * sizeof(int));
     for(unsigned int k=npop; k<n; k++)
-      nrepl[k] = nrepl[0];    
+      nrepl[k] = nrepl[0];
 
     npop = n;
   }
@@ -299,7 +299,7 @@ GADemeGA::nPopulations(unsigned int n) {
 }
 
 int
-GADemeGA::minimaxi(int m) { 
+GADemeGA::minimaxi(int m) {
   if(m == MINIMIZE){
     tmppop->order(GAPopulation::LOW_IS_BEST);
     for(unsigned int i=0; i<npop; i++)
@@ -343,7 +343,7 @@ GADemeGA::initialize(unsigned int seed) {
 
 // To evolve the genetic algorithm, we loop through all of our populations and
 // evolve each one of them.  Then allow the migrator to do its thing.  Assumes
-// that the tmp pop is at least as big as the largest nrepl that we'll use.  
+// that the tmp pop is at least as big as the largest nrepl that we'll use.
 // The master population maintains the best n individuals from each of the
 // populations, and it is based on those that we keep the statistics for the
 // entire genetic algorithm run.
@@ -358,12 +358,12 @@ GADemeGA::step() {
 
   for(unsigned int ii=0; ii<npop; ii++) {
     for(i=0; i<nrepl[ii]-1; i+=2){	// takes care of odd population
-      mom = &(deme[ii]->select()); 
+      mom = &(deme[ii]->select());
       dad = &(deme[ii]->select());
       pstats[ii].numsel += 2;
       c1 = c2 = 0;
       if(GAFlipCoin(pc)){
-	pstats[ii].numcro += (*scross)(*mom, *dad, &tmppop->individual(i), 
+	pstats[ii].numcro += (*scross)(*mom, *dad, &tmppop->individual(i),
 				       &tmppop->individual(i+1));
 	c1 = c2 = 1;
       }
@@ -378,12 +378,12 @@ GADemeGA::step() {
       pstats[ii].numeval += c1 + c2;
     }
     if(nrepl[ii] % 2 != 0){	// do the remaining population member
-      mom = &(deme[ii]->select()); 
-      dad = &(deme[ii]->select()); 
+      mom = &(deme[ii]->select());
+      dad = &(deme[ii]->select());
       pstats[ii].numsel += 2;
       c1 = 0;
       if(GAFlipCoin(pc)){
-	pstats[ii].numcro += 
+	pstats[ii].numcro +=
 	  (*scross)(*mom, *dad, &tmppop->individual(i), (GAGenome*)0);
 	c1 = 1;
       }
@@ -403,7 +403,7 @@ GADemeGA::step() {
     for(i=0; i<nrepl[ii]; i++)
       tmppop->replace(deme[ii]->remove(GAPopulation::WORST,
 				       GAPopulation::SCALED), i);
-    
+
     pstats[ii].numrep += nrepl[ii];
   }
 
@@ -442,15 +442,15 @@ GADemeGA::migrate() {
   ind = new GAGenome* [nmig];
   unsigned int j;
 
-  for(j=0; j<nmig; j++) 
+  for(j=0; j<nmig; j++)
     ind[j] = &(deme[0]->individual(j));
 
   for(unsigned int i=1; i<npop; i++) {
-    for(j=0; j<nmig; j++) 
+    for(j=0; j<nmig; j++)
       ind[j] = deme[i]->replace(ind[j], j);
   }
 
-  for(j=0; j<nmig; j++) 
+  for(j=0; j<nmig; j++)
     deme[0]->replace(ind[j], j);
 
   delete [] ind;

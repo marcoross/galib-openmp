@@ -45,12 +45,12 @@ TreeBASE
 // becomes the eldest child of the node that is being inserted.
 //   root:  idx is ignored.  Beware that the previous root ptr is lost (unless
 // you keep you own copy of it somewhere else).
-//   before:  If node idx is the first in a row in the tree, then n becomes 
-// the first in the row.  If idx is the root node, then we post an error 
+//   before:  If node idx is the first in a row in the tree, then n becomes
+// the first in the row.  If idx is the root node, then we post an error
 // message (can't have more than one root node).
 //   after:  If the node idx is the last in a row, n becomes the last node.  If
 // idx is the root node, we post an error.
-//   below:  This is the default operation.  This is the only valid operation 
+//   below:  This is the default operation.  This is the only valid operation
 // on a root node.
 int
 GATreeBASE::insert(GANodeBASE * n, GANodeBASE * idx, Location where)
@@ -191,7 +191,7 @@ GATreeBASE::remove(GANodeBASE * n)
 // Swap the specified nodes.  If we get NULL nodes or the nodes are the same,
 // don't do anything.  Swapping will work only on nodes that are not directly
 // related, eg a cannot be the ancestor of b.  If you do a swap on nodes that
-// are directly related, you'll end up with two separate trees.  For now we 
+// are directly related, you'll end up with two separate trees.  For now we
 // don't check for this.
 //   This swaps two nodes and their entire subtrees, its doesn't simply swap
 // the nodes themselves!!
@@ -208,10 +208,10 @@ GATreeBASE::remove(GANodeBASE * n)
 // the other must have been a descendent of the first, so trying to swap them
 // is an error.  If they are in different trees and one is the root node of
 // this tree, we can reset the root node of this tree.  We have no way of
-// resetting the root node of the other tree, however, so beware that you 
+// resetting the root node of the other tree, however, so beware that you
 // could lose the second tree (the one that used to be in this tree) if you
 // swap into another root.
-//   This implementation has much room for improvement.  We don't have to 
+//   This implementation has much room for improvement.  We don't have to
 // traverse the tree multiple times, for example.
 int
 GATreeBASE::swaptree(GANodeBASE * a, GANodeBASE * b)
@@ -460,12 +460,12 @@ GATreeBASE::swapnode(GANodeBASE * a, GANodeBASE * b)
 
 // Return the number of nodes in the tree.  We do a complete traversal of the
 // tree and count the number of nodes that we encounter.  Could do this breadth
-// first or depth first - doesn't really matter.  We have to traverse the 
+// first or depth first - doesn't really matter.  We have to traverse the
 // entire tree to do the count.
 //   We have to do a little work-around here to get through the const-ness of
 // the size method.  Its ok to call size on a const object because it does not
 // modify the logical state of the object.  It does, however, modify the
-// physical state of the object.  So to work around the strictness of the 
+// physical state of the object.  So to work around the strictness of the
 // const specifier, we do a little pointer magic and cast this to be non-const.
 int
 GATreeBASE::size() const
@@ -493,13 +493,13 @@ GATreeBASE::depth() const
 
 // Is node i an ancestor of node j or vice versa?  If so, we return 1.  Other-
 // wise we return a 0.
-int 
+int
 GATreeBASE::ancestral(unsigned int i, unsigned int j) const {
   GATreeIterBASE aiter(*this);
   GATreeIterBASE biter(*this);
   GANodeBASE * aparent, *a;
   GANodeBASE * bparent, *b;
-  aparent = a = aiter.warp(i); 
+  aparent = a = aiter.warp(i);
   bparent = b = biter.warp(j);
 
   while(aparent && aparent != b)
@@ -550,7 +550,7 @@ _GATreeDepth(GANodeBASE * node)
 TreeIterBASE
 ---------------------------------------------------------------------------- */
 // Return the root of the specified node.
-GANodeBASE * 
+GANodeBASE *
 GATreeIterBASE::root(GANodeBASE * c)
 {
   if(!c) return (GANodeBASE *)0;
@@ -560,13 +560,13 @@ GATreeIterBASE::root(GANodeBASE * c)
 }
 
 
-// Return the eldest child in a row of siblings.  The eldest is the one that 
+// Return the eldest child in a row of siblings.  The eldest is the one that
 // the parent of that row points to.
-//   This could get into an infinite loop if the tree structure were ever 
+//   This could get into an infinite loop if the tree structure were ever
 // corrupted, so be sure that it doesn't!  Also, it will break if the parent
 // member is not set in any child, so be sure that never happens either.
 //   Remember to set the current node to the one we found.
-GANodeBASE * 
+GANodeBASE *
 GATreeIterBASE::eldest(GANodeBASE * c)
 {
   if(!c) return (GANodeBASE *)0;
@@ -584,7 +584,7 @@ GATreeIterBASE::eldest(GANodeBASE * c)
 // one in the row (ie the prev for the eldest since we're using circular lists)
 // Basically we just find the eldest then take the one previous to that one.
 //   Remember to set the current node to the one we found.
-GANodeBASE * 
+GANodeBASE *
 GATreeIterBASE::youngest(GANodeBASE * c)
 {
   if(!c) return (GANodeBASE *)0;
@@ -598,7 +598,7 @@ GATreeIterBASE::youngest(GANodeBASE * c)
 }
 
 
-// Return the number of siblings for the specified node.  Notice that this 
+// Return the number of siblings for the specified node.  Notice that this
 // function returns the number of siblings INCLUDING the specified node.
 int
 GATreeIterBASE::nsiblings(GANodeBASE * c)
@@ -611,7 +611,7 @@ GATreeIterBASE::nsiblings(GANodeBASE * c)
 
 
 // Return the number of children for the specified node.  This is basically the
-// same code as the nsiblings routine, but we look at the child of the node, 
+// same code as the nsiblings routine, but we look at the child of the node,
 // not the node itself.
 int
 GATreeIterBASE::nchildren(GANodeBASE * c)
@@ -625,7 +625,7 @@ GATreeIterBASE::nchildren(GANodeBASE * c)
 
 
 // Set the current node to the node indexed by the integer x.  If x is out of
-// bounds, we return NULL and don't change the state of the iterator.  This 
+// bounds, we return NULL and don't change the state of the iterator.  This
 // method uses a depth-first traversal to find the node.  Root node is 0, then
 // we go up from there.
 GANodeBASE *
@@ -638,8 +638,8 @@ GATreeIterBASE::warp(unsigned int x)
 }
 
 
-// Return the number of nodes in the tree from the specified node on down.  
-// Similar to the TreeBASE size method, but we don't set the sz member and 
+// Return the number of nodes in the tree from the specified node on down.
+// Similar to the TreeBASE size method, but we don't set the sz member and
 // we can't cache the size since this could be called on any node.
 int
 GATreeIterBASE::size(GANodeBASE * n)
@@ -688,7 +688,7 @@ _GATreeTraverse(unsigned int index, unsigned int & cur, GANodeBASE * node)
 //   Neither of these operators affects the internal iterator of either
 // tree genome in any way.
 
-//   Recursively traverse two trees at the same time.  Return 1 if they are 
+//   Recursively traverse two trees at the same time.  Return 1 if they are
 // different, return a 0 if they are identical.  This checks only the tree
 // structure, not the node contents.
 int

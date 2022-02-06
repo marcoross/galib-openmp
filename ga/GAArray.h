@@ -81,12 +81,12 @@ protected:
 };
 
 
-template <class T> int 
+template <class T> int
 operator==(const GAArray<T> & a, const GAArray<T> & b){
   if(a.size() != b.size()) return 0;
   return a.equal(b,0,0,a.sz);
 }
-template <class T> int 
+template <class T> int
 operator!=(const GAArray<T> & a, const GAArray<T> & b){
   if(a.size() != b.size()) return 1;
   return a.equal(b,0,0,a.sz) ? 0 : 1;

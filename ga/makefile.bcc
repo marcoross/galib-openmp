@@ -15,7 +15,7 @@ all: $(LIB)
 
 # this really sucks, but i have not yet found documentation about the borland
 # make or link that will let me avoid the for loop.
-$(LIB): $(OBJS) 
+$(LIB): $(OBJS)
 	@for %i in ( $(OBJS) ) do \
           $(AR) $(ARFLAGS) $(LIB) +%i
 	@echo $(LIB_NAME) is now up-to-date

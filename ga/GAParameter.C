@@ -27,7 +27,7 @@ extern char _gaerrbuf1[];
 extern char _gaerrbuf2[];
 static int IsNumeric(const char*);
 
-GAParameter::GAParameter(const char* fn, const char* sn, 
+GAParameter::GAParameter(const char* fn, const char* sn,
 			 Type tp, const void* v){
   if(fn){
     fname = new char[strlen(fn)+1];
@@ -47,7 +47,7 @@ GAParameter::GAParameter(const char* fn, const char* sn,
 }
 
 GAParameter::GAParameter(const GAParameter& orig){
-  fname=sname = (char*)0; 
+  fname=sname = (char*)0;
   memset(&val, 0, sizeof(Value));
   copy(orig);
 }
@@ -71,7 +71,7 @@ GAParameter::copy(const GAParameter& orig){
 
   t = orig.t;
   setvalue(orig.value());	// do this directly...
-}    
+}
 
 GAParameter::~GAParameter(){
   delete [] fname;
@@ -137,7 +137,7 @@ GAParameterList::GAParameterList(const GAParameterList& list){
 
 // This is a rather stupid operator= implementation.  Instead of doing a copy
 // we just nuke everything the reallocate new stuff.  If this were called a lot
-// then we could end up with some fragmentation this way (rather than just 
+// then we could end up with some fragmentation this way (rather than just
 // doing copies on already-allocated memory).
 GAParameterList&
 GAParameterList::operator=(const GAParameterList& list){
@@ -171,7 +171,7 @@ int
 GAParameterList::set(const char* name, const void* v){
   int found = 0;
   for(unsigned int i=0; i<n && !found; i++){
-    if(strcmp(name, p[i]->fullname()) == 0 || 
+    if(strcmp(name, p[i]->fullname()) == 0 ||
        strcmp(name, p[i]->shrtname()) == 0){
       p[i]->value(v);
       found = 1;
@@ -184,7 +184,7 @@ GAParameterList::set(const char* name, const void* v){
 // Must do a special case for double/float.  Any floats that get passed to this
 // routine will be cast to doubles, but then we need to force them back to a
 // float if FLOAT is the type that is expected.  Kind of sucks, eh?
-//   We could check the parameter type against the type here, but we don't. 
+//   We could check the parameter type against the type here, but we don't.
 // (could do it for all of the 'set' members).  Maybe in a later release.
 int
 GAParameterList::set(const char* name, double v) {
@@ -244,7 +244,7 @@ GAParameterList::get(const char* name, void* value) const {
 // was OK, -1 if there was a problem.
 int
 GAParameterList::add(const char* fn, const char* sn,
-		     GAParameter::Type t, const void* v) { 
+		     GAParameter::Type t, const void* v) {
   int status = -1;
   if(n == N){
     N += PRM_CHUNKSIZE;
@@ -268,7 +268,7 @@ GAParameterList::add(const char* fn, const char* sn,
 
 
 // When you remove a parameter from the list, the iterator is left pointing
-// at the same location.  If the item was the last in the list, then the 
+// at the same location.  If the item was the last in the list, then the
 // iterator moves to the new last item in the list.
 //   Return 0 if everything was OK, -1 if error.
 int
@@ -283,7 +283,7 @@ GAParameterList::remove(){
   return status;
 }
 
-GAParameter* 
+GAParameter*
 GAParameterList::operator()(const char* name){
   for(unsigned int i=0; i<n; i++)
     if(strcmp(name, p[i]->fullname())==0 || strcmp(name, p[i]->shrtname())==0)
@@ -362,7 +362,7 @@ GAParameterList::write(const char* filename) const {
 // the stream.  Be sure not to duplicate the last one, and be sure to dump any
 // items from a # to end-of-line.
 //   Parse for name-value pairs, where the pairs are separated by whitespace.
-// *Every* parameter must be specified as a name-value pair (no single name 
+// *Every* parameter must be specified as a name-value pair (no single name
 // with no value allowed).  If we get a single name with no value that will
 // screw up the name-value pairing for any remaining pairs.  We could check for
 // this situation, but for now we just let it happen and dump the errors. (i'll
@@ -421,7 +421,7 @@ GAParameterList::read(STD_ISTREAM& is, GABoolean flag){
 	  int ival;
 	  float fval;
 	  double dval;
-	  
+
 	  switch(p[i]->type()){
 	  case GAParameter::BOOLEAN:
 	  case GAParameter::INT:
@@ -514,7 +514,7 @@ GAParameterList::read(const char* filename, GABoolean flag){
 // parameter list.  So if something turns up more than once, we'll remove-
 // then-append it more than once and the ordering from argv will be properly
 // maintained.
-//   We assume that argv[0] is the name of the program, so we don't barf on 
+//   We assume that argv[0] is the name of the program, so we don't barf on
 // it if it is not a recognized name.
 int
 GAParameterList::parse(int& argc, char *argv[], GABoolean flag){
@@ -543,7 +543,7 @@ GAParameterList::parse(int& argc, char *argv[], GABoolean flag){
 	  int ival;
 	  float fval;
 	  double dval;
-	  
+
 	  switch(p[j]->type()){
 	  case GAParameter::BOOLEAN:
 	    if(IsNumeric(argv[i])){
@@ -625,7 +625,7 @@ GAParameterList::parse(int& argc, char *argv[], GABoolean flag){
 
   return nfound;
 }
- 
+
 
 
 static int

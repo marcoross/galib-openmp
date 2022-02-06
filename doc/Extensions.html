@@ -76,7 +76,7 @@ see also: <i><a href="Overview.html">library overview</a>, <a href="ClassHierarc
 You can create your own genome class by multiply-inheriting from the base genome class and your own data type.  For example, if you have already have an object defined, say MyObject, then you would derive a new genome class called MyGenome, whose class definition looks like this:
 <pre>
 // Class definition for the new genome object, including statically defined
-// declarations for default evaluation, initialization, mutation, and 
+// declarations for default evaluation, initialization, mutation, and
 // comparison methods for this genome class.
 class MyGenome : public MyObject, public GAGenome {
 public:
@@ -88,9 +88,9 @@ public:
   static int Cross(const GAGenome&amp;, const GAGenome&amp;, GAGenome*, GAGenome*);
 
 public:
-  MyGenome() : GAGenome(Init, Mutate, Compare) { 
-    evaluator(Evaluate); 
-    crossover(Cross); 
+  MyGenome() : GAGenome(Init, Mutate, Compare) {
+    evaluator(Evaluate);
+    crossover(Cross);
   }
   MyGenome(const MyGenome&amp; orig) { copy(orig); }
   virtual ~MyGenome() {}
@@ -109,22 +109,22 @@ public:
   // any data/member functions specific to this new class
 };
 
-void 
+void
 MyGenome::Init(GAGenome&amp;){
   // your initializer here
 }
 
-int 
+int
 MyGenome::Mutate(GAGenome&amp;, float){
   // your mutator here
 }
 
-float 
+float
 MyGenome::Compare(const GAGenome&amp;, const GAGenome&amp;){
   // your comparison here
 }
 
-float 
+float
 MyGenome::Evaluate(GAGenome&amp;){
   // your evaluation here
 }
@@ -163,13 +163,13 @@ Note that the genetic comparator is not necessarily the same as the boolean oper
        virtual int read(istream&amp;)
        virtual int write(ostream&amp;) const
 </pre>
-    When you derive a genome, don't forget to use the _evaluated flag to 
-  indicate when the state of the genome has changed and an evaluation is 
+    When you derive a genome, don't forget to use the _evaluated flag to
+  indicate when the state of the genome has changed and an evaluation is
   needed.  If a member function changes the state of your genome, that member
   function should set the _evaluated flag to gaFalse.
 <p>
     Assign a default crossover, mutation, initialization, and comparison
-    method so that users don't have to assign one unless they want to. 
+    method so that users don't have to assign one unless they want to.
 </p>
 <p>
 It is a good idea to define an identity for your genome (especially if you will be using it in an environment with multiple genome types running around).  Use the DefineIdentity macro (defined in id.h) to do this in your class definition.  The DefineIdentity macro sets a class ID number and the name that will be used in error messages for the class.  You can use any number above 200 for the ID, but be sure to use a different number for each of your classes.
@@ -304,7 +304,7 @@ Most genetic algorithms invoke the mutation method on each newly generated offsp
 Here is an implementation of the flip mutator for the GA1DBinaryString class.  This mutator flips a biased coin for each bit in the string.
 </p>
 <pre>
-int 
+int
 GA1DBinStrFlipMutator(GAGenome &amp; c, float pmut)
 {
   GA1DBinaryStringGenome &amp;child=(GA1DBinaryStringGenome &amp;)c;
@@ -466,7 +466,7 @@ Here is an implemenation that invokes the initializer for each genome in the pop
 </p>
 
 <pre>
-void 
+void
 PopInitializer(GAPopulation &amp; p){
   for(int i=0; i&lt;p.size(); i++)
     p.individual(i).initialize();
@@ -496,7 +496,7 @@ Here is an implementation that invokes the evaluation method for each genome in 
 </p>
 
 <pre>
-void 
+void
 PopEvaluator(GAPopulation &amp; p){
   for(int i=0; i&lt;p.size(); i++)
     p.individual(i).evaluate();
@@ -542,7 +542,7 @@ public:
   SigmaTruncationScaling &amp; operator=(const GAScalingScheme &amp; arg)
     { copy(arg); return *this; }
   virtual ~SigmaTruncationScaling() {}
-  virtual GAScalingScheme * clone() const 
+  virtual GAScalingScheme * clone() const
     { return new SigmaTruncationScaling(*this); }
   virtual void evaluate(const GAPopulation &amp; p);
   virtual void copy(const GAScalingScheme &amp; arg){
@@ -558,7 +558,7 @@ protected:
 };
 
 
-void 
+void
 SigmaTruncationScaling::evaluate(const GAPopulation &amp; p) {
   float f;
   for(int i=0; i&lt;p.size(); i++){
@@ -602,10 +602,10 @@ class TournamentSelector : public GARouletteWheelSelector {
 public:
   GADefineIdentity("TournamentSelector", 255);
 
-  TournamentSelector(int w=GASelectionScheme::FITNESS) : 
+  TournamentSelector(int w=GASelectionScheme::FITNESS) :
   GARouletteWheelSelector(w) {}
   TournamentSelector(const TournamentSelector&amp; orig) { copy(orig); }
-  TournamentSelector&amp; operator=(const GASelectionScheme&amp; orig) 
+  TournamentSelector&amp; operator=(const GASelectionScheme&amp; orig)
     { if(&amp;orig != this) copy(orig); return *this; }
   virtual ~TournamentSelector() {}
   virtual GASelectionScheme* clone() const
@@ -645,7 +645,7 @@ TournamentSelector::select() const {
   lower = Min(pop-&gt;size()-1, lower);
   lower = Max(0, lower);
 
-  GAPopulation::SortBasis basis = 
+  GAPopulation::SortBasis basis =
     (which == FITNESS ? GAPopulation::SCALED : GAPopulation::RAW);
   if(pop-&gt;order() == GAPopulation::LOW_IS_BEST){
     if(pop-&gt;individual(lower,basis).score() &lt;
@@ -694,10 +694,10 @@ public:
 
 void
 RestrictedMatingGA::step()
-{ 
+{
   int i, k;
   for(i=0; i&lt;tmpPop-&gt;size()-; i++){
-    mom = &amp;(pop-&gt;select()); 
+    mom = &amp;(pop-&gt;select());
     k=0;
     do { k++; dad = &amp;(pop-&gt;select()); }
     while(mom-&gt;compare(*dad) &lt; THRESHOLD &amp;&amp; k&lt;pop-&gt;size());

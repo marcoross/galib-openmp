@@ -17,8 +17,8 @@ PREPROCESSOR DIRECTIVES
   Here are the preprocessor directives that the library understands.
 
   Some of these are already set up for the OSes with which I am familiar.  See
-below for the pre-defined sets.  If you come up with a compiler/platform 
-configuration that is not listed here, please send it to me so that i can 
+below for the pre-defined sets.  If you come up with a compiler/platform
+configuration that is not listed here, please send it to me so that i can
 incorporate it into the code base.
 
   GALIB_USE_ANSI_HEADERS
@@ -34,7 +34,7 @@ incorporate it into the code base.
   GALIB_USE_COMP_OPERATOR_TEMPLATES
 
                       Some older compilers do not require strict, ansi template
-		      definitions.  And some compilers require slightly 
+		      definitions.  And some compilers require slightly
 		      different ways of specifying templates.  And to make it
 		      even more complicated, some depend very much on the type
 		      of instantiation method that is defined.  Sigh.
@@ -48,8 +48,8 @@ incorporate it into the code base.
   GALIB_USE_STREAMS
 
                       For systems/environments in which streams are not desired
-                      and/or required.  If this is not defined, it turns off 
-                      errors and all of the read/write routines for the 
+                      and/or required.  If this is not defined, it turns off
+                      errors and all of the read/write routines for the
                       classes.
 
   GALIB_USE_RTTI
@@ -68,8 +68,8 @@ incorporate it into the code base.
   GALIB_USE_NO_TEMPLATES
 
                       For compilers that do not do templates.  The only type
-                      of genome available when this is defined is binary 
-                      string and any derived classes.  list, tree, and array 
+                      of genome available when this is defined is binary
+                      string and any derived classes.  list, tree, and array
 		      all use templates.  You can still use the template code,
 		      but you will have to hack it yourself to make it work.
 
@@ -81,8 +81,8 @@ incorporate it into the code base.
                       hand, expects source files with names similar to the
 		      header files, but all of the template code does not
 		      need to be in the header files.
-		    
-		      When you define this flag, the source file that 
+
+		      When you define this flag, the source file that
 		      corresponds to the header file is explicitly included
 		      at the end of the header file for all headers that
 		      contain templates.
@@ -103,19 +103,19 @@ incorporate it into the code base.
 
 
   USE_GALIB_AS_LIB       For windows shared libraries, one must define whether
-  USE_GALIB_AS_DLL       static member data are imported or exported.  You 
+  USE_GALIB_AS_DLL       static member data are imported or exported.  You
                          define one or the other of these, but not both.  The
 		  	 default is USE_GALIB_AS_LIB (if you define neither).
-			
+
   COMPILE_GALIB_AS_LIB   If you are compiling the dome library, define one of
   COMPILE_GLAIB_AS_DLL   these to indicate the windows exports.  The default
                          is USE_GALIB_AS_LIB (if you define neither).
- 
-                
-   
+
+
+
   GALIB_USE_RAN1      These specify which random number function to use.  Only
-  GALIB_USE_RAN2      one of these may be specified.  You may have to tweak 
-  GALIB_USE_RAN3      random.h a bit as well (these functions are not defined 
+  GALIB_USE_RAN2      one of these may be specified.  You may have to tweak
+  GALIB_USE_RAN3      random.h a bit as well (these functions are not defined
   GALIB_USE_RAND      the same way on each platform).  For best results, use
   GALIB_USE_RANDOM    ran2 or ran3 (performance is slightly slower than most
   GALIB_USE_RAND48    system RNGs, but you'll get better results).
@@ -124,7 +124,7 @@ incorporate it into the code base.
                       must hack random.h directly (see the comments in that
                       file).
 
-  GALIB_BITBASE       The built-in type to use for bit conversions.  This 
+  GALIB_BITBASE       The built-in type to use for bit conversions.  This
                       should be set to the type of the largest integer that
                       your system supports.  If you have long long int then
                       use it.  If you don't plan to use more than 16 or 32
@@ -258,7 +258,7 @@ incorporate it into the code base.
 
 
 // ----------------------------------------------------------------------------
-// Symantec C++ for mac.  This compiler does not handle templates very well, 
+// Symantec C++ for mac.  This compiler does not handle templates very well,
 // so if you want to use any of the template components of GAlib then you will
 // probably have to do some hacking to get things to work.
 #elif defined(__SC__)
@@ -319,7 +319,7 @@ incorporate it into the code base.
 // let visual studio do its own instantations, so by default do not force them.
 #define GALIB_USE_AUTO_INST
 // use ansi headers with vcpp7.  it is a good idea to use them in vcpp6 as well
-// but some vcpp6 apps are built with non-ansi headers, in which case you 
+// but some vcpp6 apps are built with non-ansi headers, in which case you
 // should build with the non-ansi headers so that you do not cross the streams.
 #define GALIB_USE_ANSI_HEADERS
 // beware of using streams in an MFC application.  many nasties lurk therein...
@@ -329,11 +329,11 @@ incorporate it into the code base.
 // will use GAlib, you might have to turn this one off.
 #define GALIB_USE_STD_NAMESPACE
 // use the pid only on winnt and derivatives.  win95/98/ME do not have it.
-// this requires unistd.h, which you may or may not have (depending on the 
+// this requires unistd.h, which you may or may not have (depending on the
 // way that you installed the compiler).
 //#define GALIB_USE_PID
 // GAlib behaves much better in unknown conditions when rtti is enabled, but
-// you might have to disable it, depending on the linkage and compilation 
+// you might have to disable it, depending on the linkage and compilation
 // options you need for other components you are using with GAlib.
 #if defined(_CPPRTTI)
 #define GALIB_USE_RTTI
@@ -422,7 +422,7 @@ incorporate it into the code base.
 
 
 // ----------------------------------------------------------------------------
-// This is an unknown/untested platform and/or compiler.  The defaults below 
+// This is an unknown/untested platform and/or compiler.  The defaults below
 // might work for you, but then again, they might not.  You may have to adjust
 // the values of the macros until everything works properly.  Comment out the
 // #error directive to allow things to compile properly.
@@ -448,7 +448,7 @@ incorporate it into the code base.
 
 
 
-// deal with assertions.  at some point we might want a proper definition of 
+// deal with assertions.  at some point we might want a proper definition of
 // assert here for platforms that do not have it.
 #if defined(GALIB_HAVE_NOT_ASSERT)
 #include <stdlib.h>
@@ -483,7 +483,7 @@ incorporate it into the code base.
 #endif
 
 
-// This defines how many bits are in a single word on your system.  Most 
+// This defines how many bits are in a single word on your system.  Most
 // systems have a word length of 8 bits.
 #ifndef GALIB_BITS_IN_WORD
 #define GALIB_BITS_IN_WORD 8
@@ -491,7 +491,7 @@ incorporate it into the code base.
 
 
 // Use this to set the maximum number of bits that can be used in binary-to-
-// decimal conversions.  You should make this type the largest integer type 
+// decimal conversions.  You should make this type the largest integer type
 // that your system supports.
 #ifndef GALIB_BITBASE
 #define GALIB_BITBASE long int

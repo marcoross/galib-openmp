@@ -10,7 +10,7 @@ files and understands the usual GAlib command-line options.
   Apologies for the mix of C and C++ coding styles here, but you get the idea.
   By the way, this thing looks WAY better when you plot the functions in 3D
 (using an OpenGL widget rather than the drawing area widget, for example).
-  You can compile this using either motif widgets or the athena widgets, 
+  You can compile this using either motif widgets or the athena widgets,
 depending on which you have on your system.
 ---------------------------------------------------------------------------- */
 #include <stdio.h>
@@ -246,7 +246,7 @@ main(int argc, char** argv) {
 
 // make the application widget, grab resource, and parse command line
 
-  Widget toplevel = XtAppInitialize(&theAppData.appc, APP_CLASS, 
+  Widget toplevel = XtAppInitialize(&theAppData.appc, APP_CLASS,
 				    options, XtNumber(options),
 				    &argc, argv, fallbacks, (ArgList)NULL, 0);
   XtGetApplicationResources(toplevel, (XtPointer) &theAppData,
@@ -270,7 +270,7 @@ main(int argc, char** argv) {
     theAppData.genome = new GABin2DecGenome(map, Bin2DecObjective);
   }
   else {
-    GARealAlleleSet alleleset(minx[theAppData.whichFunction], 
+    GARealAlleleSet alleleset(minx[theAppData.whichFunction],
 			      maxx[theAppData.whichFunction]);
     theAppData.genome = new GARealGenome(2, alleleset, RealObjective);
   }
@@ -314,7 +314,7 @@ main(int argc, char** argv) {
   case 0:
     cout << "loaf of bread";
     break;
-  case 1: 
+  case 1:
     cout << "foxholes";
     break;
   case 2:
@@ -423,7 +423,7 @@ UpdateCounter(GAGeneticAlgorithm* ga) {
 
 Boolean
 Evolve(int n){
-  if((n < 0 && theAppData.ga->done() == gaFalse) || 
+  if((n < 0 && theAppData.ga->done() == gaFalse) ||
      theAppData.ga->generation() < n){
     theAppData.ga->step();
     DrawCB(theAppData.canvas, (XtPointer)&theAppData, 0);
@@ -470,7 +470,7 @@ EvolveSomeCB(Widget, XtPointer cd, XtPointer){
 void
 EvolveCB(Widget, XtPointer cd, XtPointer){
   AppDataPtr data = (AppDataPtr)cd;
-  data->procid = 
+  data->procid =
     XtAppAddWorkProc(data->appc, (XtWorkProc)Evolve,(XtPointer)(-1));
 }
 
@@ -481,13 +481,13 @@ QuitCB(Widget, XtPointer, XtPointer){
 
 void
 DumpStatsCB(Widget, XtPointer cd, XtPointer){
-  cerr << "\nstatistics are:\n" << 
+  cerr << "\nstatistics are:\n" <<
     ((GAGeneticAlgorithm*)cd)->statistics() << "\n";
 }
 
 void
 DumpParamsCB(Widget, XtPointer cd, XtPointer){
-  cerr << "\nparameters are:\n" << 
+  cerr << "\nparameters are:\n" <<
     ((GAGeneticAlgorithm*)cd)->parameters() << "\n";
 }
 
@@ -501,9 +501,9 @@ DumpScoreCB(Widget, XtPointer cd, XtPointer){
 
 
 
-// This routine draws the entire population or a single individual depending 
+// This routine draws the entire population or a single individual depending
 // on the value of the single flag.  It needs to know how much of a
-// buffer to use for spacing between individuals.  We assume that each 
+// buffer to use for spacing between individuals.  We assume that each
 // individual draws from its centroid.
 
 // This is much more nicely done when you derive your own genome that includes
@@ -555,7 +555,7 @@ DrawPopulation(Widget widget, const GAPopulation& pop, GC dotgc, GC bestgc) {
     for(int i=0; i<pop.size(); i++) {
       pts[i].x = originx + d/2 + factor *
 	((GABin2DecGenome&)(pop.individual(i))).phenotype(0);
-      pts[i].y = originy + d/2 - factor * 
+      pts[i].y = originy + d/2 - factor *
 	((GABin2DecGenome&)(pop.individual(i))).phenotype(1);
     }
     xbest = originx + d/2 + factor *
@@ -567,7 +567,7 @@ DrawPopulation(Widget widget, const GAPopulation& pop, GC dotgc, GC bestgc) {
     for(int i=0; i<pop.size(); i++) {
       pts[i].x = originx + d/2 + factor *
 	((GARealGenome&)(pop.individual(i))).gene(0);
-      pts[i].y = originy + d/2 - factor * 
+      pts[i].y = originy + d/2 - factor *
 	((GARealGenome&)(pop.individual(i))).gene(1);
     }
     xbest = originx + d/2 + factor *
@@ -651,7 +651,7 @@ RealObjective(GAGenome& g) {
 /*		TCGA Rep. 89002 / U. of Alabama                              */
 /*****************************************************************************/
 float
-Function1(float x, float y) 
+Function1(float x, float y)
 {
   float z = -((x*x+y-11)*(x*x+y-11)+(x+y*y-7)*(x+y*y-7))/200 + 10;
   return z;
@@ -669,7 +669,7 @@ Function1(float x, float y)
 /*		TCGA Rep. 89002 / U. of Alabama                              */
 /*****************************************************************************/
 float
-Function2(float x, float y) 
+Function2(float x, float y)
 {
   int i;
   float sum = 0;
@@ -691,7 +691,7 @@ Function2(float x, float y)
 /* Source:      Schwefel's function in Schoeneburg                           */
 /*****************************************************************************/
 float
-Function3(float x, float y) 
+Function3(float x, float y)
 {
   float z = fabs(x) * sin(sqrt(fabs(x))) + fabs(y) * sin(sqrt(fabs(y)));
   return 500 + z;
@@ -707,7 +707,7 @@ Function3(float x, float y)
 /* Source:                                                                   */
 /*****************************************************************************/
 float
-Function4(float x, float y) 
+Function4(float x, float y)
 {
   float z = sin(sqrt(x*x + y*y))*sin(sqrt(x*x + y*y)) - 0.5;
   z /= ((1.0 + 0.001*(x*x + y*y))*(1.0 + 0.001*(x*x + y*y)));
@@ -748,39 +748,39 @@ ConstructWidgets(Widget toplevel) {
                           RootWindowOfScreen(XtScreen(toplevel)),
                           (char *)gaview_bits, gaview_width, gaview_height);
   Widget shell =
-    XtVaCreatePopupShell("shell", topLevelShellWidgetClass, toplevel, 
+    XtVaCreatePopupShell("shell", topLevelShellWidgetClass, toplevel,
 			 XmNiconPixmap, icon,
                          XmNiconMask, mask,
 			 NULL);
-  Widget form = 
+  Widget form =
     XtVaCreateManagedWidget("form", xmFormWidgetClass, shell, NULL);
 
   Pixmap pix;
   Pixel fg, bg;
   unsigned int depth;
-  XtVaGetValues(form, XtNforeground, &fg, XtNbackground, &bg, 
+  XtVaGetValues(form, XtNforeground, &fg, XtNbackground, &bg,
 		XtNdepth, &depth, NULL);
 
-  pix = 
+  pix =
     XCreatePixmapFromBitmapData(XtDisplay(form),
 				RootWindowOfScreen(XtScreen(form)),
 				(char *)bm[bmRewind].bits,
 				bm[bmRewind].width, bm[bmRewind].height,
 				fg, bg, depth);
-  Widget rewind = 
+  Widget rewind =
     XtVaCreateManagedWidget("rewind", xmPushButtonWidgetClass, form,
 			    XmNleftAttachment, XmATTACH_FORM,
 			    XmNbottomAttachment, XmATTACH_FORM,
 			    XmNlabelType, XmPIXMAP,
 			    XmNlabelPixmap, pix,
 			    NULL);
-  pix = 
+  pix =
     XCreatePixmapFromBitmapData(XtDisplay(form),
 				RootWindowOfScreen(XtScreen(form)),
 				(char *)bm[bmStop].bits,
 				bm[bmStop].width, bm[bmStop].height,
 				fg, bg, depth);
-  Widget stop = 
+  Widget stop =
     XtVaCreateManagedWidget("stop", xmPushButtonWidgetClass, form,
 			    XmNleftAttachment, XmATTACH_WIDGET,
 			    XmNleftWidget, rewind,
@@ -788,14 +788,14 @@ ConstructWidgets(Widget toplevel) {
 			    XmNlabelType, XmPIXMAP,
 			    XmNlabelPixmap, pix,
 			    NULL);
-  pix = 
+  pix =
     XCreatePixmapFromBitmapData(XtDisplay(form),
 				RootWindowOfScreen(XtScreen(form)),
 				(char *)bm[bmForwardStop].bits,
 				bm[bmForwardStop].width,
 				bm[bmForwardStop].height,
 				fg, bg, depth);
-  Widget step = 
+  Widget step =
     XtVaCreateManagedWidget("step", xmPushButtonWidgetClass, form,
 			    XmNleftAttachment, XmATTACH_WIDGET,
 			    XmNleftWidget, stop,
@@ -803,14 +803,14 @@ ConstructWidgets(Widget toplevel) {
 			    XmNlabelType, XmPIXMAP,
 			    XmNlabelPixmap, pix,
 			    NULL);
-  pix = 
+  pix =
     XCreatePixmapFromBitmapData(XtDisplay(form),
 				RootWindowOfScreen(XtScreen(form)),
 				(char *)bm[bmFastForwardStop].bits,
 				bm[bmFastForwardStop].width,
 				bm[bmFastForwardStop].height,
 				fg, bg, depth);
-  Widget some = 
+  Widget some =
     XtVaCreateManagedWidget("some", xmPushButtonWidgetClass, form,
 			    XmNleftAttachment, XmATTACH_WIDGET,
 			    XmNleftWidget, step,
@@ -818,14 +818,14 @@ ConstructWidgets(Widget toplevel) {
 			    XmNlabelType, XmPIXMAP,
 			    XmNlabelPixmap, pix,
 			    NULL);
-  pix = 
+  pix =
     XCreatePixmapFromBitmapData(XtDisplay(form),
 				RootWindowOfScreen(XtScreen(form)),
 				(char *)bm[bmFastForward].bits,
 				bm[bmFastForward].width,
 				bm[bmFastForward].height,
 				fg, bg, depth);
-  Widget evolve = 
+  Widget evolve =
     XtVaCreateManagedWidget("evolve", xmPushButtonWidgetClass, form,
 			    XmNleftAttachment, XmATTACH_WIDGET,
 			    XmNleftWidget, some,
@@ -834,23 +834,23 @@ ConstructWidgets(Widget toplevel) {
 			    XmNlabelPixmap, pix,
 			    NULL);
 
-  XtAddCallback(rewind, XmNactivateCallback, ResetCB,      
+  XtAddCallback(rewind, XmNactivateCallback, ResetCB,
 		(XtPointer)&theAppData);
-  XtAddCallback(stop,   XmNactivateCallback, StopCB,       
+  XtAddCallback(stop,   XmNactivateCallback, StopCB,
 		(XtPointer)&theAppData);
-  XtAddCallback(step,   XmNactivateCallback, StepCB,       
+  XtAddCallback(step,   XmNactivateCallback, StepCB,
 		(XtPointer)&theAppData);
-  XtAddCallback(some,   XmNactivateCallback, EvolveSomeCB, 
+  XtAddCallback(some,   XmNactivateCallback, EvolveSomeCB,
 		(XtPointer)&theAppData);
-  XtAddCallback(evolve, XmNactivateCallback, EvolveCB,     
+  XtAddCallback(evolve, XmNactivateCallback, EvolveCB,
 		(XtPointer)&theAppData);
 
-  Widget params = 
+  Widget params =
     XtVaCreateManagedWidget("params", xmPushButtonWidgetClass, form,
 			    XmNrightAttachment, XmATTACH_FORM,
 			    XmNbottomAttachment, XmATTACH_FORM,
 			    NULL);
-  Widget stats = 
+  Widget stats =
     XtVaCreateManagedWidget("stats", xmPushButtonWidgetClass, form,
 			    XmNrightAttachment, XmATTACH_WIDGET,
 			    XmNrightWidget, params,
@@ -863,14 +863,14 @@ ConstructWidgets(Widget toplevel) {
 			    XmNbottomAttachment, XmATTACH_FORM,
 			    NULL);
 
-  XtAddCallback(params,  XmNactivateCallback, DumpParamsCB, 
+  XtAddCallback(params,  XmNactivateCallback, DumpParamsCB,
 		(XtPointer)theAppData.ga);
-  XtAddCallback(stats,   XmNactivateCallback, DumpStatsCB,  
+  XtAddCallback(stats,   XmNactivateCallback, DumpStatsCB,
 		(XtPointer)theAppData.ga);
-  XtAddCallback(score,   XmNactivateCallback, DumpScoreCB,  
+  XtAddCallback(score,   XmNactivateCallback, DumpScoreCB,
 		(XtPointer)theAppData.ga);
 
-  theAppData.counter = 
+  theAppData.counter =
     XtVaCreateManagedWidget("counter", xmLabelWidgetClass, form,
 			    XmNtopAttachment, XmATTACH_FORM,
 			    XmNleftAttachment, XmATTACH_FORM,
@@ -890,19 +890,19 @@ ConstructWidgets(Widget toplevel) {
     XtVaCreateManagedWidget("canvas", xmDrawingAreaWidgetClass, frame,
 			    NULL);
 
-  XtAddCallback(theAppData.canvas, XmNexposeCallback, DrawCB, 
+  XtAddCallback(theAppData.canvas, XmNexposeCallback, DrawCB,
 		(XtPointer)&theAppData);
 
   XtGCMask gcvalmask = GCFunction | GCForeground;
   XGCValues gcval;
   gcval.function = GXcopy;
   gcval.foreground = theAppData.bestcolor;
-  theAppData.bestgc = 
+  theAppData.bestgc =
     XCreateGC(XtDisplay(toplevel), RootWindowOfScreen(XtScreen(toplevel)),
 	      gcvalmask, &gcval );
   for(int kk=0; kk<MAX_POPS; kk++) {
     gcval.foreground = theAppData.popcolor[kk];
-    theAppData.dotgc[kk] = 
+    theAppData.dotgc[kk] =
       XCreateGC(XtDisplay(toplevel), RootWindowOfScreen(XtScreen(toplevel)),
 		gcvalmask, &gcval );
   }
@@ -930,10 +930,10 @@ ConstructWidgets(Widget toplevel) {
                           (char *)gaview_bits, gaview_width, gaview_height);
   XtVaSetValues(toplevel, XtNiconPixmap, icon, XtNiconMask, mask, NULL);
 
-  Widget form = 
+  Widget form =
     XtVaCreateManagedWidget("form", formWidgetClass, toplevel, NULL);
 
-  theAppData.counter = 
+  theAppData.counter =
     XtVaCreateManagedWidget("counter", labelWidgetClass, form,
 			    NULL);
 
@@ -944,20 +944,20 @@ ConstructWidgets(Widget toplevel) {
   XtAddEventHandler(theAppData.canvas, ExposureMask, False,
 		    ExposureEH, (XtPointer)&theAppData);
 
-  Widget ctrlbox = 
-    XtVaCreateManagedWidget("controls", boxWidgetClass, form, 
+  Widget ctrlbox =
+    XtVaCreateManagedWidget("controls", boxWidgetClass, form,
 			    XtNfromVert, theAppData.canvas,
 			    XtNorientation, "vertical",
 			    NULL);
-  Widget rewind = 
+  Widget rewind =
     XtVaCreateManagedWidget("rewind", commandWidgetClass, ctrlbox, NULL);
-  Widget stop = 
+  Widget stop =
     XtVaCreateManagedWidget("stop", commandWidgetClass, ctrlbox, NULL);
-  Widget step = 
+  Widget step =
     XtVaCreateManagedWidget("step", commandWidgetClass, ctrlbox, NULL);
-  Widget some = 
+  Widget some =
     XtVaCreateManagedWidget("some", commandWidgetClass, ctrlbox, NULL);
-  Widget evolve = 
+  Widget evolve =
     XtVaCreateManagedWidget("evolve", commandWidgetClass, ctrlbox, NULL);
 
   XtAddCallback(rewind, XtNcallback, ResetCB,      (XtPointer)&theAppData);
@@ -966,18 +966,18 @@ ConstructWidgets(Widget toplevel) {
   XtAddCallback(some,   XtNcallback, EvolveSomeCB, (XtPointer)&theAppData);
   XtAddCallback(evolve, XtNcallback, EvolveCB,     (XtPointer)&theAppData);
 
-  Widget params = 
+  Widget params =
     XtVaCreateManagedWidget("params", commandWidgetClass, ctrlbox, NULL);
-  Widget stats = 
+  Widget stats =
     XtVaCreateManagedWidget("stats", commandWidgetClass, ctrlbox, NULL);
-  Widget score = 
+  Widget score =
     XtVaCreateManagedWidget("score", commandWidgetClass, ctrlbox, NULL);
 
   XtAddCallback(params,  XtNcallback, DumpParamsCB, (XtPointer)theAppData.ga);
   XtAddCallback(stats,   XtNcallback, DumpStatsCB,  (XtPointer)theAppData.ga);
   XtAddCallback(score,   XtNcallback, DumpScoreCB,  (XtPointer)theAppData.ga);
 
-  Widget quit = 
+  Widget quit =
     XtVaCreateManagedWidget("quit", commandWidgetClass, ctrlbox, NULL);
   XtAddCallback(quit,   XtNcallback, QuitCB,  (XtPointer)0);
 
@@ -985,12 +985,12 @@ ConstructWidgets(Widget toplevel) {
   XGCValues gcval;
   gcval.function = GXcopy;
   gcval.foreground = theAppData.bestcolor;
-  theAppData.bestgc = 
+  theAppData.bestgc =
     XCreateGC(XtDisplay(toplevel), RootWindowOfScreen(XtScreen(toplevel)),
 	      gcvalmask, &gcval );
   for(int kk=0; kk<MAX_POPS; kk++) {
     gcval.foreground = theAppData.popcolor[kk];
-    theAppData.dotgc[kk] = 
+    theAppData.dotgc[kk] =
       XCreateGC(XtDisplay(toplevel), RootWindowOfScreen(XtScreen(toplevel)),
 		gcvalmask, &gcval );
   }

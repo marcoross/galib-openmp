@@ -1,4 +1,4 @@
-/* 
+/*
 Copyright (C) 1988 Free Software Foundation
     written by Doug Lea (dl@rocky.oswego.edu)
 
@@ -15,10 +15,10 @@ License along with this library; if not, write to the Free Software
 Foundation, 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 */
 
-/* 
+/*
   BitString class implementation
  */
- 
+
 #ifdef __GNUG__
 #pragma implementation
 #endif
@@ -96,7 +96,7 @@ inline static void check_last(BitStrRep* r)
 
 // merge bits from next word
 
-static inline _BS_word borrow_hi(const _BS_word a[], int ind, 
+static inline _BS_word borrow_hi(const _BS_word a[], int ind,
                                       int maxind, int p)
 {
   if (p == 0)
@@ -109,7 +109,7 @@ static inline _BS_word borrow_hi(const _BS_word a[], int ind,
 
 // merge bits from prev word
 
-static inline _BS_word borrow_lo(const _BS_word a[], int ind, 
+static inline _BS_word borrow_lo(const _BS_word a[], int ind,
                                       int minind, int p)
 {
   _BS_word word = a[ind] _BS_RIGHT (BITSTRBITS - 1 - p);
@@ -120,7 +120,7 @@ static inline _BS_word borrow_lo(const _BS_word a[], int ind,
 
 // same with bounds check (for masks shorter than patterns)
 
-static inline _BS_word safe_borrow_hi(const _BS_word a[], int ind, 
+static inline _BS_word safe_borrow_hi(const _BS_word a[], int ind,
                                            int maxind, int p)
 {
   if (ind > maxind)
@@ -138,14 +138,14 @@ static inline _BS_word safe_borrow_hi(const _BS_word a[], int ind,
 
 inline static BitStrRep* BSnew(int newlen)
 {
-  unsigned int siz = sizeof(BitStrRep) + BitStr_len(newlen) * sizeof(_BS_word) 
+  unsigned int siz = sizeof(BitStrRep) + BitStr_len(newlen) * sizeof(_BS_word)
     + MALLOC_MIN_OVERHEAD;
   unsigned int allocsiz = MINBitStrRep_SIZE;;
   while (allocsiz < siz) allocsiz <<= 1;
   allocsiz -= MALLOC_MIN_OVERHEAD;
   if (allocsiz >= MAXBitStrRep_SIZE * sizeof(_BS_word))
     (*lib_error_handler)("BitString", "Requested length out of range");
-    
+
   BitStrRep* rep = new (operator new (allocsiz)) BitStrRep;
   memset(rep, 0, allocsiz);
   rep->sz =
@@ -166,7 +166,7 @@ copy_bits (_BS_word* pdst, _BS_size_t dstbit,
 BitStrRep* BStr_alloc(BitStrRep* old, const _BS_word* src,
                       int startpos, int endp, int newlen)
 {
-  if (old == &_nilBitStrRep) old = 0; 
+  if (old == &_nilBitStrRep) old = 0;
   if (newlen < 0) newlen = 0;
   int news = BitStr_len(newlen);
   BitStrRep* rep;
@@ -212,7 +212,7 @@ BitStrRep* BStr_resize(BitStrRep* old, int newlen)
 BitStrRep* BStr_copy(BitStrRep* old, const BitStrRep* src)
 {
   BitStrRep* rep;
-  if (old == src && old != &_nilBitStrRep) return old; 
+  if (old == src && old != &_nilBitStrRep) return old;
   if (old == &_nilBitStrRep) old = 0;
   if (src == &_nilBitStrRep) src = 0;
   if (src == 0)
@@ -223,7 +223,7 @@ BitStrRep* BStr_copy(BitStrRep* old, const BitStrRep* src)
       rep = old;
     rep->len = 0;
   }
-  else 
+  else
   {
     int newlen = src->len;
     int news = BitStr_len(newlen);
@@ -234,7 +234,7 @@ BitStrRep* BStr_copy(BitStrRep* old, const BitStrRep* src)
     }
     else
       rep = old;
-    
+
     memcpy(rep->s, src->s, news * sizeof(_BS_word));
     rep->len = newlen;
   }
@@ -245,8 +245,8 @@ BitStrRep* BStr_copy(BitStrRep* old, const BitStrRep* src)
 
 int operator == (const BitString& x, const BitString& y)
 {
-  return x.rep->len == y.rep->len && 
-    memcmp((void*)x.rep->s, (void*)y.rep->s, 
+  return x.rep->len == y.rep->len &&
+    memcmp((void*)x.rep->s, (void*)y.rep->s,
          BitStr_len(x.rep->len) * sizeof(_BS_word)) == 0;
 }
 
@@ -612,7 +612,7 @@ void BitString::invert(int from, int to)
 int BitString::test(int from, int to) const
 {
   if (from < 0 || from > to || (unsigned)(from) >= rep->len) return 0;
-  
+
   _BS_size_t len = to - from + 1;
   _BS_word* xs = rep->s;
   _BS_NORMALIZE (xs, from);
@@ -770,7 +770,7 @@ int BitString::prev(int p, unsigned int b) const
 }
 
 
-int BitString::search(int startx, int lengthx, 
+int BitString::search(int startx, int lengthx,
                       const _BS_word* ys, int starty, int lengthy) const
 {
   const _BS_word* xs = rep->s;
@@ -784,16 +784,16 @@ int BitString::search(int startx, int lengthx,
     startx = rightx - ylen + 1;
     if (ylen == 0) return startx;
     if (starty < 0 || righty < 0 || startx < 0 || startx >= lengthx) return -1;
-    
+
     int xind = BitStr_index(startx);
     int xpos = BitStr_pos(startx);
     int yind = BitStr_index(starty);
     int ypos = BitStr_pos(starty);
-    
+
     int rightxind = BitStr_index(rightx);
 
     _BS_word x = borrow_hi(xs, xind, rightxind, xpos);
-  
+
     int rightyind = BitStr_index(righty);
     int rightypos = BitStr_pos(righty);
     _BS_word y = borrow_hi(ys, yind, rightyind, ypos);
@@ -804,7 +804,7 @@ int BitString::search(int startx, int lengthx,
       ymask = rmask(BITSTRBITS - ypos + rightypos + 1);
     else
       ymask = ONES;
-    
+
     int p = startx;
     for (;;)
     {
@@ -842,7 +842,7 @@ int BitString::search(int startx, int lengthx,
     int rightx = lengthx - 1;
     if (ylen == 0) return startx;
     if (starty < 0 || righty < 0 || startx < 0 || startx >= lengthx) return -1;
-    
+
     int xind = BitStr_index(startx);
     int xpos = BitStr_pos(startx);
     int yind = BitStr_index(starty);
@@ -852,7 +852,7 @@ int BitString::search(int startx, int lengthx,
 
     _BS_word x = borrow_hi(xs, xind, rightxind, xpos);
     _BS_word nextx = (xind >= rightxind) ? 0 : (xs[xind+1] >> xpos);
-  
+
     int rightyind = BitStr_index(righty);
     int rightypos = BitStr_pos(righty);
     _BS_word y = borrow_hi(ys, yind, rightyind, ypos);
@@ -863,7 +863,7 @@ int BitString::search(int startx, int lengthx,
       ymask = rmask(BITSTRBITS - ypos + rightypos + 1);
     else
       ymask = ONES;
-  
+
     int p = startx;
     for (;;)
     {
@@ -921,19 +921,19 @@ int BitPattern::search(const _BS_word* xs, int startx, int lengthx) const
 
     if (righty < 0) return startx;
     if (startx < 0 || startx >= lengthx) return -1;
-  
+
     int xind = BitStr_index(startx);
     int xpos = BitStr_pos(startx);
-    
+
     int rightxind = BitStr_index(rightx);
 
     int rightmind = BitStr_index(rightm);
     int rightyind = BitStr_index(righty);
-    
+
     _BS_word x = safe_borrow_hi(xs, xind, rightxind, xpos);
     _BS_word m = safe_borrow_hi(ms, 0, rightmind, 0);
     _BS_word y = safe_borrow_hi(ys, 0, rightyind, 0) & m;
-    
+
     int p = startx;
     for (;;)
     {
@@ -969,21 +969,21 @@ int BitPattern::search(const _BS_word* xs, int startx, int lengthx) const
 
     if (righty < 0) return startx;
     if (startx < 0 || startx >= lengthx) return -1;
-    
+
     int xind = BitStr_index(startx);
     int xpos = BitStr_pos(startx);
-    
+
     int rightxind = BitStr_index(rightx);
 
     int rightmind = BitStr_index(rightm);
     int rightyind = BitStr_index(righty);
-    
+
     _BS_word x = safe_borrow_hi(xs, xind, rightxind, xpos);
     _BS_word m = safe_borrow_hi(ms, 0, rightmind, 0);
     _BS_word y = safe_borrow_hi(ys, 0, rightyind, 0) & m;
 
     _BS_word nextx = (xind >= rightxind) ? 0 : (xs[xind+1] >> xpos);
-    
+
     int p = startx;
     for (;;)
     {
@@ -1021,7 +1021,7 @@ int BitPattern::search(const _BS_word* xs, int startx, int lengthx) const
   }
 }
 
-int BitString::match(int startx, int lengthx, int exact, 
+int BitString::match(int startx, int lengthx, int exact,
                      const _BS_word* ys, int starty, int yl) const
 {
   const _BS_word* xs = rep->s;
@@ -1046,7 +1046,7 @@ int BitString::match(int startx, int lengthx, int exact,
 
   if (ylen == 0) return 1;
   if (righty < 0 || startx < 0 || startx >= lengthx) return 0;
-  
+
   int xi   = BitStr_index(startx);
   int xpos = BitStr_pos(startx);
   int yi   = BitStr_index(starty);
@@ -1071,7 +1071,7 @@ int BitString::match(int startx, int lengthx, int exact,
   }
 }
 
-int BitPattern::match(const _BS_word* xs, int startx, 
+int BitPattern::match(const _BS_word* xs, int startx,
                       int lengthx, int exact) const
 {
   const _BS_word* ys = pattern.rep->s;
@@ -1097,7 +1097,7 @@ int BitPattern::match(const _BS_word* xs, int startx,
 
   if (righty < 0) return 1;
   if (startx < 0 || startx >= lengthx) return 0;
-  
+
   int xind = BitStr_index(startx);
   int xpos = BitStr_pos(startx);
   int yind = 0;
@@ -1154,12 +1154,12 @@ BitSubString& BitSubString::operator = (const BitSubString& y)
   if (&S == &_nil_BitString)
     return *this;
   BitStrRep* targ = S.rep;
-  
+
   if (len == 0 || pos >= targ->len)
     return *this;
-  
+
   int sl = targ->len - len + y.len;
-  
+
   if (y.S.rep == targ || y.len > len)
   {
     BitStrRep* oldtarg = targ;
@@ -1521,7 +1521,7 @@ const char* BitStringtoa(const BitString& x, char f, char t)
   int wrksiz = x.length() + 2;
   char* fmtbase = (char *) _libgxx_fmtq.alloc(wrksiz);
   ostrstream stream(fmtbase, wrksiz);
-  
+
   x.printon(stream, f, t);
   stream << ends;
   return fmtbase;
@@ -1545,7 +1545,7 @@ const char* BitPatterntoa(const BitPattern& p, char f,char t,char x)
   int wrksiz = l + 2;
   char* fmtbase = (char *) _libgxx_fmtq.alloc(wrksiz);
   ostrstream stream(fmtbase, wrksiz);
-  
+
   p.printon(stream, f, t, x);
   stream << ends;
   return fmtbase;

@@ -4,7 +4,7 @@
   Copyright (c) 1995-1996 Massachusetts Institute of Technology
 
  DESCRIPTION:
-   This file contains the information needed to evaluate an operate on a 
+   This file contains the information needed to evaluate an operate on a
 genome in these examples.
 ---------------------------------------------------------------------------- */
 #ifndef _genome_h_

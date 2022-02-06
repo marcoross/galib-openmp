@@ -49,14 +49,14 @@ inline STD_OSTREAM & operator<<(STD_OSTREAM & os, GANodeBASE & arg){
   This node is a container for any kind of object you want to put into a list.
 Since it is a sub-class of the BASE node object, it inherits all of the next,
 prev, etc members of that class.  All we add here is support for the type-
-specific contents.  
+specific contents.
   Beware of what you put in for the type.  Remember that it
 can be expensive to use an object rather than a pointer (if you have big
-objects, for example).  We define this template using the object rather than 
-a pointer so that it can be use for ints, chars, or other small objects.  If 
+objects, for example).  We define this template using the object rather than
+a pointer so that it can be use for ints, chars, or other small objects.  If
 you are going to contain a large object, you should instantiate it as a pointer
 to the object, not the object itself.
-  Note also that we use the copy constructor to intialize the object rather 
+  Note also that we use the copy constructor to intialize the object rather
 than doing an assignment!  This assumes that the object you put into this
 container has a properly functioning copy initializer and avoids the default
 construction followed by assignment that you'd get with operator=.
@@ -66,7 +66,7 @@ reassigned).  We do not allow the nodes to be created without any arguments.
   Summary of methods your object must have:
        copy initializer
        operator=
-  The node always owns its contents; when the node is destroyed, the contents 
+  The node always owns its contents; when the node is destroyed, the contents
 of the node get destroyed as well.
 ---------------------------------------------------------------------------- */
 template <class T>

@@ -85,16 +85,16 @@ enum GAErrorIndex {
 
 // Error messages will look like this: (assuming that you use streams)
 //
-// GASimpleGA::function: 
+// GASimpleGA::function:
 //   this is the error message
 //   /usr/people/jimmyboy/doughhead.C : XXX
 //
-// GAGenome::function: 
+// GAGenome::function:
 //   primary error message
 //   additional error messages go here
 //   /usr/people/algore/distribute_your_intelligence.C : XXX
 //
-// MyOwnFunction: 
+// MyOwnFunction:
 //   primary error message
 //   additional error messages go here
 //   /usr/people/algore/distribute_your_intelligence.C : XXX
@@ -111,7 +111,7 @@ void GAErr(const GASourceLocator loc,
 	   GAErrorIndex i, const char *msg2=0, const char *msg3=0);
 
 // Use this function to turn on/off the error reporting.  If you turn off the
-// error reporting, the messages will still get stuck into the global error 
+// error reporting, the messages will still get stuck into the global error
 // message string, but they will not be sent to the error stream.
 
 void GAReportErrors(GABoolean flag);
