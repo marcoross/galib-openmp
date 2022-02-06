@@ -28,11 +28,11 @@ the executable file might be covered by the GNU General Public License. */
 void
 /*
 _BS_invert (ptr, offset, length)
-     register _BS_word *ptr;
+     _BS_word *ptr;
      int offset;
      _BS_size_t length;
 */
-_BS_invert (register _BS_word *ptr,int offset,_BS_size_t length)
+_BS_invert (_BS_word *ptr,int offset,_BS_size_t length)
 {
 #undef DOIT
 #define DOIT(WORD, MASK) ((WORD) ^= (MASK))

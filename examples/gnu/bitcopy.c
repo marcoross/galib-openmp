@@ -31,15 +31,15 @@ the executable file might be covered by the GNU General Public License. */
 void
 /*
 _BS_copy (pdst, dstbit, psrc, srcbit, length)
-     register _BS_word* pdst;
+     _BS_word* pdst;
      int dstbit;
-     register const _BS_word* psrc;
+     const _BS_word* psrc;
      int srcbit;
      _BS_size_t length;
 */
-_BS_copy (register _BS_word* pdst,
+_BS_copy (_BS_word* pdst,
 	  int dstbit,
-	  register const _BS_word* psrc,
+	  const _BS_word* psrc,
 	  int srcbit,
 	  _BS_size_t length)
 {

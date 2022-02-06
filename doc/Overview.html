@@ -428,7 +428,7 @@ int
 FlipMutator(GAGenome &amp; c, float pmut)
 {
   GA1DArrayAlleleGenome&lt;ARRAY_TYPE&gt; &amp;child=(GA1DArrayAlleleGenome&lt;ARRAY_TYPE&gt; &amp;)c;
-  register int n, i;
+  int n, i;
   if(pmut &lt;= 0.0) return(0);
 
   float nMut = pmut * (float)(child.length());

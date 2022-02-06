@@ -40,11 +40,11 @@ four_bit_count[16] = {
 static inline int
 /*
 _BS_count_word (word)
-     register _BS_word word;
+     _BS_word word;
 */
-_BS_count_word (register _BS_word word)
+_BS_count_word (_BS_word word)
 {
-  register int count = 0;
+  int count = 0;
   while (word > 0)
     {
       count += four_bit_count[word & 15];
@@ -56,15 +56,15 @@ _BS_count_word (register _BS_word word)
 int
 /*
 _BS_count (ptr, offset, length)
-     register const _BS_word *ptr;
+     const _BS_word *ptr;
      int offset;
      _BS_size_t length;
 */
-_BS_count (register const _BS_word *ptr,
+_BS_count (const _BS_word *ptr,
 	   int offset,
 	   _BS_size_t length)
 {
-  register int count = 0;
+  int count = 0;
 #undef DOIT
 #define DOIT(WORD, MASK) count += _BS_count_word ((WORD) & (MASK));
 #include "bitdo1.h"

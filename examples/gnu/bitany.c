@@ -28,11 +28,11 @@ the executable file might be covered by the GNU General Public License. */
 int
 /*
 _BS_any (ptr, offset, length)
-     register const _BS_word *ptr;
+     const _BS_word *ptr;
      int offset;
      _BS_size_t length;
 */
-_BS_any (register const _BS_word *ptr,
+_BS_any (const _BS_word *ptr,
 	 int offset,
 	 _BS_size_t length)
 {

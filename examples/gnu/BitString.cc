@@ -1503,7 +1503,7 @@ void BitString::printon (ostream& os, char f, char t) const
 {
   unsigned int  xl = rep->len;
   const _BS_word* ptr = rep->s;
-  register streambuf *sb = os.rdbuf();
+  streambuf *sb = os.rdbuf();
   _BS_word a = 0;
 
   for (unsigned int  i = 0; i < xl; ++i)
@@ -1557,7 +1557,7 @@ void BitPattern::printon(ostream& s, char f,char t,char x) const
   unsigned int  pl = pattern.rep->len;
   unsigned int  ml = mask.rep->len;
   unsigned int  l = (pl <= ml)? pl : ml;
-  register streambuf *sb = s.rdbuf();
+  streambuf *sb = s.rdbuf();
 
   const _BS_word* ps = pattern.rep->s;
   const _BS_word* ms = mask.rep->s;
