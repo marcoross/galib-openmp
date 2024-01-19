@@ -15,7 +15,7 @@ INC_DIRS= -I..
 $(LIB): $(OBJS)
 	$(PRELINK)
 	$(AR) $(LIB) $?
-	$(RANLIB) $(LIB)
+	$(RANLIB) $(LIB) $(LDFLAGS)
 	echo "$(CXX) $(CXXFLAGS)" > BUILD
 	@echo $(LIB) is now up-to-date
 .C.a:;
