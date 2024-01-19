@@ -11,6 +11,7 @@
 #include <ga/GASelector.h>
 #include <ga/garandom.h>
 #include <ga/GABaseGA.h>		// for the sake of flaky g++ compiler
+#include <omp.h>
 
 // windows is promiscuous in its use of min/max, and that causes us grief.  so
 // turn of the use of min/max macros in this file.   thanks nick wienholt
@@ -34,6 +35,7 @@ GAPopulation::DefaultInitializer(GAPopulation & p){
 // status flags for indicating when the population needs to be updated again.
 void
 GAPopulation::DefaultEvaluator(GAPopulation & p){
+  #pragma omp parallel for schedule(dynamic)
   for(int i=0; i<p.size(); i++)
     p.individual(i).evaluate();
 }

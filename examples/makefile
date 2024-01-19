@@ -34,7 +34,7 @@ all: $(EXS)
 
 # Use this for gnu make
 $(EXS): %: %.o
-	$(CXX) $@.o -o $@ $(LIB_DIRS) -lga -lm $(CXX_LIBS)
+	$(CXX) $@.o -o $@ $(LIB_DIRS) -lga -lm $(CXX_LIBS) $(LDFLAGS)
 
 clean:
 	$(RM) $(EXS)
